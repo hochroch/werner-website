@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Werner Coach — Demo B: Modern &amp; Bold</title>
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    /* ── DEMO B: MODERN / BOLD ─────────────────────────────────────
+       Fonts:   DM Serif Display (headings) + DM Sans (body/UI)
+       Palette: Deep Navy / Vivid Gold / White / Near-Black
+       Feel:    Contemporary authority, "same trusted company, modern
+                execution." Photo-forward service cards, bold numbers.
+    ──────────────────────────────────────────────────────────────── */
+    :root {
+      --navy:  #0D1F38;
+      --navy2: #1a3255;
+      --gold:  #C8980A;
+      --gold2: #d4ab2a;
+      --white: #FFFFFF;
+      --off:   #F4F6F9;
+      --text:  #111827;
+      --muted: #4B5563;
+      --mw:    1200px;
+      --nh:    68px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',system-ui,sans-serif;color:var(--text);line-height:1.6;background:var(--white)}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--gold);text-decoration:none;transition:color .2s}
+    a:hover{color:var(--gold2)}
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 40px}
+
+    /* ── NAV ── */
+    .nav{background:var(--navy);position:sticky;top:0;z-index:1000;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+    .nav-inner{max-width:var(--mw);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:var(--nh)}
+    .nav-logo img{height:42px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+    .nav-links a{color:rgba(255,255,255,.78);padding:8px 14px;font-size:.88rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-dropdown{position:relative}
+    .nav-dropdown .drop{display:none;position:absolute;top:100%;left:0;background:var(--navy);border-top:3px solid var(--gold);min-width:220px;padding:8px 0;z-index:1001;box-shadow:0 12px 32px rgba(0,0,0,.35)}
+    .nav-dropdown:hover .drop{display:block}
+    .drop a{display:block;padding:10px 20px;border-radius:0;font-size:.87rem}
+    .nav-cta{display:flex;gap:10px;align-items:center}
+    .nav-phone{color:rgba(255,255,255,.85)!important;font-size:.88rem;font-weight:500}
+    .nav-phone:hover{color:var(--gold)!important}
+    .nav-btn-q{padding:8px 18px;background:var(--gold);color:var(--navy)!important;font-size:.85rem;font-weight:700;border-radius:6px;transition:all .2s}
+    .nav-btn-q:hover{background:var(--gold2);color:var(--navy)!important}
+    .nav-btn-p{color:rgba(255,255,255,.5)!important;font-size:.85rem;font-weight:400}
+    .nav-btn-p:hover{color:rgba(255,255,255,.85)!important}
+    .nav-tog{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .nav-tog span{display:block;width:22px;height:2px;background:rgba(255,255,255,.85);margin:5px 0;border-radius:1px}
+    .nav-mob{display:none}
+
+    /* ── HERO ── */
+    .hero{position:relative;background:var(--navy);color:var(--white);min-height:92vh;display:flex;align-items:center}
+    .hero-bg{position:absolute;inset:0;background:url('/images/hero-bus.webp') center 35%/cover no-repeat;opacity:.4}
+    .hero-grad{position:absolute;inset:0;background:linear-gradient(105deg,rgba(13,31,56,.92) 50%,rgba(13,31,56,.25) 100%)}
+    .hero-body{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;padding:80px 40px;width:100%}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(200,152,10,.15);border:1px solid rgba(200,152,10,.3);border-radius:100px;padding:6px 14px;font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+    .hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:4.2rem;font-weight:400;line-height:1.08;margin-bottom:24px;max-width:680px;color:var(--white)}
+    .hero h1 em{font-style:italic;color:var(--gold)}
+    .hero p{font-size:1.1rem;font-weight:300;opacity:.85;max-width:540px;margin-bottom:36px;line-height:1.72}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .btn-b-fill{display:inline-block;padding:15px 36px;background:var(--gold);color:var(--navy);font-size:.92rem;font-weight:700;border-radius:8px;transition:all .2s}
+    .btn-b-fill:hover{background:var(--gold2);color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,152,10,.35)}
+    .btn-b-ghost{display:inline-block;padding:15px 36px;border:2px solid rgba(255,255,255,.35);color:rgba(255,255,255,.88);font-size:.92rem;font-weight:500;border-radius:8px;transition:all .2s}
+    .btn-b-ghost:hover{border-color:white;color:white}
+
+    /* ── TRUST BAR ── */
+    .trust-bar{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(200,152,10,.15)}
+    .trust-inner{max-width:var(--mw);margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:.8rem;font-weight:500;letter-spacing:.5px}
+    .trust-item .ti{color:var(--gold);font-size:.9rem}
+    .trust-sep{color:rgba(255,255,255,.2);font-size:.9rem}
+
+    /* ── SECTIONS ── */
+    .sec{padding:80px 0}
+    .sec-dark{background:var(--navy);color:var(--white)}
+    .sec-off{background:var(--off)}
+    .sec-hd{text-align:center;margin-bottom:56px}
+    .pre{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    .sec-t{font-family:'DM Serif Display',Georgia,serif;font-size:2.6rem;font-weight:400;color:var(--navy);line-height:1.18}
+    .sec-dark .sec-t{color:var(--white)}
+    .sec-sub{font-size:.98rem;font-weight:400;color:var(--muted);max-width:500px;margin:14px auto 0;line-height:1.7}
+    .sec-dark .sec-sub{color:rgba(255,255,255,.62)}
+
+    /* ── SERVICE PHOTO CARDS ── */
+    .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .svc-card{position:relative;border-radius:12px;overflow:hidden;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:var(--white)}
+    /* Gradient placeholders — replace each background-image with a real photo */
+    .svc-card:nth-child(1){background:linear-gradient(160deg,#2a0c1e 0%,#0D1F38 100%)}
+    .svc-card:nth-child(2){background:linear-gradient(160deg,#0d3040 0%,#0D1F38 100%)}
+    .svc-card:nth-child(3){background:linear-gradient(160deg,#1a2032 0%,#061224 100%)}
+    .svc-card:nth-child(4){background:linear-gradient(160deg,#0d2518 0%,#0D1F38 100%)}
+    .svc-card:nth-child(5){background:linear-gradient(160deg,#2c1400 0%,#0D1F38 100%)}
+    .svc-card:nth-child(6){background:linear-gradient(160deg,#1e0c2c 0%,#0D1F38 100%)}
+    .svc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.1) 60%,transparent 100%);transition:background .3s}
+    .svc-card:hover .svc-overlay{background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 70%,transparent 100%)}
+    .svc-body{position:relative;z-index:2;padding:28px}
+    .svc-icon{width:44px;height:44px;border-radius:10px;background:rgba(200,152,10,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:12px;transition:background .2s}
+    .svc-card:hover .svc-icon{background:rgba(200,152,10,.45)}
+    .svc-card h3{font-family:'DM Serif Display',Georgia,serif;font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:6px;line-height:1.25}
+    .svc-card p{font-size:.84rem;font-weight:300;color:rgba(255,255,255,.72);line-height:1.6;margin-bottom:14px}
+    .svc-link{font-size:.8rem;font-weight:700;color:var(--gold);letter-spacing:.5px;transition:color .2s}
+    .svc-card:hover .svc-link{color:var(--gold2)}
+    /* Photo placeholders: each card gets a "photo label" in top-right */
+    .svc-ph{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.5);font-size:.65rem;font-weight:500;padding:3px 8px;border-radius:4px;letter-spacing:.5px;z-index:3}
+
+    /* ── STATS ── */
+    .stats-row{padding:60px 0;background:var(--navy);border-top:1px solid rgba(255,255,255,.05)}
+    .stats-inner{max-width:var(--mw);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+    .stat{text-align:center;padding:0 24px;border-right:1px solid rgba(255,255,255,.08)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-family:'DM Serif Display',Georgia,serif;font-size:3.2rem;font-weight:400;color:var(--gold);line-height:1;margin-bottom:8px}
+    .stat-l{font-size:.8rem;font-weight:500;letter-spacing:.5px;color:rgba(255,255,255,.55);text-transform:uppercase}
+
+    /* ── WHY WERNER — card grid ── */
+    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:var(--mw);margin:0 auto}
+    .why-card{background:var(--white);border-radius:12px;padding:28px 24px;border-top:3px solid var(--gold);box-shadow:0 2px 16px rgba(0,0,0,.06)}
+    .why-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:16px}
+    .why-card h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+    .why-card p{font-size:.88rem;font-weight:400;color:var(--muted);line-height:1.65}
+
+    /* ── SPLIT CTA (photo + text) ── */
+    .split-cta{display:grid;grid-template-columns:1fr 1fr;min-height:480px}
+    .split-photo{position:relative;overflow:hidden}
+    .split-photo img{width:100%;height:100%;object-fit:cover}
+    .split-photo::after{content:'';position:absolute;inset:0;background:rgba(13,31,56,.3)}
+    .split-text{background:var(--navy);display:flex;flex-direction:column;justify-content:center;padding:60px 56px;color:var(--white)}
+    .split-text .pre{text-align:left}
+    .split-text h2{font-family:'DM Serif Display',Georgia,serif;font-size:2.4rem;font-weight:400;color:var(--white);margin-bottom:16px;line-height:1.2}
+    .split-text p{font-size:.98rem;font-weight:300;color:rgba(255,255,255,.75);margin-bottom:32px;line-height:1.75}
+    .split-text .cta-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-b-white{display:inline-block;padding:13px 30px;background:var(--white);color:var(--navy);font-size:.9rem;font-weight:700;border-radius:8px;transition:all .2s}
+    .btn-b-white:hover{background:var(--gold);color:var(--navy)}
+    .btn-b-outline-w{display:inline-block;padding:13px 30px;border:2px solid rgba(255,255,255,.3);color:rgba(255,255,255,.85);font-size:.9rem;font-weight:500;border-radius:8px;transition:all .2s}
+    .btn-b-outline-w:hover{border-color:white;color:white}
+
+    /* ── TESTIMONIALS — dark cards ── */
+    .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:var(--mw);margin:0 auto}
+    .testi-card{background:rgba(255,255,255,.06);border-radius:12px;padding:28px 24px;border:1px solid rgba(255,255,255,.07)}
+    .stars{color:var(--gold);font-size:.9rem;margin-bottom:12px;letter-spacing:2px}
+    .testi-card blockquote{font-size:.9rem;font-weight:300;color:rgba(255,255,255,.82);line-height:1.68;margin-bottom:16px;font-style:italic}
+    .testi-card cite{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.4);font-style:normal;letter-spacing:.3px}
+
+    /* ── VIEW MORE ── */
+    .more-link{text-align:center;margin-top:36px}
+    .btn-b-outline-g{display:inline-block;padding:12px 32px;border:2px solid rgba(200,152,10,.4);color:var(--gold);font-size:.88rem;font-weight:600;border-radius:8px;transition:all .2s}
+    .btn-b-outline-g:hover{border-color:var(--gold);background:rgba(200,152,10,.1)}
+
+    /* ── FOOTER ── */
+    .foot{background:#060e1a;color:rgba(255,255,255,.6);padding:60px 40px 0}
+    .foot-grid{max-width:var(--mw);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .foot-brand img{height:42px;margin-bottom:18px;filter:brightness(0) invert(1)}
+    .foot-brand p{font-size:.84rem;line-height:1.72;color:rgba(255,255,255,.45);max-width:280px}
+    .foot h4{color:var(--white);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+    .foot-links{list-style:none}
+    .foot-links li{margin-bottom:10px}
+    .foot-links a{color:rgba(255,255,255,.42);font-size:.85rem;transition:color .2s}
+    .foot-links a:hover{color:var(--gold)}
+    .foot-btm{max-width:var(--mw);margin:0 auto;padding:20px 0;display:flex;justify-content:space-between;font-size:.77rem;color:rgba(255,255,255,.22)}
+    .foot-btm a{color:rgba(255,255,255,.22)}
+    .foot-btm a:hover{color:var(--gold)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .svc-grid{grid-template-columns:repeat(2,1fr)}
+      .why-grid{grid-template-columns:repeat(2,1fr)}
+      .stats-inner{grid-template-columns:repeat(2,1fr)}
+      .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding:20px 0}
+      .stat:nth-child(odd){border-right:none}
+      .foot-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:768px){
+      .nav-links,.nav-cta{display:none}
+      .nav-tog{display:block}
+      .nav-mob{display:none;position:fixed;inset:0;top:var(--nh);background:var(--navy);padding:24px;z-index:999;overflow-y:auto}
+      .nav-mob.open{display:block}
+      .nav-mob a{display:block;color:rgba(255,255,255,.82);padding:13px 0;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.07);font-weight:500}
+      .mob-cta{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+      .mob-cta a{display:block;text-align:center;padding:12px;background:var(--gold);color:var(--navy)!important;border-radius:6px;font-weight:700;border-bottom:none!important}
+      .hero{min-height:75vh}
+      .hero h1{font-size:2.6rem}
+      .hero-body,.wrap{padding:0 20px}
+      .hero-body{padding:48px 20px}
+      .trust-inner{gap:20px;padding:14px 20px}
+      .trust-sep{display:none}
+      .svc-grid{grid-template-columns:1fr}
+      .why-grid{grid-template-columns:1fr}
+      .testi-grid{grid-template-columns:1fr}
+      .split-cta{grid-template-columns:1fr}
+      .split-photo{min-height:280px}
+      .split-text{padding:40px 24px}
+      .split-text h2{font-size:1.8rem}
+      .foot-grid{grid-template-columns:1fr;gap:28px}
+      .foot{padding:48px 20px 0}
+      .foot-btm{flex-direction:column;gap:6px}
+      .sec{padding:60px 0}
+      .stats-row{padding:40px 0}
+      .stats-inner{padding:0 20px;grid-template-columns:repeat(2,1fr)}
+      .stat{padding:16px 0}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO LABEL -->
+  <div style="background:#C8980A;color:#0D1F38;text-align:center;padding:8px 20px;font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">
+    Demo B — Modern &amp; Bold &nbsp;|&nbsp; DM Serif Display + DM Sans &nbsp;|&nbsp; High-contrast, photo-forward service cards
+  </div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><img src="/images/logo.png" alt="Werner Coach" width="160" height="48"></a>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li class="nav-dropdown">
+          <a href="/services/">Services</a>
+          <div class="drop">
+            <a href="/services/wedding.html">Wedding Transportation</a>
+            <a href="/services/school.html">School Groups</a>
+            <a href="/services/corporate.html">Corporate Transportation</a>
+          </div>
+        </li>
+        <li><a href="/fleet.html">Fleet</a></li>
+        <li><a href="/testimonials.html">Testimonials</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+18005329800" class="nav-phone">(800) 532-9800</a>
+        <a href="https://www.wernercoach.com/request-quote" class="nav-btn-q">Get a Quote</a>
+        <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" class="nav-btn-p" target="_blank" rel="noopener">Pay Online</a>
+      </div>
+      <button class="nav-tog" onclick="document.querySelector('.nav-mob').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav-mob">
+      <a href="/">Home</a>
+      <a href="/services/wedding.html">Wedding Transportation</a>
+      <a href="/services/school.html">School Groups</a>
+      <a href="/services/corporate.html">Corporate Transportation</a>
+      <a href="/fleet.html">Fleet</a>
+      <a href="/testimonials.html">Testimonials</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contact.html">Contact</a>
+      <div class="mob-cta">
+        <a href="tel:+18005329800">(800) 532-9800</a>
+        <a href="https://www.wernercoach.com/request-quote">Get a Quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grad"></div>
+    <div class="hero-body">
+      <div class="hero-tag">&#x2713;&nbsp; Est. 1929 &mdash; Family-Owned</div>
+      <h1>Philadelphia's<br>Charter Bus Company<br><em>Since 1929</em></h1>
+      <p>Luxury 54-passenger motorcoaches with professional CDL-licensed drivers. Weddings, corporate events, schools, and tours. NYC to Washington, D.C.</p>
+      <div class="hero-cta">
+        <a href="https://www.wernercoach.com/request-quote" class="btn-b-fill">Get a Free Quote</a>
+        <a href="tel:+18005329800" class="btn-b-ghost">&#9742;&nbsp; (800) 532-9800</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-inner">
+      <div class="trust-item"><span class="ti">&#x2713;</span> Est. 1929</div>
+      <div class="trust-sep">&bull;</div>
+      <div class="trust-item"><span class="ti">&#x2713;</span> USDOT Registered</div>
+      <div class="trust-sep">&bull;</div>
+      <div class="trust-item"><span class="ti">&#x2713;</span> CDL Licensed Drivers</div>
+      <div class="trust-sep">&bull;</div>
+      <div class="trust-item"><span class="ti">&#x2713;</span> DOT Inspected Fleet</div>
+      <div class="trust-sep">&bull;</div>
+      <div class="trust-item"><span class="ti">&#x2713;</span> Same-Day Quotes</div>
+    </div>
+  </div>
+
+  <!-- SERVICES — photo cards -->
+  <section class="sec sec-off">
+    <div class="wrap">
+      <div class="sec-hd">
+        <p class="pre">Services</p>
+        <h2 class="sec-t">Every Occasion.<br>One Company.</h2>
+        <p class="sec-sub">We're a direct fleet operator, not a broker. Your coach, our drivers, our shop.</p>
+      </div>
+      <!-- NOTE: Each card background-image can be replaced with a real photo.
+           Recommended photos: Shutterstock "motorcoach boarding", Adobe Stock "luxury bus interior"
+           See demo notes for photo sources and search terms. -->
+      <div class="svc-grid">
+        <a href="/services/wedding.html" class="svc-card">
+          <div class="svc-overlay"></div>
+          <span class="svc-ph">Photo goes here</span>
+          <div class="svc-body">
+            <div class="svc-icon">&#x1F492;</div>
+            <h3>Wedding Transportation</h3>
+            <p>Guest shuttles between ceremony, reception, and hotel venues.</p>
+            <span class="svc-link">Plan your wedding transport &rarr;</span>
+          </div>
+        </a>
+        <a href="/services/school.html" class="svc-card">
+          <div class="svc-overlay"></div>
+          <span class="svc-ph">Photo goes here</span>
+          <div class="svc-body">
+            <div class="svc-icon">&#x1F3EB;</div>
+            <h3>School Groups</h3>
+            <p>Field trips, college visits, competitions, and band travel.</p>
+            <span class="svc-link">Book a school trip &rarr;</span>
+          </div>
+        </a>
+        <a href="/services/corporate.html" class="svc-card">
+          <div class="svc-overlay"></div>
+          <span class="svc-ph">Photo goes here</span>
+          <div class="svc-body">
+            <div class="svc-icon">&#x1F4BC;</div>
+            <h3>Corporate Transportation</h3>
+            <p>Employee shuttles, conferences, retreats, and client travel.</p>
+            <span class="svc-link">Get a corporate quote &rarr;</span>
+          </div>
+        </a>
+        <a href="/fleet.html" class="svc-card">
+          <div class="svc-overlay"></div>
+          <span class="svc-ph">Photo goes here</span>
+          <div class="svc-body">
+            <div class="svc-icon">&#x1F3C6;</div>
+            <h3>Athletic Teams</h3>
+            <p>Comfortable travel for sports teams with equipment storage.</p>
+            <span class="svc-link">View fleet &rarr;</span>
+          </div>
+        </a>
+        <a href="/fleet.html" class="svc-card">
+          <div class="svc-overlay"></div>
+          <span class="svc-ph">Photo goes here</span>
+          <div class="svc-body">
+            <div class="svc-icon">&#x1F5FA;</div>
+            <h3>Tours &amp; Day Trips</h3>
+            <p>Custom itineraries built by our in-house trip planning team.</p>
+            <span class="svc-link">Explore tours &rarr;</span>
+          </div>
+        </a>
+        <a href="/fleet.html" class="svc-card">
+          <div class="svc-overlay"></div>
+          <span class="svc-ph">Photo goes here</span>
+          <div class="svc-body">
+            <div class="svc-icon">&#x1F38A;</div>
+            <h3>Special Events</h3>
+            <p>Reunions, bachelor parties, church groups, and senior outings.</p>
+            <span class="svc-link">Learn more &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-n">97</div>
+        <div class="stat-l">Years in Business</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">54</div>
+        <div class="stat-l">Passenger Capacity</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">NYC</div>
+        <div class="stat-l">to DC Corridor</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">1</div>
+        <div class="stat-l">Direct Point of Contact</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY WERNER -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-hd">
+        <p class="pre">Why Werner Coach</p>
+        <h2 class="sec-t">What Sets Us Apart</h2>
+        <p class="sec-sub">We are a bus company, not a broker. You ride on our coaches, driven by our drivers, maintained in our shop.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">&#x1F3DB;</div>
+          <h3>Family-Owned Since 1929</h3>
+          <p>Nearly a century of continuous family ownership. One of the oldest charter companies in the Philadelphia region.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#x1F68C;</div>
+          <h3>Direct Fleet Operator</h3>
+          <p>Your group rides on our coaches, driven by our professional CDL-licensed drivers, maintained in our Phoenixville shop.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#x1F6E1;</div>
+          <h3>Full Safety Compliance</h3>
+          <p>USDOT and FMCSA compliant. Background-checked drivers, onboard cameras, GPS tracking, and DOT inspections.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#x1F4B0;</div>
+          <h3>Transparent Pricing</h3>
+          <p>One quote covers the coach, driver, fuel, and tolls. No surprise surcharges or hidden fees when you travel.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#x1F5FA;</div>
+          <h3>Northeast Corridor Experts</h3>
+          <p>Based in Phoenixville, PA. Deep knowledge of I-95, the tri-state region, and the full NYC-to-Washington corridor.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#x1F4CB;</div>
+          <h3>Full-Service Planning</h3>
+          <p>Our team builds custom itineraries and handles routing, scheduling, and logistics so you don't have to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS — dark section -->
+  <section class="sec sec-dark">
+    <div class="wrap">
+      <div class="sec-hd">
+        <p class="pre">Customer Reviews</p>
+        <h2 class="sec-t">What Our Customers Say</h2>
+        <p class="sec-sub">Trusted by schools, wedding parties, corporations, and groups across the Philadelphia region.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"Thank you so much for your incredible customer service in planning the coach buses for our wedding. Everything worked out just as you said and the buses were perfect!"</blockquote>
+          <cite>Nicole and Dan &mdash; PA</cite>
+        </div>
+        <div class="testi-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"Amazing customer service for our wedding shuttle. Would use them again in a heartbeat!"</blockquote>
+          <cite>Megan B.</cite>
+        </div>
+        <div class="testi-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"Werner is as professional as it gets. Our company's go-to for all our corporate trips. Buses are very clean."</blockquote>
+          <cite>Shana R. &mdash; Corporate Client</cite>
+        </div>
+      </div>
+      <div class="more-link">
+        <a href="/testimonials.html" class="btn-b-outline-g">Read All Testimonials</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT CTA -->
+  <div class="split-cta">
+    <div class="split-photo">
+      <img src="/images/bus-snow.webp" alt="Werner Coach motorcoach" loading="lazy">
+    </div>
+    <div class="split-text">
+      <p class="pre">Get Started</p>
+      <h2>Ready to Book Your Trip?</h2>
+      <p>Tell us your group size, travel date, and destination. Most quotes come back the same day. No obligation, no pressure.</p>
+      <div class="cta-btns">
+        <a href="https://www.wernercoach.com/request-quote" class="btn-b-white">Request a Free Quote</a>
+        <a href="tel:+18005329800" class="btn-b-outline-w">Call (800) 532-9800</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="/images/logo.png" alt="Werner Coach" width="140" height="42">
+        <p>Family-owned charter bus company serving the Greater Philadelphia region and the Northeast corridor since 1929.</p>
+        <p style="margin-top:12px;font-size:.84rem;color:rgba(255,255,255,.45)">144 Chester Ave.<br>Phoenixville, PA 19460</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul class="foot-links">
+          <li><a href="/services/wedding.html">Wedding Transportation</a></li>
+          <li><a href="/services/school.html">School Groups</a></li>
+          <li><a href="/services/corporate.html">Corporate Transportation</a></li>
+          <li><a href="/fleet.html">Our Fleet</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul class="foot-links">
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/testimonials.html">Testimonials</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="foot-links">
+          <li><a href="tel:+18005329800">(800) 532-9800</a></li>
+          <li><a href="tel:+16109337100">(610) 933-7100</a></li>
+          <li><a href="mailto:contact@wernercoach.com">contact@wernercoach.com</a></li>
+          <li><a href="https://www.facebook.com/WernerCoach" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>&copy; 2026 Werner Coach. All rights reserved.</span>
+      <span><a href="/privacy.html">Privacy Policy</a> &middot; <a href="/terms.html">Terms of Use</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>
