@@ -1,0 +1,43 @@
+# Werner Coach
+
+> Werner Coach is a family-owned charter bus and motorcoach company based in Phoenixville, Pennsylvania, serving the Greater Philadelphia region and the Northeast corridor since 1929.
+
+## Company Facts
+- Founded: 1929
+- Headquarters: 144 Chester Ave., Phoenixville, PA 19460
+- Phone: (610) 933-7100 | Toll-free: (800) 532-9800
+- Email: contact@wernercoach.com
+- Website: https://wernercoach.com
+- Service area: Greater Philadelphia, southeastern Pennsylvania, tri-state region (PA, NJ, DE), New York City, Washington D.C., and the entire Northeast corridor
+
+## Services
+- **Charter Bus Rental**: Private motorcoach hire for groups of any size, single-day or multi-day
+- **School & Educational Transportation**: Field trips, college visits, academic competitions
+- **Corporate Transportation**: Employee shuttles, offsite meetings, conferences, team outings
+- **Wedding Transportation**: Guest shuttles between venues, bridal party transport
+- **Athletic Team Travel**: High school, college, and club sports teams
+- **Tour Packages**: Single-day and multi-day guided tours with custom itineraries
+- **Special Events**: Bachelor/bachelorette parties, family reunions, church groups, senior outings
+
+## Fleet
+- Modern luxury motorcoaches seating up to 54 passengers
+- Amenities: reclining seats, restrooms, climate control, Wi-Fi, power outlets, video systems
+- USDOT-regulated, FMCSA-compliant vehicles
+- Professionally maintained fleet with nightly cleaning and inspection
+
+## What Makes Werner Coach Different
+- Nearly a century of continuous family ownership and operation (est. 1929)
+- Deep local knowledge of the Philadelphia and southeastern Pennsylvania region
+- Full-service trip planning department that builds custom itineraries
+- Complimentary quotes with personalized group assessment
+- Professional CDL-licensed drivers with background checks and ongoing training
+- Real-time GPS tracking and route optimization for on-time performance
+- Regular service throughout the Northeast corridor from New York City to Washington D.C.
+
+## Booking
+Request a free quote at https://wernercoach.com/contact.html or call (800) 532-9800.
+Group size, dates, and pickup/destination are all we need to get started.
+
+## Optional
+- llms-full.txt: not available
+- Contact for AI/press inquiries: contact@wernercoach.com
