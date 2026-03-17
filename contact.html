@@ -3,12 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact &amp; Request a Quote | Werner Coach</title>
-  <meta name="description" content="Request a free charter bus quote from Werner Coach. Call (800) 532-9800 or submit online. Based in Phoenixville, PA. Serving Philadelphia, Valley Forge, King of Prussia, and the Northeast corridor from NYC to DC.">
+  <title>Contact Werner Coach | Get a Charter Bus Quote</title>
+  <meta name="description" content="Request a free charter bus quote from Werner Coach. Call (800) 532-9800 or email us. Based in Phoenixville, PA. Serving Philadelphia, Valley Forge, King of Prussia, and the Northeast corridor from NYC to DC.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://wernercoach.com/contact.html">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/png" href="/images/logo.png">
+  <style>
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+    }
+    .contact-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--gold);
+    }
+    .contact-card .c-icon {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .contact-card h3 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .contact-card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .contact-card a.card-action {
+      display: block;
+      background: var(--navy);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .contact-card a.card-action:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .what-to-have {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--off-white);
+      border-radius: 12px;
+      padding: 32px 40px;
+    }
+    .what-to-have h3 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .what-to-have ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .what-to-have ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 0.95rem;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .what-to-have ul li:last-child { border-bottom: none; }
+    @media (max-width: 768px) {
+      .contact-cards { grid-template-columns: 1fr; max-width: 400px; }
+      .what-to-have { padding: 24px; }
+    }
+  </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5C2GCQ32K"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-V5C2GCQ32K');</script>
 </head>
@@ -50,145 +127,63 @@
       <a href="/contact.html">Contact</a>
       <div class="mobile-cta">
         <a href="tel:+18005329800" class="btn-quote">(800) 532-9800</a>
-        <a href="/contact.html" class="btn-quote">Get a Quote</a>
+        <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" class="btn-pay" target="_blank" rel="noopener">Pay Online</a>
       </div>
     </div>
   </nav>
 
   <div class="page-header">
-    <h1>Contact Us &amp; Request a Quote</h1>
-    <p>Get a complimentary charter bus quote with no obligation.</p>
+    <h1>Get a Free Quote</h1>
+    <p>Call or email us with your trip details and we'll get back to you with pricing — no obligation.</p>
   </div>
 
   <section class="section">
-    <div class="contact-grid container">
+    <div class="container">
 
-      <!-- Contact Info -->
-      <div class="contact-info">
-        <h2>Get In Touch</h2>
-
-        <div class="contact-detail">
-          <div class="detail-icon">&#x1F4DE;</div>
-          <div>
-            <h3>Phone</h3>
-            <p><a href="tel:+18005329800">(800) 532-9800</a> (toll-free)</p>
-            <p><a href="tel:+16109337100">(610) 933-7100</a> (local)</p>
-          </div>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <span class="c-icon">&#x1F4DE;</span>
+          <h3>Call Us</h3>
+          <p>Talk to someone on our team Monday through Friday, 8am&ndash;5pm. Best for time-sensitive requests.</p>
+          <a href="tel:+18005329800" class="card-action">(800) 532-9800</a>
+          <a href="tel:+16109337100" class="card-action" style="margin-top:10px; background:transparent; color:var(--navy); border:2px solid var(--navy);">(610) 933-7100</a>
         </div>
-
-        <div class="contact-detail">
-          <div class="detail-icon">&#x2709;</div>
-          <div>
-            <h3>Email</h3>
-            <p><a href="mailto:contact@wernercoach.com">contact@wernercoach.com</a></p>
-          </div>
+        <div class="contact-card">
+          <span class="c-icon">&#x2709;</span>
+          <h3>Email Us</h3>
+          <p>Send us your trip details and we'll respond with a quote. Great for planning ahead or outside business hours.</p>
+          <a href="mailto:contact@wernercoach.com" class="card-action">contact@wernercoach.com</a>
         </div>
-
-        <div class="contact-detail">
-          <div class="detail-icon">&#x1F4CD;</div>
-          <div>
-            <h3>Address</h3>
-            <p>144 Chester Ave.<br>Phoenixville, PA 19460</p>
-          </div>
-        </div>
-
-        <div class="contact-detail">
-          <div class="detail-icon">&#x1F552;</div>
-          <div>
-            <h3>Office Hours</h3>
-            <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-          </div>
-        </div>
-
-        <div class="contact-detail">
-          <div class="detail-icon">&#x1F4B3;</div>
-          <div>
-            <h3>Make a Payment</h3>
-            <p><a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" target="_blank" rel="noopener">Pay Online via iPOS</a></p>
-          </div>
-        </div>
-
-        <div style="margin-top:32px;">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3049.5!2d-75.515!3d40.131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDA3JzUwLjUiTiA3NcKwMzAnNTQuNyJX!5e0!3m2!1sen!2sus!4v1"
-            width="100%" height="250" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            title="Werner Coach location map">
-          </iframe>
+        <div class="contact-card">
+          <span class="c-icon">&#x1F4B3;</span>
+          <h3>Make a Payment</h3>
+          <p>Already booked? Pay your invoice securely online through our payment portal.</p>
+          <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" class="card-action" target="_blank" rel="noopener">Pay Online</a>
         </div>
       </div>
 
-      <!-- Quote Form -->
-      <div class="quote-form">
-        <h2>Request a Free Quote</h2>
-        <p style="margin-bottom:20px; font-size:0.95rem; color:var(--gray);">Tell us about your trip and we'll send you a quote. No obligation.</p>
-        <form action="https://formspree.io/f/contact@wernercoach.com" method="POST" id="quoteForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Your Name *</label>
-              <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-              <label for="organization">Organization</label>
-              <input type="text" id="organization" name="organization">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone *</label>
-              <input type="tel" id="phone" name="phone" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="trip-type">Trip Type</label>
-            <select id="trip-type" name="trip_type">
-              <option value="">Select a trip type...</option>
-              <option value="wedding">Wedding / Shuttle</option>
-              <option value="school">School / Field Trip</option>
-              <option value="corporate">Corporate / Business</option>
-              <option value="athletic">Athletic Team</option>
-              <option value="tour">Tour / Day Trip</option>
-              <option value="special">Special Event</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="date">Trip Date *</label>
-              <input type="date" id="date" name="trip_date" required>
-            </div>
-            <div class="form-group">
-              <label for="passengers">Number of Passengers *</label>
-              <input type="number" id="passengers" name="passengers" min="1" max="500" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="pickup">Pickup Location *</label>
-              <input type="text" id="pickup" name="pickup_location" required>
-            </div>
-            <div class="form-group">
-              <label for="destination">Destination *</label>
-              <input type="text" id="destination" name="destination" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="details">Trip Details / Special Requests</label>
-            <textarea id="details" name="details" rows="4" placeholder="Tell us about your trip: timing, multiple stops, return trip, equipment needs, etc."></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary" style="width:100%;">Submit Quote Request</button>
-        </form>
+      <div class="what-to-have">
+        <h3>What to have ready when you call or email:</h3>
+        <ul>
+          <li><span>&#x1F4C5;</span> Trip date (and return date if applicable)</li>
+          <li><span>&#x1F465;</span> Approximate number of passengers</li>
+          <li><span>&#x1F4CD;</span> Pickup location and destination</li>
+          <li><span>&#x1F552;</span> Rough timeline (departure time, how long you need the coach)</li>
+          <li><span>&#x2139;</span> Any special requirements (multiple stops, equipment, accessibility needs)</li>
+        </ul>
+        <p style="margin-top:20px; font-size:0.9rem; color:var(--gray);">That's all we need to give you an accurate quote. Most quotes come back the same day.</p>
       </div>
 
+    </div>
+  </section>
+
+  <!-- Office Info -->
+  <section class="section section-alt">
+    <div class="container" style="max-width:600px; text-align:center;">
+      <h2 class="section-title">Our Office</h2>
+      <p style="font-size:1.05rem; margin-bottom:8px;">144 Chester Ave., Phoenixville, PA 19460</p>
+      <p style="color:var(--gray);">Monday &ndash; Friday, 8:00 AM &ndash; 5:00 PM</p>
+      <p style="color:var(--gray); margin-top:8px;">Minutes from Philadelphia, Valley Forge, and King of Prussia.</p>
     </div>
   </section>
 
