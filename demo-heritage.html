@@ -61,7 +61,7 @@
 
     /* ── HERO ── */
     .hero{position:relative;background:var(--navy);color:var(--white);min-height:88vh;display:flex;align-items:flex-end;padding-bottom:80px}
-    .hero-bg{position:absolute;inset:0;background:url('/images/hero-bus.webp') center 40%/cover no-repeat;opacity:.42}
+    .hero-bg{position:absolute;inset:0;background:url('/images/IMG_0004-copy.webp') center 40%/cover no-repeat;opacity:.42}
     .hero-grad{position:absolute;inset:0;background:linear-gradient(to right,rgba(11,29,58,.82) 45%,rgba(11,29,58,.2) 100%),linear-gradient(to top,rgba(11,29,58,.65) 0%,transparent 55%)}
     .hero-body{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;padding:0 40px;width:100%}
     .hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
@@ -97,15 +97,41 @@
 
     /* ── SERVICE CARDS — Heritage editorial grid ── */
     .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--cream2);border:1px solid var(--cream2)}
-    .svc-card{background:var(--white);padding:40px 32px;position:relative;text-decoration:none;display:block;color:var(--text);transition:background .3s}
+    .svc-card{background:var(--white);position:relative;text-decoration:none;display:block;color:var(--text);transition:background .3s;overflow:hidden}
+    .svc-img{height:200px;overflow:hidden}
+    .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .svc-card:hover .svc-img img{transform:scale(1.05)}
+    .svc-body{padding:28px 28px 32px}
     .svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
     .svc-card:hover{background:var(--cream);color:var(--text)}
     .svc-card:hover::after{background:var(--gold)}
-    .svc-n{font-family:'Playfair Display',Georgia,serif;font-size:.7rem;color:var(--gold);letter-spacing:1px;margin-bottom:20px;opacity:.65}
+    .svc-n{font-family:'Playfair Display',Georgia,serif;font-size:.7rem;color:var(--gold);letter-spacing:1px;margin-bottom:14px;opacity:.65}
     .svc-card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;font-weight:500;color:var(--navy);margin-bottom:12px;line-height:1.3}
     .svc-card p{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.65}
-    .svc-more{margin-top:20px;font-size:.78rem;font-weight:600;color:var(--gold);letter-spacing:.5px;opacity:0;transition:opacity .2s}
+    .svc-more{margin-top:16px;font-size:.78rem;font-weight:600;color:var(--gold);letter-spacing:.5px;opacity:0;transition:opacity .2s}
     .svc-card:hover .svc-more{opacity:1}
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+    .photo-strip img{width:100%;height:280px;object-fit:cover;display:block}
+    @media(max-width:768px){
+      .photo-strip{grid-template-columns:repeat(2,1fr)}
+      .photo-strip img{height:180px}
+    }
+
+    /* ── FLEET PREVIEW ── */
+    .fleet-preview{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;max-width:960px;margin:0 auto}
+    .fleet-img{border-radius:4px;overflow:hidden}
+    .fleet-img img{width:100%;height:340px;object-fit:cover}
+    .fleet-text h3{font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:500;color:var(--navy);margin-bottom:16px}
+    .fleet-text p{font-size:.92rem;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:12px}
+    .fleet-text ul{list-style:none;margin:16px 0 24px}
+    .fleet-text li{font-size:.88rem;color:var(--text);padding:6px 0;border-bottom:1px solid var(--cream2)}
+    .fleet-text li::before{content:'—';color:var(--gold);margin-right:10px;font-weight:600}
+    @media(max-width:768px){
+      .fleet-preview{grid-template-columns:1fr}
+      .fleet-img img{height:240px}
+    }
 
     /* ── WHY WERNER ── */
     .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:44px 64px;max-width:900px;margin:0 auto}
@@ -267,44 +293,70 @@
       </div>
       <div class="svc-grid">
         <a href="/services/wedding.html" class="svc-card">
-          <p class="svc-n">01</p>
-          <h3>Wedding Transportation</h3>
-          <p>Guest shuttles between ceremony, reception, and hotel venues. Coordinated with your wedding planner.</p>
-          <p class="svc-more">Learn more &rarr;</p>
+          <div class="svc-img"><img src="/images/Wedding-Parties-copy.webp" alt="Wedding transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">01</p>
+            <h3>Wedding Transportation</h3>
+            <p>Guest shuttles between ceremony, reception, and hotel venues. Coordinated with your wedding planner.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
         </a>
         <a href="/services/school.html" class="svc-card">
-          <p class="svc-n">02</p>
-          <h3>School Groups</h3>
-          <p>Field trips, college visits, competitions, band travel, and sporting events with USDOT-compliant coaches.</p>
-          <p class="svc-more">Learn more &rarr;</p>
+          <div class="svc-img"><img src="/images/school-trips-copy.webp" alt="School group transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">02</p>
+            <h3>School Groups</h3>
+            <p>Field trips, college visits, competitions, band travel, and sporting events with USDOT-compliant coaches.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
         </a>
         <a href="/services/corporate.html" class="svc-card">
-          <p class="svc-n">03</p>
-          <h3>Corporate Transportation</h3>
-          <p>Employee shuttles, conferences, retreats, holiday parties, and client transportation.</p>
-          <p class="svc-more">Learn more &rarr;</p>
+          <div class="svc-img"><img src="/images/Corporate-Business-copy.webp" alt="Corporate transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">03</p>
+            <h3>Corporate Transportation</h3>
+            <p>Employee shuttles, conferences, retreats, holiday parties, and client transportation.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
         </a>
         <a href="/fleet.html" class="svc-card">
-          <p class="svc-n">04</p>
-          <h3>Athletic Teams</h3>
-          <p>Comfortable travel for high school, college, and club sports teams with equipment storage.</p>
-          <p class="svc-more">Learn more &rarr;</p>
+          <div class="svc-img"><img src="/images/athletic-teams-copy.webp" alt="Athletic team transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">04</p>
+            <h3>Athletic Teams</h3>
+            <p>Comfortable travel for high school, college, and club sports teams with equipment storage.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
         </a>
         <a href="/fleet.html" class="svc-card">
-          <p class="svc-n">05</p>
-          <h3>Tours &amp; Day Trips</h3>
-          <p>Custom single-day and multi-day itineraries built by our in-house trip planning team.</p>
-          <p class="svc-more">Learn more &rarr;</p>
+          <div class="svc-img"><img src="/images/Single-Day-Tours-copy.webp" alt="Tours and day trips" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">05</p>
+            <h3>Tours &amp; Day Trips</h3>
+            <p>Custom single-day and multi-day itineraries built by our in-house trip planning team.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
         </a>
         <a href="/fleet.html" class="svc-card">
-          <p class="svc-n">06</p>
-          <h3>Special Events</h3>
-          <p>Bachelor and bachelorette parties, family reunions, church groups, and senior outings.</p>
-          <p class="svc-more">Learn more &rarr;</p>
+          <div class="svc-img"><img src="/images/bachalor-parties-copy.webp" alt="Special events transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">06</p>
+            <h3>Special Events</h3>
+            <p>Bachelor and bachelorette parties, family reunions, church groups, and senior outings.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
         </a>
       </div>
     </div>
   </section>
+
+  <!-- PHOTO STRIP -->
+  <div class="photo-strip">
+    <img src="/images/charter-bus-rent-philadelphia.webp" alt="Werner Coach motorcoach" loading="lazy">
+    <img src="/images/charter-bus-rent-philadelphia02.webp" alt="Werner Coach interior" loading="lazy">
+    <img src="/images/charter-bus-rent-philadelphia03.webp" alt="Werner Coach fleet" loading="lazy">
+    <img src="/images/charter-bus-rent-philadelphia04.webp" alt="Werner Coach on the road" loading="lazy">
+  </div>
 
   <!-- WHY WERNER -->
   <section class="sec sec-navy">
@@ -342,6 +394,39 @@
       </div>
     </div>
   </section>
+
+  <!-- FLEET PREVIEW -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="fleet-preview">
+        <div class="fleet-img">
+          <img src="/images/Werner-Bus-Baseball-Stadium.webp" alt="Werner Coach at stadium" loading="lazy">
+        </div>
+        <div class="fleet-text">
+          <p class="eye">Our Fleet</p>
+          <h3>Luxury 54-Passenger Motorcoaches</h3>
+          <p>Every coach in our fleet is company-owned and maintained in our Phoenixville shop by our full-time mechanics.</p>
+          <ul>
+            <li>Reclining seats with armrests and footrests</li>
+            <li>Climate-controlled cabin</li>
+            <li>Onboard restroom</li>
+            <li>PA system and Bluetooth audio</li>
+            <li>Ample luggage storage</li>
+          </ul>
+          <a href="/fleet.html" class="btn-a btn-a-fill" style="font-size:.84rem;padding:11px 28px;">Explore Our Fleet</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUS IN SNOW -->
+  <div style="position:relative;height:380px;overflow:hidden;">
+    <img src="/images/bus-snow.webp" alt="Werner Coach in snow" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(11,29,58,.6),transparent 60%);"></div>
+    <div style="position:absolute;bottom:40px;left:0;right:0;text-align:center;">
+      <p style="font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;color:white;font-weight:400;font-style:italic;">Serving the Northeast — rain, shine, or snow — since 1929.</p>
+    </div>
+  </div>
 
   <!-- TESTIMONIALS -->
   <section class="sec sec-cream">

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote — Werner Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1D3A; --navy-light: #132B52; --gold: #C9A84C; --gold-light: #E4CB7A;
+    --gold-dim: rgba(201, 168, 76, 0.15); --cream: #FAF8F4; --cream-dark: #F0EDE6;
+    --text: #1A1A1A; --text-muted: #6B6B6B; --text-light: #999; --white: #FFFFFF;
+    --border: #E0DCD4; --success: #2E7D4F; --error: #C0392B;
+    --shadow-sm: 0 1px 3px rgba(11,29,58,0.06); --shadow-md: 0 4px 16px rgba(11,29,58,0.08);
+    --shadow-lg: 0 12px 40px rgba(11,29,58,0.12); --shadow-xl: 0 24px 60px rgba(11,29,58,0.16);
+    --radius: 12px; --radius-sm: 8px; --radius-lg: 16px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .widget-wrapper { max-width: 960px; margin: 0 auto; padding: 32px 20px 60px; }
+  .widget-header { text-align: center; margin-bottom: 36px; animation: fadeUp 0.6s ease both; }
+  .widget-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 40px); font-weight: 600; color: var(--navy); line-height: 1.15; margin-bottom: 10px; }
+  .widget-header p { color: var(--text-muted); font-size: 15px; max-width: 480px; margin: 0 auto; line-height: 1.6; }
+  .progress-bar { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 32px; animation: fadeUp 0.6s 0.1s ease both; }
+  .progress-step { display: flex; align-items: center; gap: 10px; position: relative; }
+  .progress-step .step-circle { width: 36px; height: 36px; border-radius: 50%; background: var(--white); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: var(--text-light); transition: all var(--transition); flex-shrink: 0; }
+  .progress-step.active .step-circle { background: var(--navy); border-color: var(--navy); color: var(--white); box-shadow: 0 0 0 4px rgba(11,29,58,0.12); }
+  .progress-step.completed .step-circle { background: var(--gold); border-color: var(--gold); color: var(--white); }
+  .progress-step .step-label { font-size: 13px; font-weight: 500; color: var(--text-light); transition: color var(--transition); white-space: nowrap; }
+  .progress-step.active .step-label { color: var(--navy); font-weight: 600; }
+  .progress-step.completed .step-label { color: var(--gold); }
+  .progress-connector { width: 40px; height: 2px; background: var(--border); margin: 0 8px; transition: background var(--transition); flex-shrink: 0; }
+  .progress-connector.filled { background: var(--gold); }
+  @media (max-width: 640px) { .progress-step .step-label { display: none; } .progress-connector { width: 28px; } }
+  .form-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; animation: fadeUp 0.6s 0.2s ease both; }
+  .step-panel { display: none; padding: 36px 40px 32px; animation: fadeIn 0.35s ease; }
+  .step-panel.active { display: block; }
+  @media (max-width: 640px) { .step-panel { padding: 24px 20px 20px; } }
+  .step-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .step-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-row.single { grid-template-columns: 1fr; }
+  .form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 640px) { .form-row, .form-row.triple { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 6px; }
+  .form-group label .required { color: var(--gold); margin-left: 2px; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], select, textarea { width: 100%; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text); background: var(--cream); border: 1.5px solid var(--border); border-radius: var(--radius-sm); outline: none; transition: all var(--transition); }
+  input:focus, select:focus, textarea:focus { border-color: var(--navy); background: var(--white); box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
+  input::placeholder, textarea::placeholder { color: var(--text-light); }
+  textarea { resize: vertical; min-height: 80px; }
+  select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .trip-type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .trip-type-btn { padding: 16px 12px; border: 2px solid var(--border); border-radius: var(--radius); background: var(--white); cursor: pointer; text-align: center; transition: all var(--transition); }
+  .trip-type-btn:hover { border-color: var(--navy-light); background: var(--cream); }
+  .trip-type-btn.selected { border-color: var(--navy); background: rgba(11,29,58,0.03); box-shadow: 0 0 0 1px var(--navy); }
+  .trip-type-btn .tt-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+  .trip-type-btn .tt-label { font-weight: 600; font-size: 14px; color: var(--navy); }
+  .trip-type-btn .tt-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  @media (max-width: 480px) { .trip-type-selector { grid-template-columns: 1fr; } }
+  .map-container { width: 100%; height: 280px; border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; border: 1.5px solid var(--border); background: var(--cream-dark); position: relative; }
+  .map-container #map { width: 100%; height: 100%; }
+  .map-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-light); gap: 8px; }
+  .map-placeholder svg { opacity: 0.4; }
+  .map-placeholder span { font-size: 13px; }
+  .locations-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .location-row { display: flex; align-items: center; gap: 10px; }
+  .location-marker { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+  .location-marker.origin { background: var(--navy); color: var(--white); }
+  .location-marker.stop { background: var(--gold-dim); color: var(--gold); border: 1.5px solid var(--gold); }
+  .location-marker.dest { background: var(--gold); color: var(--white); }
+  .location-row input { flex: 1; }
+  .location-row .remove-stop { width: 32px; height: 32px; border: none; background: none; cursor: pointer; color: var(--text-light); font-size: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all var(--transition); flex-shrink: 0; }
+  .location-row .remove-stop:hover { background: #fdecea; color: var(--error); }
+  .add-stop-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--navy); background: none; border: 1.5px dashed var(--border); border-radius: var(--radius-sm); padding: 10px 16px; cursor: pointer; transition: all var(--transition); margin-bottom: 20px; }
+  .add-stop-btn:hover { border-color: var(--navy); background: var(--cream); }
+  .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .vehicle-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 20px 16px; text-align: center; cursor: pointer; transition: all var(--transition); background: var(--white); position: relative; }
+  .vehicle-card:hover { border-color: var(--navy-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .vehicle-card.selected { border-color: var(--navy); background: rgba(11,29,58,0.02); box-shadow: 0 0 0 1px var(--navy), var(--shadow-md); }
+  .vehicle-card .v-icon { font-size: 36px; margin-bottom: 8px; display: block; }
+  .vehicle-card .v-name { font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 2px; }
+  .vehicle-card .v-seats { font-size: 12px; color: var(--text-muted); }
+  .vehicle-card .v-check { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: var(--white); display: none; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+  .vehicle-card.selected .v-check { display: flex; }
+  .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .checkbox-item { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); font-size: 14px; color: var(--text); }
+  .checkbox-item:hover { border-color: var(--navy-light); background: var(--cream); }
+  .checkbox-item.checked { border-color: var(--navy); background: rgba(11,29,58,0.03); }
+  .checkbox-item input { display: none; }
+  .checkbox-item .cb-box { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all var(--transition); font-size: 11px; color: transparent; }
+  .checkbox-item.checked .cb-box { background: var(--navy); border-color: var(--navy); color: var(--white); }
+  .gratuity-toggle { display: flex; gap: 12px; margin-bottom: 20px; }
+  .gratuity-btn { padding: 12px 28px; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--white); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--text-muted); transition: all var(--transition); }
+  .gratuity-btn:hover { border-color: var(--navy-light); }
+  .gratuity-btn.selected { border-color: var(--navy); background: rgba(11,29,58,0.03); color: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
+  .vehicle-warning { display: none; align-items: center; gap: 10px; padding: 12px 16px; background: #FFF8E1; border: 1.5px solid #F9A825; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 14px; color: #5D4037; animation: fadeIn 0.3s ease; }
+  .vehicle-warning.visible { display: flex; }
+  .vehicle-warning svg { flex-shrink: 0; }
+  .review-section { background: var(--cream); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; }
+  .review-section h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .review-section h3 .edit-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--gold); cursor: pointer; margin-left: auto; text-decoration: underline; text-underline-offset: 2px; }
+  .review-section h3 .edit-btn:hover { color: var(--navy); }
+  .review-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .review-row:last-child { border-bottom: none; }
+  .review-row .label { color: var(--text-muted); }
+  .review-row .value { font-weight: 500; color: var(--text); text-align: right; max-width: 60%; }
+  .review-map { width: 100%; height: 180px; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 12px; border: 1px solid var(--border); }
+  .review-map #reviewMap { width: 100%; height: 100%; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px 28px; border-top: 1px solid var(--border); }
+  @media (max-width: 640px) { .card-footer { padding: 16px 20px 20px; } }
+  .btn { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 13px 28px; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+  .btn-back { background: none; color: var(--text-muted); padding: 13px 16px; }
+  .btn-back:hover { color: var(--navy); }
+  .btn-next { background: var(--navy); color: var(--white); }
+  .btn-next:hover { background: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-submit { background: var(--gold); color: var(--navy); font-size: 15px; padding: 14px 36px; }
+  .btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn svg { width: 16px; height: 16px; }
+  .success-panel { display: none; text-align: center; padding: 60px 40px; animation: fadeIn 0.4s ease; }
+  .success-panel.active { display: block; }
+  .success-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--gold-dim); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .success-icon svg { width: 32px; height: 32px; color: var(--gold); }
+  .success-panel h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--navy); margin-bottom: 10px; }
+  .success-panel p { color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 420px; margin: 0 auto; }
+  .form-group.error input, .form-group.error select, .form-group.error textarea { border-color: var(--error); background: #fef7f6; }
+  .form-group .error-msg { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
+  .form-group.error .error-msg { display: block; }
+  .route-info { display: flex; gap: 20px; padding: 12px 16px; background: var(--gold-dim); border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 14px; align-items: center; }
+  .route-info .ri-item { display: flex; align-items: center; gap: 6px; }
+  .route-info .ri-label { color: var(--text-muted); font-size: 12px; }
+  .route-info .ri-value { font-weight: 600; color: var(--navy); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .widget-footer-note { text-align: center; margin-top: 20px; font-size: 12px; color: var(--text-light); }
+  .section-divider { border: none; margin: 28px 0 4px; height: 0; }
+  .section-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); margin-bottom: 14px; }
+  .widget-logo { text-align: center; margin-bottom: 16px; }
+  .widget-logo-img { height: 80px; width: auto; display: inline-block; }
+
+  /* Multi-Day itinerary section */
+  .itinerary-section { display: none; margin-bottom: 20px; animation: fadeIn 0.3s ease; }
+  .itinerary-section.visible { display: block; }
+  .itinerary-section .itinerary-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); margin-bottom: 6px; }
+  .itinerary-section .itinerary-hint { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+  .itinerary-section textarea { min-height: 110px; }
+  select#pickupTime, select#returnTime { color: var(--text); }
+  select#pickupTime:invalid, select#returnTime:invalid,
+  select#pickupTime option[value=""], select#returnTime option[value=""] { color: var(--text-light); }
+  select#pickupTime option, select#returnTime option { color: var(--text); padding: 8px 14px; }
+</style>
+</head>
+<body>
+<div class="widget-wrapper">
+  <div class="widget-logo">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAEbCAYAAAD0yNLXAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAABMyElEQVR42u3dd5xdRd3H8c/MnHPb9s2mhxSSkBA6hBYIUqUIUgQBBWmCdKmCBUH0AZEiiCBFFBtIlyYKqCgdQu8QSkhIIW377i3nzMzzxzm72U2BBIIK/t6vZ12eJHt3955753um/UY55zxCCCHEKtLyFAghhJAAEUIIIQEihBBCAkQIIYQEiBBCCCEBIoQQQgJECCGEBIgQQggJECGEEBIgQgghhASIEEIICRAhhBASIEIIISRAhBBCSIAIIYQQEiBCCCEkQIQQQkiACCGEkAARQgghASKEEEJIgAghhJAAEUIIIQEihBBCAkQIIYQEiBBCCAkQIYQQQgJECCGEBIgQQggJECGEEBIgQgghJECEEEJIgAghhJAAEUIIIQEihBBCAkQIIYSQABFCCCEBIoQQQgJECCGEBIgQQggJECGEEEICRAghhASIEEIICRAhhBASIEIIISRAhBBCiA/3/yDFTdbyy6rMAAAAAElFTkSuQmCC" alt="Werner Coach" class="widget-logo-img">
+  </div>
+  <div class="widget-header">
+    <h1>Request a Quote</h1>
+    <p>Plan your trip in minutes. Tell us where you're going and we'll put together a personalized quote for you.</p>
+  </div>
+  <div class="progress-bar" id="progressBar">
+    <div class="progress-step active" data-step="1"><div class="step-circle">1</div><span class="step-label">Your Info</span></div>
+    <div class="progress-connector"></div>
+    <div class="progress-step" data-step="2"><div class="step-circle">2</div><span class="step-label">Plan Your Trip</span></div>
+    <div class="progress-connector"></div>
+    <div class="progress-step" data-step="3"><div class="step-circle">3</div><span class="step-label">Group Details</span></div>
+    <div class="progress-connector"></div>
+    <div class="progress-step" data-step="4"><div class="step-circle">4</div><span class="step-label">Review</span></div>
+  </div>
+  <div class="form-card">
+    <form id="quoteForm" novalidate>
+      <!-- STEP 1 -->
+      <div class="step-panel active" id="step1">
+        <div class="step-title">Tell us about yourself</div>
+        <div class="step-subtitle">We'll use this to get back to you with your personalized quote.</div>
+        <div class="form-row">
+          <div class="form-group"><label>First Name <span class="required">*</span></label><input type="text" id="firstName" placeholder="First name" required><span class="error-msg">Please enter your first name</span></div>
+          <div class="form-group"><label>Last Name <span class="required">*</span></label><input type="text" id="lastName" placeholder="Last name" required><span class="error-msg">Please enter your last name</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email Address <span class="required">*</span></label><input type="email" id="email" placeholder="you@example.com" required><span class="error-msg">Please enter a valid email</span></div>
+          <div class="form-group"><label>Phone Number <span class="required">*</span></label><input type="tel" id="phone" placeholder="(215) 555-0100" required><span class="error-msg">Please enter your phone number</span></div>
+        </div>
+        <div class="form-row single"><div class="form-group"><label>Company / Organization</label><input type="text" id="company" placeholder="Optional"></div></div>
+      </div>
+      <!-- STEP 2 -->
+      <div class="step-panel" id="step2">
+        <div class="step-title">Plan your trip</div>
+        <div class="step-subtitle">Select your trip type and enter your locations. We'll map the route for you.</div>
+        <div class="trip-type-selector">
+          <div class="trip-type-btn selected" data-type="roundtrip" onclick="selectTripType(this)"><span class="tt-icon">↩️</span><div class="tt-label">Round Trip</div><div class="tt-desc">Return to start</div></div>
+          <div class="trip-type-btn" data-type="oneway" onclick="selectTripType(this)"><span class="tt-icon">→</span><div class="tt-label">One Way</div><div class="tt-desc">A to B</div></div>
+          <div class="trip-type-btn" data-type="multiday" onclick="selectTripType(this)"><span class="tt-icon">🗓️</span><div class="tt-label">Multi-Day</div><div class="tt-desc">Extended trip</div></div>
+        </div>
+
+        <!-- Multi-Day Itinerary Description -->
+        <div class="itinerary-section" id="itinerarySection">
+          <div class="itinerary-label">Tell us about your trip</div>
+          <div class="itinerary-hint">Share whatever you know so far — cities, dates, events, or even just a rough idea. Don't worry if the details aren't final yet; we'll work with you to figure out the rest.</div>
+          <textarea id="itineraryDescription" placeholder=""></textarea>
+        </div>
+
+        <div class="map-container">
+          <div class="map-placeholder" id="mapPlaceholder"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Your route will appear here</span></div>
+          <div id="map" style="display:none;"></div>
+        </div>
+        <div class="route-info" id="routeInfo" style="display:none;">
+          <div class="ri-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c-4-4-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-4 8-8 12z"/><circle cx="12" cy="10" r="2"/></svg><div><div class="ri-label">Distance</div><div class="ri-value" id="routeDistance">—</div></div></div>
+          <div class="ri-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><div class="ri-label">Est. Drive Time</div><div class="ri-value" id="routeDuration">—</div></div></div>
+        </div>
+        <div class="locations-list" id="locationsList">
+          <div class="location-row"><div class="location-marker origin">A</div><input type="text" class="location-input" id="locPickup" placeholder="Pickup address" data-role="origin" required></div>
+          <div class="location-row"><div class="location-marker dest">B</div><input type="text" class="location-input" id="locDestination" placeholder="Destination address" data-role="destination" required></div>
+        </div>
+        <button type="button" class="add-stop-btn" id="addStopBtn" onclick="addStop()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add a stop</button>
+        <hr class="section-divider">
+        <div class="section-label">Dates &amp; Times</div>
+        <div class="form-row">
+          <div class="form-group"><label>Pickup Date <span class="required">*</span></label><input type="date" id="pickupDate" required><span class="error-msg">Please select a date</span></div>
+          <div class="form-group"><label>Pickup Time <span class="required">*</span></label><select id="pickupTime" required><option value="">Select time...</option></select><span class="error-msg">Please select a time</span></div>
+        </div>
+        <div class="form-row" id="returnDateRow">
+          <div class="form-group"><label>Return Date</label><input type="date" id="returnDate"></div>
+          <div class="form-group"><label>Drop-off Time (Trip Complete)</label><select id="returnTime"><option value="">Select time...</option></select></div>
+        </div>
+      </div>
+      <!-- STEP 3 -->
+      <div class="step-panel" id="step3">
+        <div class="step-title">Group &amp; vehicle details</div>
+        <div class="step-subtitle">Tell us about your group so we can match the right vehicle.</div>
+        <div class="form-row">
+          <div class="form-group"><label>Number of Passengers <span class="required">*</span></label><input type="number" id="passengers" placeholder="e.g. 45" min="1" max="500" required><span class="error-msg">Please enter the number of passengers</span></div>
+          <div class="form-group"><label>Trip Purpose</label>
+            <select id="tripPurpose"><option value="">Select one...</option><option value="wedding">Wedding</option><option value="corporate">Corporate / Business</option><option value="school">School / University</option><option value="sports">Sports Team</option><option value="church">Church / Religious</option><option value="airport">Airport Transfer</option><option value="tour">Tour / Sightseeing</option><option value="party">Party / Night Out</option><option value="funeral">Funeral / Memorial</option><option value="government">Government / Military</option><option value="family-reunion">Family Reunion</option><option value="other">Other</option></select>
+          </div>
+        </div>
+        <hr class="section-divider">
+        <div class="section-label">Select Your Vehicle</div>
+        <div class="vehicle-grid">
+          <div class="vehicle-card" data-vehicle="motorcoach-54" onclick="selectVehicle(this)"><span class="v-icon">🚌</span><div class="v-name">54-Passenger Motorcoach</div><div class="v-seats">Corporate, school, sports &amp; group travel</div><div class="v-check">✓</div></div>
+          <div class="vehicle-card" data-vehicle="wedding-shuttle" onclick="selectVehicle(this)"><span class="v-icon">💍</span><div class="v-name">Wedding Guest Shuttle</div><div class="v-seats">Dedicated wedding transportation</div><div class="v-check">✓</div></div>
+        </div>
+        <div class="form-row single"><div class="form-group"><label>Number of Vehicles Needed</label><input type="number" id="numVehicles" placeholder="e.g. 1" min="1" max="50" oninput="checkVehicleCapacity()"></div></div>
+        <div class="vehicle-warning" id="vehicleWarning"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F9A825" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span id="vehicleWarningText"></span></div>
+        <hr class="section-divider">
+        <div class="section-label">Gratuity</div>
+        <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Would you like to include a gratuity for your driver in your quote?</div>
+        <div class="gratuity-toggle" id="gratuityToggle">
+          <div class="gratuity-btn" data-value="yes" onclick="selectGratuity(this)">Yes</div>
+          <div class="gratuity-btn" data-value="no" onclick="selectGratuity(this)">No</div>
+        </div>
+        <hr class="section-divider">
+        <div class="section-label">Add-Ons &amp; Special Requirements</div>
+        <div class="checkbox-grid">
+          <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" name="options" value="ada" data-type="req"><span class="cb-box">✓</span>ADA Accessible</label>
+          <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" name="options" value="bottled-water" data-type="addon" data-price="75"><span class="cb-box">✓</span>Bottled Water — $75</label>
+        </div>
+        <div class="form-row single"><div class="form-group"><label>Additional Notes</label><textarea id="notes" placeholder="Anything else we should know about your trip? Special requests, accessibility needs, timing details..."></textarea></div></div>
+      </div>
+      <!-- STEP 4 -->
+      <div class="step-panel" id="step4">
+        <div class="step-title">Review your request</div>
+        <div class="step-subtitle">Make sure everything looks right, then submit. We'll have your quote within 24 business hours.</div>
+        <div class="review-section"><h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Contact Info<span class="edit-btn" onclick="goToStep(1)">Edit</span></h3><div id="reviewContact"></div></div>
+        <div class="review-section"><h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Trip Details<span class="edit-btn" onclick="goToStep(2)">Edit</span></h3><div class="review-map"><div id="reviewMap"></div></div><div id="reviewTrip"></div></div>
+        <div class="review-section"><h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/></svg>Group &amp; Vehicle<span class="edit-btn" onclick="goToStep(3)">Edit</span></h3><div id="reviewGroup"></div></div>
+      </div>
+      <!-- SUCCESS -->
+      <div class="success-panel" id="successPanel"><div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><h2>Quote Request Received!</h2><p>Thank you — we've got all the details. A member of the Werner Coach team will be in touch within 24 business hours with your personalized quote.</p></div>
+    </form>
+    <div class="card-footer" id="cardFooter">
+      <button type="button" class="btn btn-back" id="btnBack" style="visibility:hidden;" onclick="prevStep()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
+      <button type="button" class="btn btn-next" id="btnNext" onclick="nextStep()">Continue<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+  </div>
+  <div class="widget-footer-note">Werner Coach · Philadelphia, PA · Quotes are free and carry no obligation.</div>
+</div>
+<script>
+let currentStep=1;const totalSteps=4;let tripType='roundtrip';let selectedVehicle='';let selectedGratuity='';let stopCounter=0;
+let map,reviewMapInstance,directionsService,directionsRenderer,reviewDirectionsRenderer;
+let autocompleteInstances={};let placesData={};let mapsLoaded=false;
+const WERNER_BASE_ADDRESS='144 Chester Ave, Phoenixville, PA 19460';
+let customerRouteDistance='—';let customerRouteDuration='—';let deadheadTotalDistance='—';let deadheadTotalDuration='—';let routeLegs=[];
+const GOOGLE_MAPS_API_KEY='AIzaSyA38IZTVw4Fx3mVEjGUWBeonyzCu_mFGi0';
+const BUS_SPEED_FACTOR=1.15;
+function roundTo15Min(totalSeconds){var totalMin=Math.round(totalSeconds/60);totalMin=Math.round(totalMin/15)*15;return totalMin*60;}
+function loadGoogleMaps(){if(GOOGLE_MAPS_API_KEY==='YOUR_API_KEY')return;const s=document.createElement('script');s.src='https://maps.googleapis.com/maps/api/js?key='+GOOGLE_MAPS_API_KEY+'&libraries=places&callback=initMaps';s.async=true;s.defer=true;document.head.appendChild(s);}
+const mapStyles=[{featureType:'poi',stylers:[{visibility:'off'}]},{featureType:'transit',stylers:[{visibility:'simplified'}]},{featureType:'water',stylers:[{color:'#c9daf8'}]}];
+function initMaps(){mapsLoaded=true;map=new google.maps.Map(document.getElementById('map'),{center:{lat:39.9526,lng:-75.1652},zoom:11,disableDefaultUI:true,zoomControl:true,styles:mapStyles});document.getElementById('map').style.display='block';document.getElementById('mapPlaceholder').style.display='none';directionsService=new google.maps.DirectionsService();directionsRenderer=new google.maps.DirectionsRenderer({map:map,suppressMarkers:false,polylineOptions:{strokeColor:'#0B1D3A',strokeWeight:4,strokeOpacity:0.85}});reviewMapInstance=new google.maps.Map(document.getElementById('reviewMap'),{center:{lat:39.9526,lng:-75.1652},zoom:11,disableDefaultUI:true,styles:mapStyles});reviewDirectionsRenderer=new google.maps.DirectionsRenderer({map:reviewMapInstance,suppressMarkers:false,polylineOptions:{strokeColor:'#0B1D3A',strokeWeight:3,strokeOpacity:0.85}});document.querySelectorAll('.location-input').forEach(function(input){setupAutocomplete(input);});}
+function setupAutocomplete(input){if(!mapsLoaded)return;var ac=new google.maps.places.Autocomplete(input,{types:['geocode','establishment'],componentRestrictions:{country:'us'}});ac.addListener('place_changed',function(){var place=ac.getPlace();if(place&&place.formatted_address){placesData[input.id]=place;updateRoute();}});autocompleteInstances[input.id]=ac;}
+function updateRoute(){if(!mapsLoaded||!directionsService)return;var inputs=document.querySelectorAll('.location-input');var waypoints=[];var origin=null,destination=null;inputs.forEach(function(input,i){var val=input.value.trim();if(!val)return;if(i===0)origin=val;else if(i===inputs.length-1)destination=val;else waypoints.push({location:val,stopover:true});});if(!origin||!destination)return;var apiDest=destination;var cWp=[].concat(waypoints);if(tripType==='roundtrip'||tripType==='multiday'){if(cWp.length===0)cWp.push({location:destination,stopover:true});apiDest=origin;}directionsService.route({origin:origin,destination:apiDest,waypoints:cWp,travelMode:'DRIVING',optimizeWaypoints:false},function(result,status){if(status==='OK'){directionsRenderer.setDirections(result);var td=0,tt=0;routeLegs=[];result.routes[0].legs.forEach(function(leg){td+=leg.distance.value;tt+=leg.duration.value;routeLegs.push({startAddress:leg.start_address,endAddress:leg.end_address,durationSeconds:Math.round(leg.duration.value*BUS_SPEED_FACTOR),durationText:leg.duration.text,distanceMiles:parseFloat((leg.distance.value*0.000621371).toFixed(1))});});tt=roundTo15Min(tt*BUS_SPEED_FACTOR);var mi=(td*0.000621371).toFixed(0);var hr=Math.floor(tt/3600);var mn=Math.round((tt%3600)/60);customerRouteDistance=mi+' miles';customerRouteDuration=hr>0?hr+'h '+mn+'m':mn+'m';document.getElementById('routeDistance').textContent=customerRouteDistance;document.getElementById('routeDuration').textContent=customerRouteDuration;document.getElementById('routeInfo').style.display='flex';calculateDeadheadRoute(origin,destination,waypoints);}});}
+function calculateDeadheadRoute(co,cd,cw){if(!directionsService)return;var dw=[];dw.push({location:co,stopover:true});cw.forEach(function(wp){dw.push(wp);});dw.push({location:cd,stopover:true});if(tripType==='roundtrip'||tripType==='multiday'){dw.push({location:co,stopover:true});}directionsService.route({origin:WERNER_BASE_ADDRESS,destination:WERNER_BASE_ADDRESS,waypoints:dw,travelMode:'DRIVING',optimizeWaypoints:false},function(result,status){if(status==='OK'){var td=0,tt=0;result.routes[0].legs.forEach(function(leg){td+=leg.distance.value;tt+=leg.duration.value;});tt=roundTo15Min(tt*BUS_SPEED_FACTOR);var mi=(td*0.000621371).toFixed(0);var hr=Math.floor(tt/3600);var mn=Math.round((tt%3600)/60);deadheadTotalDistance=mi+' miles';deadheadTotalDuration=hr>0?hr+'h '+mn+'m':mn+'m';}});}
+function selectTripType(btn){document.querySelectorAll('.trip-type-btn').forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');tripType=btn.dataset.type;var rr=document.getElementById('returnDateRow');var itSec=document.getElementById('itinerarySection');if(tripType==='oneway'){rr.style.display='none';}else{rr.style.display='';}if(tripType==='multiday'){itSec.classList.add('visible');}else{itSec.classList.remove('visible');}updateRoute();}
+function addStop(){stopCounter++;var list=document.getElementById('locationsList');var destRow=list.querySelector('.location-row:last-child');var row=document.createElement('div');row.className='location-row stop-row';row.innerHTML='<div class="location-marker stop">'+String.fromCharCode(65+list.children.length)+'</div><input type="text" class="location-input" id="locStop'+stopCounter+'" placeholder="Stop address" data-role="stop"><button type="button" class="remove-stop" onclick="removeStop(this)" title="Remove stop">\u00d7</button>';list.insertBefore(row,destRow);relabelLocations();setupAutocomplete(row.querySelector('.location-input'));}
+function removeStop(btn){var row=btn.closest('.location-row');var input=row.querySelector('.location-input');if(autocompleteInstances[input.id]){google.maps.event.clearInstanceListeners(autocompleteInstances[input.id]);delete autocompleteInstances[input.id];}delete placesData[input.id];row.remove();relabelLocations();updateRoute();}
+function relabelLocations(){var rows=document.querySelectorAll('#locationsList .location-row');rows.forEach(function(row,i){var marker=row.querySelector('.location-marker');marker.textContent=String.fromCharCode(65+i);if(i===0)marker.className='location-marker origin';else if(i===rows.length-1)marker.className='location-marker dest';else marker.className='location-marker stop';});}
+function selectVehicle(card){document.querySelectorAll('.vehicle-card').forEach(function(c){c.classList.remove('selected');});card.classList.add('selected');selectedVehicle=card.dataset.vehicle;checkVehicleCapacity();}
+function selectGratuity(btn){document.querySelectorAll('.gratuity-btn').forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');selectedGratuity=btn.dataset.value;}
+function checkVehicleCapacity(){var nv=parseInt(document.getElementById('numVehicles').value)||0;var np=parseInt(document.getElementById('passengers').value)||0;var w=document.getElementById('vehicleWarning');var wt=document.getElementById('vehicleWarningText');if(nv>0&&np>0){var cap=nv*54;if(cap<np){wt.textContent=nv+' vehicle(s) \u00d7 54 seats = '+cap+' total seats, but you have '+np+' passengers. Are you sure this is correct?';w.classList.add('visible');}else{w.classList.remove('visible');}}else{w.classList.remove('visible');}}
+function toggleCheck(label){var cb=label.querySelector('input');setTimeout(function(){if(cb.checked)label.classList.add('checked');else label.classList.remove('checked');},0);}
+</script>
+<script>
+function goToStep(step){currentStep=step;renderStep();}
+function nextStep(){if(!validateStep(currentStep))return;if(currentStep<totalSteps){currentStep++;renderStep();if(currentStep===4)buildReview();}else submitForm();}
+function prevStep(){if(currentStep>1){currentStep--;renderStep();}}
+function renderStep(){document.querySelectorAll('.step-panel').forEach(function(p){p.classList.remove('active');});var panel=document.getElementById('step'+currentStep);if(panel)panel.classList.add('active');document.querySelectorAll('.progress-step').forEach(function(s,i){s.classList.remove('active','completed');if(i+1===currentStep)s.classList.add('active');else if(i+1<currentStep)s.classList.add('completed');});document.querySelectorAll('.progress-connector').forEach(function(c,i){c.classList.toggle('filled',i+1<currentStep);});var footer=document.getElementById('cardFooter');var btnBack=document.getElementById('btnBack');var btnNext=document.getElementById('btnNext');footer.style.display='';btnBack.style.visibility=currentStep>1?'visible':'hidden';if(currentStep===totalSteps){btnNext.className='btn btn-submit';btnNext.innerHTML='Submit Quote Request <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';}else{btnNext.className='btn btn-next';btnNext.innerHTML='Continue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';}document.querySelector('.widget-wrapper').scrollIntoView({behavior:'smooth',block:'start'});if(mapsLoaded){if(currentStep===2&&map)setTimeout(function(){google.maps.event.trigger(map,'resize');},100);if(currentStep===4&&reviewMapInstance)setTimeout(function(){google.maps.event.trigger(reviewMapInstance,'resize');if(directionsRenderer.getDirections())reviewDirectionsRenderer.setDirections(directionsRenderer.getDirections());},150);}}
+function validateStep(step){var valid=true;var panel=document.getElementById('step'+step);panel.querySelectorAll('.form-group.error').forEach(function(g){g.classList.remove('error');});if(step===1){['firstName','lastName','email','phone'].forEach(function(id){var input=document.getElementById(id);var group=input.closest('.form-group');if(!input.value.trim()){group.classList.add('error');valid=false;}if(id==='email'&&input.value&&!input.value.includes('@')){group.classList.add('error');valid=false;}});}if(step===2){if(!document.getElementById('locPickup').value.trim())valid=false;if(!document.getElementById('locDestination').value.trim())valid=false;['pickupDate','pickupTime'].forEach(function(id){var input=document.getElementById(id);var group=input.closest('.form-group');if(!input.value){group.classList.add('error');valid=false;}});}if(step===3){var passengers=document.getElementById('passengers');if(!passengers.value||parseInt(passengers.value)<1){passengers.closest('.form-group').classList.add('error');valid=false;}}return valid;}
+function v(id){var el=document.getElementById(id);return el?el.value:'';}
+function formatDate(ds){if(!ds)return '';var d=new Date(ds+'T00:00:00');return d.toLocaleDateString('en-US',{weekday:'short',month:'long',day:'numeric',year:'numeric'});}
+function formatTime(ts){if(!ts)return '';var p=ts.split(':');var h=parseInt(p[0]);var m=p[1];var ap=h>=12?'PM':'AM';return(h%12||12)+':'+m+' '+ap;}
+function populateTimeSelects(){var selects=document.querySelectorAll('#pickupTime, #returnTime');selects.forEach(function(sel){for(var h=0;h<24;h++){for(var m=0;m<60;m+=15){var hh=h.toString().padStart(2,'0');var mm=m.toString().padStart(2,'0');var val=hh+':'+mm;var disp=(h%12||12)+':'+mm+' '+(h>=12?'PM':'AM');var opt=document.createElement('option');opt.value=val;opt.textContent=disp;sel.appendChild(opt);}}});}
+function buildReview(){var ch='<div class="review-row"><span class="label">Name</span><span class="value">'+v('firstName')+' '+v('lastName')+'</span></div><div class="review-row"><span class="label">Email</span><span class="value">'+v('email')+'</span></div><div class="review-row"><span class="label">Phone</span><span class="value">'+v('phone')+'</span></div>';if(v('company'))ch+='<div class="review-row"><span class="label">Company</span><span class="value">'+v('company')+'</span></div>';document.getElementById('reviewContact').innerHTML=ch;
+var ttl={roundtrip:'Round Trip',oneway:'One Way',multiday:'Multi-Day'};var locs=[];document.querySelectorAll('.location-input').forEach(function(inp){if(inp.value.trim())locs.push(inp.value.trim());});var ll=['Pickup'];for(var i=1;i<locs.length-1;i++)ll.push('Stop');ll.push('Destination');var lh=locs.map(function(loc,i){return '<div class="review-row"><span class="label">'+ll[i]+'</span><span class="value">'+loc+'</span></div>';}).join('');
+var th='<div class="review-row"><span class="label">Trip Type</span><span class="value">'+ttl[tripType]+'</span></div>'+lh+'<div class="review-row"><span class="label">Pickup Date</span><span class="value">'+formatDate(v('pickupDate'))+'</span></div><div class="review-row"><span class="label">Pickup Time</span><span class="value">'+formatTime(v('pickupTime'))+'</span></div>';if(tripType!=='oneway'&&v('returnDate'))th+='<div class="review-row"><span class="label">Return Date</span><span class="value">'+formatDate(v('returnDate'))+'</span></div>';if(tripType!=='oneway'&&v('returnTime'))th+='<div class="review-row"><span class="label">Drop-off Time</span><span class="value">'+formatTime(v('returnTime'))+'</span></div>';if(customerRouteDistance!=='—')th+='<div class="review-row"><span class="label">Distance</span><span class="value">'+customerRouteDistance+'</span></div>';if(customerRouteDuration!=='—')th+='<div class="review-row"><span class="label">Est. Drive Time</span><span class="value">'+customerRouteDuration+'</span></div>';if(tripType==='multiday'&&v('itineraryDescription'))th+='<div class="review-row"><span class="label">Itinerary</span><span class="value">'+v('itineraryDescription')+'</span></div>';document.getElementById('reviewTrip').innerHTML=th;
+var vl={'motorcoach-54':'54-Passenger Motorcoach','wedding-shuttle':'Wedding Guest Shuttle'};var opts=[];document.querySelectorAll('input[name="options"]:checked').forEach(function(cb){var ol={ada:'ADA Accessible','bottled-water':'Bottled Water ($75)'};opts.push(ol[cb.value]||cb.value);});
+var gh='<div class="review-row"><span class="label">Passengers</span><span class="value">'+v('passengers')+'</span></div>';if(v('tripPurpose'))gh+='<div class="review-row"><span class="label">Purpose</span><span class="value" style="text-transform:capitalize;">'+v('tripPurpose').replace(/-/g,' ')+'</span></div>';if(selectedVehicle)gh+='<div class="review-row"><span class="label">Vehicle</span><span class="value">'+(vl[selectedVehicle]||selectedVehicle)+'</span></div>';if(v('numVehicles'))gh+='<div class="review-row"><span class="label"># Vehicles</span><span class="value">'+v('numVehicles')+'</span></div>';if(selectedGratuity)gh+='<div class="review-row"><span class="label">Include Gratuity</span><span class="value">'+(selectedGratuity==='yes'?'Yes':'No')+'</span></div>';if(opts.length)gh+='<div class="review-row"><span class="label">Add-Ons / Reqs</span><span class="value">'+opts.join(', ')+'</span></div>';if(v('notes'))gh+='<div class="review-row"><span class="label">Notes</span><span class="value">'+v('notes')+'</span></div>';document.getElementById('reviewGroup').innerHTML=gh;}
+function submitForm(){var locations=[];document.querySelectorAll('.location-input').forEach(function(inp){if(inp.value.trim())locations.push(inp.value.trim());});var specialReqs=[];var addons=[];document.querySelectorAll('input[name="options"]:checked').forEach(function(cb){if(cb.dataset.type==='addon')addons.push(cb.value);else specialReqs.push(cb.value);});
+var formData={firstName:v('firstName'),lastName:v('lastName'),email:v('email'),phone:v('phone'),company:v('company'),tripType:tripType,locations:locations,pickupDate:v('pickupDate'),pickupTime:v('pickupTime'),returnDate:v('returnDate'),returnTime:v('returnTime'),passengers:v('passengers'),tripPurpose:v('tripPurpose'),vehicle:selectedVehicle,numVehicles:v('numVehicles'),includeGratuity:selectedGratuity,specialRequirements:specialReqs,addons:addons,notes:v('notes'),itineraryDescription:v('itineraryDescription'),routeDistance:customerRouteDistance,routeDuration:customerRouteDuration,deadheadDistance:deadheadTotalDistance,deadheadDuration:deadheadTotalDuration,routeLegs:routeLegs,submittedAt:new Date().toISOString()};
+console.log('Quote Request Submitted:',formData);
+fetch('https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});
+document.querySelectorAll('.step-panel').forEach(function(p){p.classList.remove('active');});document.getElementById('successPanel').classList.add('active');document.getElementById('cardFooter').style.display='none';document.querySelectorAll('.progress-step').forEach(function(s){s.classList.remove('active');s.classList.add('completed');});document.querySelectorAll('.progress-connector').forEach(function(c){c.classList.add('filled');});}
+document.addEventListener('DOMContentLoaded',function(){populateTimeSelects();loadGoogleMaps();var today=new Date().toISOString().split('T')[0];document.getElementById('pickupDate').setAttribute('min',today);document.getElementById('returnDate').setAttribute('min',today);document.getElementById('phone').addEventListener('input',function(){var val=this.value.replace(/\D/g,'');if(val.length>=6)val='('+val.slice(0,3)+') '+val.slice(3,6)+'-'+val.slice(6,10);else if(val.length>=3)val='('+val.slice(0,3)+') '+val.slice(3);this.value=val;});document.addEventListener('change',function(e){if(e.target.classList.contains('location-input'))setTimeout(updateRoute,300);});document.getElementById('passengers').addEventListener('input',checkVehicleCapacity);});
+</script>
+</body>
+</html>
