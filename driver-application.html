@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDL Driver Employment Application — Werner Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root { --navy: #0B1D3A; --gold: #C6973F; --gold-pale: rgba(198,151,63,.12); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #f5f6f8; color: #1f2937; min-height: 100vh; }
+
+.app-header { background: var(--navy); padding: 24px 32px; text-align: center; }
+.app-header h1 { color: var(--gold); font-size: 24px; margin: 0; }
+.app-header p { color: rgba(255,255,255,.65); font-size: 14px; margin-top: 4px; }
+
+.app-container { max-width: 780px; margin: 0 auto; padding: 0 16px 48px; }
+
+/* Progress bar */
+.progress-wrap { background: white; border-bottom: 1px solid #e5e7eb; padding: 16px 0; position: sticky; top: 0; z-index: 50; }
+.progress-inner { max-width: 780px; margin: 0 auto; padding: 0 16px; }
+.progress-bar { display: flex; gap: 4px; margin-bottom: 8px; }
+.progress-bar .seg { flex: 1; height: 4px; border-radius: 2px; background: #e5e7eb; transition: background .2s; }
+.progress-bar .seg.done { background: var(--gold); }
+.progress-bar .seg.active { background: var(--navy); }
+.progress-label { font-size: 13px; color: #6b7280; }
+.progress-label strong { color: var(--navy); }
+
+/* Sections */
+.step { display: none; }
+.step.active { display: block; }
+.section { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-top: 20px; }
+.section h2 { font-size: 16px; color: var(--navy); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); }
+.section p.note { font-size: 13px; color: #6b7280; margin-bottom: 16px; line-height: 1.5; }
+
+/* Fields */
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; }
+.field-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px 20px; }
+@media(max-width:600px) { .field-grid, .field-grid-3 { grid-template-columns: 1fr; } }
+.field { margin-bottom: 0; }
+.field.full { grid-column: 1 / -1; }
+label { display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .5px; }
+input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-family: inherit; font-size: 14px; transition: border-color .15s; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-pale); }
+input[type="checkbox"], input[type="radio"] { width: auto; margin-right: 8px; }
+.req::after { content: ' *'; color: #ef4444; }
+
+/* Radio / Check groups */
+.radio-group, .check-group { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 4px; }
+.radio-group label, .check-group label { display: flex; align-items: center; font-size: 14px; text-transform: none; font-weight: 400; color: #1f2937; cursor: pointer; }
+
+/* Yes/No inline */
+.yn { display: flex; gap: 16px; margin-top: 4px; }
+.yn label { display: flex; align-items: center; font-size: 14px; text-transform: none; font-weight: 400; color: #1f2937; cursor: pointer; }
+
+/* Conditional blocks */
+.cond { display: none; margin-top: 12px; }
+.cond.open { display: block; }
+
+/* Repeating blocks */
+.rep-block { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.rep-block h3 { font-size: 14px; margin-bottom: 12px; color: var(--navy); display: flex; justify-content: space-between; align-items: center; }
+.add-btn { background: none; border: 1px dashed #d1d5db; padding: 8px 16px; border-radius: 8px; color: #6b7280; cursor: pointer; font-size: 13px; width: 100%; margin-top: 8px; }
+.add-btn:hover { border-color: var(--gold); color: var(--navy); }
+.remove-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 12px; }
+
+/* Availability matrix */
+.avail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.avail-table th, .avail-table td { padding: 8px; text-align: center; border: 1px solid #e5e7eb; }
+.avail-table th { background: #f9fafb; font-size: 11px; color: #6b7280; text-transform: uppercase; }
+.avail-table td:first-child { text-align: left; font-weight: 500; }
+.avail-table label { text-transform: none; font-size: 12px; margin: 0; display: inline; }
+
+/* Experience table */
+.exp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.exp-table th, .exp-table td { padding: 6px 8px; border: 1px solid #e5e7eb; }
+.exp-table th { background: #f9fafb; font-size: 11px; text-transform: uppercase; color: #6b7280; }
+.exp-table input { padding: 6px 8px; font-size: 13px; border-radius: 4px; }
+
+/* Consent */
+.consent-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px; }
+.consent-box label { font-size: 14px; text-transform: none; font-weight: 400; color: #1f2937; margin-bottom: 10px; display: flex; align-items: flex-start; line-height: 1.5; }
+.legal-text { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; font-size: 13px; color: #374151; line-height: 1.6; margin-bottom: 16px; max-height: 200px; overflow-y: auto; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; gap: 12px; margin-top: 24px; justify-content: space-between; }
+.btn-prev, .btn-next, .btn-submit { padding: 12px 32px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; transition: opacity .15s; }
+.btn-prev { background: #e5e7eb; color: #374151; }
+.btn-next { background: var(--navy); color: var(--gold); margin-left: auto; }
+.btn-submit { background: var(--gold); color: var(--navy); margin-left: auto; }
+.btn-prev:hover, .btn-next:hover, .btn-submit:hover { opacity: .85; }
+.btn-next:disabled, .btn-submit:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Thank you */
+.thank-you { display: none; text-align: center; padding: 48px 24px; max-width: 560px; margin: 40px auto; }
+.thank-you .ty-logo { height: 48px; width: auto; margin-bottom: 24px; }
+.thank-you .ty-check { width: 72px; height: 72px; border-radius: 50%; background: #ecfdf5; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.thank-you .ty-check svg { width: 36px; height: 36px; color: #16a34a; }
+.thank-you h2 { color: var(--navy); font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+.thank-you .ty-sub { color: #4a5568; font-size: 15px; line-height: 1.6; margin-bottom: 28px; }
+.thank-you .ty-next { background: #f8f9fb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px 24px; text-align: left; margin-bottom: 24px; }
+.thank-you .ty-next h3 { color: var(--navy); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+.thank-you .ty-next li { color: #4a5568; font-size: 14px; line-height: 1.8; list-style: none; padding-left: 20px; position: relative; }
+.thank-you .ty-next li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+.thank-you .ty-contact { border-top: 2px solid var(--gold); padding-top: 20px; }
+.thank-you .ty-contact .ty-company { color: var(--navy); font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.thank-you .ty-contact p { color: #6b7280; font-size: 14px; line-height: 1.6; }
+
+/* Validation */
+.field-error { border-color: #ef4444 !important; }
+.error-msg { color: #ef4444; font-size: 12px; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <img src="https://ops.wernercoach.com/assets/images/werner_logo_transparent.png" alt="Werner Coach" style="height:40px;width:auto;margin-bottom:8px;filter:brightness(0) invert(1);">
+  <h1>Werner Coach</h1>
+  <p>CDL Driver Employment Application — Est. 1929 · Phoenixville, PA</p>
+</div>
+
+<div class="progress-wrap">
+<div class="progress-inner">
+  <div class="progress-bar" id="progress-bar"></div>
+  <div class="progress-label" id="progress-label"></div>
+</div>
+</div>
+
+<div class="app-container" id="form-container">
+<form id="application-form" onsubmit="doSubmit(event)">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 1: PERSONAL INFORMATION                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="1" data-label="Personal Info">
+<div class="section">
+  <h2>Personal Information</h2>
+  <div class="field-grid">
+    <div class="field"><label class="req">First Name</label><input id="first_name" required></div>
+    <div class="field"><label class="req">Last Name</label><input id="last_name" required></div>
+    <div class="field"><label class="req">Phone Number</label><input type="tel" id="phone" required></div>
+    <div class="field"><label class="req">Email</label><input type="email" id="email" required></div>
+    <div class="field"><label class="req">Date of Birth</label><input type="date" id="dob" required></div>
+    <div class="field full"><p class="note" style="margin:0;padding:8px 12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;color:#0369a1;">Your Social Security Number will be collected securely during onboarding.</p></div>
+    <div class="field"><label>Date of Application</label><input type="date" id="app_date"></div>
+    <div class="field"><label>Position Applied For</label><input id="position_applied" value="CDL Driver"></div>
+    <div class="field"><label class="req">Date Available for Work</label><input type="date" id="date_available" required></div>
+    <div class="field"><label>Rate of Pay Expected</label><input id="rate_of_pay"></div>
+    <div class="field"><label>Who Referred You?</label><input id="referral_source"></div>
+  </div>
+  <div style="margin-top:16px;">
+    <label class="req" style="margin-bottom:8px;">Do you have the legal right to work in the United States?</label>
+    <div class="yn"><label><input type="radio" name="legal_work" value="yes" required> Yes</label><label><input type="radio" name="legal_work" value="no"> No</label></div>
+  </div>
+  <div style="margin-top:16px;">
+    <label class="req">Are you currently employed?</label>
+    <div class="yn"><label><input type="radio" name="currently_employed" value="yes" required onchange="toggleCond('cond-employed')"> Yes</label><label><input type="radio" name="currently_employed" value="no" onchange="toggleCond('cond-not-employed')"> No</label></div>
+    <div class="cond" id="cond-not-employed"><div class="field" style="margin-top:8px;"><label>How long since your last employment?</label><input id="time_since_employment"></div></div>
+  </div>
+  <div style="margin-top:16px;">
+    <label>Have you worked for Werner Coach before?</label>
+    <div class="yn"><label><input type="radio" name="worked_werner" value="yes" onchange="toggleCond('cond-werner-yes')"> Yes</label><label><input type="radio" name="worked_werner" value="no" onchange="toggleCond('cond-werner-no')"> No</label></div>
+    <div class="cond" id="cond-werner-yes">
+      <div class="field-grid" style="margin-top:8px;">
+        <div class="field"><label>From (Mo/Yr)</label><input id="werner_from"></div>
+        <div class="field"><label>To (Mo/Yr)</label><input id="werner_to"></div>
+        <div class="field"><label>Position Held</label><input id="werner_position"></div>
+        <div class="field"><label>Rate of Pay</label><input id="werner_pay"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 2: POSITION REQUIREMENTS                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="2" data-label="Requirements">
+<div class="section">
+  <h2>Position Requirements</h2>
+  <p class="note">Please answer the following questions about your qualifications for this driving position.</p>
+  <div style="display:grid;gap:16px;">
+    <div><label class="req">Do you have a valid Passenger (P) endorsement on your CDL?</label><div class="yn"><label><input type="radio" name="has_p_endorsement" value="yes" required> Yes</label><label><input type="radio" name="has_p_endorsement" value="no"> No</label></div></div>
+    <div><label class="req">Are you licensed to operate vehicles with air brakes?</label><div class="yn"><label><input type="radio" name="has_air_brakes" value="yes" required> Yes</label><label><input type="radio" name="has_air_brakes" value="no"> No</label></div></div>
+    <div><label class="req">Can you drive a manual transmission?</label><div class="yn"><label><input type="radio" name="can_manual" value="yes" required> Yes</label><label><input type="radio" name="can_manual" value="no"> No</label></div></div>
+    <div><label class="req">Can you lift up to 50 lbs of passenger baggage?</label><div class="yn"><label><input type="radio" name="can_lift" value="yes" required> Yes</label><label><input type="radio" name="can_lift" value="no"> No</label></div></div>
+    <div>
+      <label>Are you unable to perform any functions required by this position?</label>
+      <div class="yn"><label><input type="radio" name="unable_perform" value="yes" onchange="toggleCond('cond-unable')"> Yes</label><label><input type="radio" name="unable_perform" value="no" onchange="toggleCond('cond-unable-no')"> No</label></div>
+      <div class="cond" id="cond-unable"><div class="field" style="margin-top:8px;"><label>Please explain</label><textarea id="unable_explanation" rows="2"></textarea></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 3: AVAILABILITY                                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="3" data-label="Availability">
+<div class="section">
+  <h2>Availability</h2>
+  <p class="note">Indicate your availability for each day of the week.</p>
+  <table class="avail-table">
+    <thead><tr><th>Day</th><th>Available All Day</th><th>Specific Hours</th><th>Unavailable</th></tr></thead>
+    <tbody id="avail-body"></tbody>
+  </table>
+  <div class="field full" style="margin-top:16px;"><label>If you selected "Specific Hours" or "Unavailable," please explain</label><textarea id="avail_restrictions" rows="2"></textarea></div>
+  <div style="margin-top:16px;">
+    <label class="req">Are you available for overnight or multi-day trips?</label>
+    <div class="yn"><label><input type="radio" name="overnight" value="yes" required> Yes</label><label><input type="radio" name="overnight" value="no"> No</label></div>
+  </div>
+  <div style="margin-top:16px;">
+    <label class="req">Do you have any recurring personal obligations that may affect your schedule?</label>
+    <div class="yn"><label><input type="radio" name="obligations" value="yes" required onchange="toggleCond('cond-obligations')"> Yes</label><label><input type="radio" name="obligations" value="no" onchange="toggleCond('cond-obligations-no')"> No</label></div>
+    <div class="cond" id="cond-obligations"><div class="field" style="margin-top:8px;"><label>Please describe</label><textarea id="obligations_desc" rows="2"></textarea></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 4: RESIDENTIAL HISTORY                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="4" data-label="Address">
+<div class="section">
+  <h2>Residential History (Past 3 Years)</h2>
+  <p class="note">Per FMCSA 49 CFR §391.21, list all addresses for the past 3 years.</p>
+  <h3 style="font-size:14px;color:var(--navy);margin-bottom:12px;">Current Address</h3>
+  <div class="field-grid">
+    <div class="field full"><label class="req">Street Address</label><input id="addr_street" required></div>
+    <div class="field"><label class="req">City</label><input id="addr_city" required></div>
+    <div class="field"><label class="req">State</label><input id="addr_state" value="PA" maxlength="2" required></div>
+    <div class="field"><label class="req">ZIP</label><input id="addr_zip" required></div>
+    <div class="field"><label class="req">Years at This Address</label><input type="number" id="addr_years" min="0" max="99" required></div>
+  </div>
+  <div style="margin-top:16px;">
+    <label>Have you lived at other addresses in the past 3 years?</label>
+    <div class="yn"><label><input type="radio" name="has_prev_addr" value="yes" onchange="toggleCond('cond-prev-addr')"> Yes</label><label><input type="radio" name="has_prev_addr" value="no" onchange="toggleCond('cond-prev-addr-no')"> No</label></div>
+    <div class="cond" id="cond-prev-addr" style="margin-top:12px;">
+      <div id="prev-addresses">
+        <div class="rep-block"><h3>Previous Address</h3>
+          <div class="field-grid"><div class="field full"><label>Street</label><input class="paddr-street"></div><div class="field"><label>City</label><input class="paddr-city"></div><div class="field"><label>State</label><input class="paddr-state" maxlength="2"></div><div class="field"><label>ZIP</label><input class="paddr-zip"></div></div>
+        </div>
+      </div>
+      <button type="button" class="add-btn" onclick="addPrevAddr()">+ Add Another Address</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 5: CDL INFORMATION                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="5" data-label="CDL Info">
+<div class="section">
+  <h2>Commercial Driver's License</h2>
+  <div class="field-grid">
+    <div class="field"><label class="req">Issuing State</label><select id="cdl_state" required><option value="">Select...</option></select></div>
+    <div class="field"><label class="req">License Number</label><input id="cdl_number" required></div>
+    <div class="field"><label class="req">License Class</label><select id="cdl_class" required><option value="">Select...</option><option value="A">Class A</option><option value="B" selected>Class B</option><option value="C">Class C</option></select></div>
+    <div class="field"><label class="req">Expiration Date</label><input type="date" id="cdl_exp" required></div>
+    <div class="field full">
+      <label>Endorsements Held</label>
+      <div class="check-group" id="endorsements-group">
+        <label><input type="checkbox" value="P" checked> P (Passenger)</label>
+        <label><input type="checkbox" value="S"> S (School Bus)</label>
+        <label><input type="checkbox" value="N"> N (Tank)</label>
+        <label><input type="checkbox" value="H"> H (Hazmat)</label>
+        <label><input type="checkbox" value="T"> T (Doubles/Triples)</label>
+        <label><input type="checkbox" value="X"> X (Hazmat + Tank)</label>
+      </div>
+    </div>
+    <div class="field full"><label>Restrictions</label><input id="cdl_restrictions" placeholder="e.g., L (No Air Brakes)"></div>
+  </div>
+  <div style="margin-top:16px;">
+    <label>Have you held a license in any other state in the past 3 years?</label>
+    <div class="yn"><label><input type="radio" name="other_license" value="yes" onchange="toggleCond('cond-other-lic')"> Yes</label><label><input type="radio" name="other_license" value="no" onchange="toggleCond('cond-other-lic-no')"> No</label></div>
+    <div class="cond" id="cond-other-lic">
+      <div class="field-grid" style="margin-top:12px;">
+        <div class="field"><label>State</label><input id="other_lic_state" maxlength="2"></div>
+        <div class="field"><label>License Number</label><input id="other_lic_number"></div>
+        <div class="field"><label>Class</label><select id="other_lic_class"><option value="">Select...</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 6: DRIVING EXPERIENCE                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="6" data-label="Experience">
+<div class="section">
+  <h2>Driving Experience</h2>
+  <p class="note">List your experience for each type of equipment. Write "None" if no experience with that type.</p>
+  <div style="overflow-x:auto;">
+  <table class="exp-table">
+    <thead><tr><th>Equipment Type</th><th>From (Mo/Yr)</th><th>To (Mo/Yr)</th><th>Approx. Total Miles</th></tr></thead>
+    <tbody id="exp-body"></tbody>
+  </table>
+  </div>
+  <div class="field full" style="margin-top:16px;">
+    <label>States operated in during the past 5 years</label>
+    <textarea id="states_operated" rows="2" placeholder="e.g., PA, NJ, NY, DE, MD, VA"></textarea>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 7: ACCIDENT RECORD                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="7" data-label="Accidents">
+<div class="section">
+  <h2>Accident Record (Past 3 Years)</h2>
+  <p class="note">Per 49 CFR §391.21, list all accidents in the past 3 years regardless of fault.</p>
+  <div class="yn" style="margin-bottom:12px;">
+    <label><input type="radio" name="has_accidents" value="no" required onchange="toggleCond('cond-acc-no')"> I have been accident-free for the past 3 years</label>
+    <label><input type="radio" name="has_accidents" value="yes" onchange="toggleCond('cond-acc-yes')"> I have had accident(s)</label>
+  </div>
+  <div class="cond" id="cond-acc-yes">
+    <div id="accidents-container"></div>
+    <button type="button" class="add-btn" onclick="addAccident()">+ Add Accident</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 8: VIOLATIONS & LICENSE HISTORY                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="8" data-label="Violations">
+<div class="section">
+  <h2>Traffic Violations (Past 3 Years)</h2>
+  <div class="yn" style="margin-bottom:12px;">
+    <label><input type="radio" name="has_violations" value="no" required onchange="toggleCond('cond-vio-no')"> No violations in the past 3 years</label>
+    <label><input type="radio" name="has_violations" value="yes" onchange="toggleCond('cond-vio-yes')"> I have had violation(s)</label>
+  </div>
+  <div class="cond" id="cond-vio-yes">
+    <div id="violations-container"></div>
+    <button type="button" class="add-btn" onclick="addViolation()">+ Add Violation</button>
+  </div>
+</div>
+<div class="section">
+  <h2>License Denial, Suspension, or Revocation</h2>
+  <div style="display:grid;gap:16px;">
+    <div>
+      <label class="req">Have you ever been denied a license, permit, or privilege to operate a motor vehicle?</label>
+      <div class="yn"><label><input type="radio" name="license_denied" value="yes" required onchange="toggleCond('cond-denied')"> Yes</label><label><input type="radio" name="license_denied" value="no" onchange="toggleCond('cond-denied-no')"> No</label></div>
+      <div class="cond" id="cond-denied"><div class="field" style="margin-top:8px;"><label>Explain (include dates and circumstances)</label><textarea id="denial_explanation" rows="2"></textarea></div></div>
+    </div>
+    <div>
+      <label class="req">Has any license ever been suspended or revoked?</label>
+      <div class="yn"><label><input type="radio" name="license_suspended" value="yes" required onchange="toggleCond('cond-suspended')"> Yes</label><label><input type="radio" name="license_suspended" value="no" onchange="toggleCond('cond-suspended-no')"> No</label></div>
+      <div class="cond" id="cond-suspended"><div class="field" style="margin-top:8px;"><label>Explain (include dates and circumstances)</label><textarea id="suspension_explanation" rows="2"></textarea></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 9: EMPLOYMENT HISTORY                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="9" data-label="Employment">
+<div class="section">
+  <h2>Employment History (Past 10 Years)</h2>
+  <p class="note">Per 49 CFR §391.21, list all employers for the past 10 years. Start with most recent. Include all periods of unemployment exceeding one month.</p>
+  <div id="employers-container"></div>
+  <button type="button" class="add-btn" onclick="addEmployer()">+ Add Another Employer</button>
+  <div class="field full" style="margin-top:16px;">
+    <label>Explain any gaps in employment exceeding one month</label>
+    <textarea id="employment_gaps" rows="2"></textarea>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 10: EDUCATION                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="10" data-label="Education">
+<div class="section">
+  <h2>Education</h2>
+  <div class="field-grid">
+    <div class="field">
+      <label>Highest Level of Education</label>
+      <select id="education_level"><option value="">Select...</option><option>Some High School</option><option>High School Diploma</option><option>GED</option><option>Some College</option><option>Associate's Degree</option><option>Bachelor's Degree</option><option>Trade/Vocational School</option></select>
+    </div>
+  </div>
+  <div class="field full" style="margin-top:12px;">
+    <label>Additional Education, Training, or Certifications</label>
+    <textarea id="education_details" rows="3" placeholder="CDL training school, Defensive Driving, CPR/First Aid, etc."></textarea>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- STEP 11: CLEARANCES, AUTHORIZATION & SIGNATURES       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="step" data-step="11" data-label="Authorization">
+<div class="section">
+  <h2>Background Clearances</h2>
+  <p class="note">Werner Coach requires the following clearances as a condition of employment. Please acknowledge each item.</p>
+  <div class="consent-box">
+    <label><input type="checkbox" id="cl_fbi" required> I understand that I must obtain an FBI fingerprint-based background check.</label>
+    <label><input type="checkbox" id="cl_child" required> I understand that I must obtain a PA Child Abuse History Clearance.</label>
+    <label><input type="checkbox" id="cl_drug" required> I understand and consent to a pre-employment drug test as required by FMCSA regulations.</label>
+    <label><input type="checkbox" id="cl_fmcsa" required> I understand that Werner Coach will query the FMCSA Drug & Alcohol Clearinghouse as part of the pre-employment process.</label>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Applicant Certification & Authorization</h2>
+  <div class="legal-text">
+    I certify that the information provided in this application is true and complete to the best of my knowledge. I understand that misrepresentation or omission of facts is cause for dismissal. I authorize Werner Coach to make inquiries regarding my driving record, employment history, criminal background, and any other investigation deemed necessary. I understand that employment is contingent upon satisfactory completion of all required background checks, drug testing, and medical certification. I authorize my previous employers to release information regarding my employment to Werner Coach. I understand and agree that my employment is "at will" and can be terminated by either party at any time for any reason.
+  </div>
+  <div class="field-grid">
+    <div class="field"><label class="req">Print Your Full Name</label><input id="auth_name" required></div>
+    <div class="field"><label class="req">Date</label><input type="date" id="auth_date" required></div>
+    <div class="field full"><label class="req">Electronic Signature (Type Full Legal Name)</label><input id="auth_sig" required placeholder="Type your full legal name exactly"></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Disclosure & Consent for Background Investigation</h2>
+  <div class="legal-text">
+    In connection with my application for employment with Werner Coach, I understand that a consumer report and/or investigative consumer report may be requested. This may include information regarding my character, general reputation, personal characteristics, mode of living, criminal history, motor vehicle record, and employment history. I hereby authorize Werner Coach and its designated agents to obtain such reports and to make any investigation of my background as may be necessary.
+  </div>
+  <div class="field-grid">
+    <div class="field"><label class="req">Print Your Full Name</label><input id="disc_name" required></div>
+    <div class="field"><label class="req">Date</label><input type="date" id="disc_date" required></div>
+    <div class="field full"><label class="req">Electronic Signature</label><input id="disc_sig" required placeholder="Type your full legal name"></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>FMCSA Pre-Employment Screening (PSP) Authorization</h2>
+  <div class="legal-text">
+    I hereby authorize Werner Coach to access the FMCSA Pre-Employment Screening Program (PSP) system to seek information regarding my commercial driving safety record and information regarding my safety inspection history. I understand that the information may be used as a factor in the hiring decision and I may request a copy of the information from PSP. I further understand that this authorization will be valid for the duration of my employment or application period.
+  </div>
+  <div class="consent-box" style="margin-bottom:16px;">
+    <label><input type="checkbox" id="psp_ack" required> I have read and understand the PSP disclosure above and authorize this screening.</label>
+  </div>
+  <div class="field-grid">
+    <div class="field"><label class="req">Print Your Full Name</label><input id="psp_name" required></div>
+    <div class="field"><label class="req">Date</label><input type="date" id="psp_date" required></div>
+    <div class="field full"><label class="req">Electronic Signature</label><input id="psp_sig" required placeholder="Type your full legal name"></div>
+  </div>
+</div>
+
+<!-- Submit -->
+<div style="text-align:center;margin-top:24px;">
+  <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">By submitting this application, you certify that all information provided is true and accurate to the best of your knowledge.</p>
+  <div id="submit-status" style="margin-bottom:12px;font-size:14px;color:#6b7280;"></div>
+</div>
+</div>
+
+<!-- Nav Buttons (rendered outside steps, always visible) -->
+<div class="nav-buttons" id="nav-buttons">
+  <button type="button" class="btn-prev" id="btn-prev" onclick="prevStep()">Back</button>
+  <button type="button" class="btn-next" id="btn-next" onclick="nextStep()">Next</button>
+  <button type="submit" class="btn-submit" id="btn-submit" style="display:none;">Submit Application</button>
+</div>
+
+</form>
+</div>
+
+<!-- Thank You -->
+<div class="app-container thank-you" id="thank-you">
+  <img src="https://ops.wernercoach.com/assets/images/werner_logo_transparent.png" alt="Werner Coach" class="ty-logo">
+  <div class="ty-check">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+  </div>
+  <h2>Application Submitted</h2>
+  <p class="ty-sub">Thank you for applying to Werner Coach. Your application has been received and our team will review it shortly.</p>
+  <div class="ty-next">
+    <h3>What Happens Next</h3>
+    <ul>
+      <li>Our hiring team will review your application</li>
+      <li>We may contact you to schedule an interview</li>
+      <li>If selected, you'll receive onboarding paperwork via email</li>
+    </ul>
+  </div>
+  <div class="ty-contact">
+    <p class="ty-company">Werner Coach</p>
+    <p>144 Chester Ave, Phoenixville, PA 19460</p>
+    <p>(610) 933-7100 &middot; info@wernercoach.com</p>
+    <p style="margin-top:8px; color:#a0aab8; font-size:12px;">Est. 1929 &middot; Family Owned &middot; Proudly Serving the Greater Philadelphia Area</p>
+  </div>
+</div>
+
+<script>
+const SB_URL = 'https://dtazswxluhmdwwibgawn.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0YXpzd3hsdWhtZHd3aWJnYXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTI3MTAsImV4cCI6MjA4Njk4ODcxMH0.gzR_uBz4ooctK3IxemLkknLhn6kusMP99TcnL57Jlgs';
+
+const STEPS = document.querySelectorAll('.step');
+const TOTAL = STEPS.length;
+let currentStep = 1;
+let testModeActive = false;
+
+// ── Test mode: ?testMode=1 + DB verification ──
+(async function checkTestMode() {
+  if (new URLSearchParams(window.location.search).get('testMode') !== '1') return;
+  try {
+    const sb = supabase.createClient(SB_URL, ANON_KEY);
+    const { data } = await sb.from('company_settings').select('value').eq('key', 'test_mode').single();
+    if (data && data.value === 'true') {
+      testModeActive = true;
+      document.querySelectorAll('[required]').forEach(el => el.removeAttribute('required'));
+      const b = document.createElement('div');
+      b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#ef4444;color:#fff;text-align:center;font-weight:700;font-size:13px;padding:6px 12px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+      b.textContent = 'TEST MODE \u2014 Validation disabled';
+      document.body.appendChild(b);
+      document.body.style.paddingTop = '32px';
+    }
+  } catch(e) { /* silently fail — test mode stays off */ }
+})();
+
+// ── US States for CDL dropdown ─────────────────────────
+const US_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+const stateSelect = document.getElementById('cdl_state');
+US_STATES.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; if (s === 'PA') o.selected = true; stateSelect.appendChild(o); });
+
+// ── Init dates ─────────────────────────────────────────
+const today = new Date().toISOString().slice(0,10);
+document.getElementById('app_date').value = today;
+document.getElementById('auth_date').value = today;
+document.getElementById('disc_date').value = today;
+document.getElementById('psp_date').value = today;
+
+// ── Build availability matrix ──────────────────────────
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const availBody = document.getElementById('avail-body');
+DAYS.forEach(day => {
+  const key = day.toLowerCase();
+  availBody.innerHTML += `<tr>
+    <td>${day}</td>
+    <td><label><input type="radio" name="avail_${key}" value="all_day" checked></label></td>
+    <td><label><input type="radio" name="avail_${key}" value="specific"></label></td>
+    <td><label><input type="radio" name="avail_${key}" value="unavailable"></label></td>
+  </tr>`;
+});
+
+// ── Build experience matrix ────────────────────────────
+const EXP_TYPES = ['Straight Truck','Tractor-Semitrailer','Tractor - Doubles','Motorcoach / Bus','School Bus','Other'];
+const expBody = document.getElementById('exp-body');
+EXP_TYPES.forEach((t, i) => {
+  expBody.innerHTML += `<tr>
+    <td style="font-weight:500;">${t}</td>
+    <td><input class="exp-from" placeholder="Mo/Yr" data-idx="${i}"></td>
+    <td><input class="exp-to" placeholder="Mo/Yr" data-idx="${i}"></td>
+    <td><input class="exp-miles" placeholder="Miles" data-idx="${i}"></td>
+  </tr>`;
+});
+
+// ── Initial employer block ─────────────────────────────
+let employerCount = 0;
+addEmployer(); // add first employer
+
+function addEmployer() {
+  if (employerCount >= 5) return;
+  employerCount++;
+  const n = employerCount;
+  const removeBtn = n > 1 ? `<button type="button" class="remove-btn" onclick="this.closest('.rep-block').remove()">Remove</button>` : '';
+  document.getElementById('employers-container').insertAdjacentHTML('beforeend', `<div class="rep-block">
+    <h3>Employer ${n} ${removeBtn}</h3>
+    <div class="field-grid">
+      <div class="field"><label${n===1?' class="req"':''}>Company Name</label><input class="emp-name"${n===1?' required':''}></div>
+      <div class="field"><label>Phone</label><input class="emp-phone"></div>
+      <div class="field"><label>Email</label><input type="email" class="emp-email"></div>
+      <div class="field full"><label>Address</label><input class="emp-address"></div>
+      <div class="field"><label${n===1?' class="req"':''}>Position Held</label><input class="emp-position"${n===1?' required':''}></div>
+      <div class="field"><label${n===1?' class="req"':''}>From (Mo/Yr)</label><input class="emp-from"${n===1?' required':''}></div>
+      <div class="field"><label${n===1?' class="req"':''}>To (Mo/Yr)</label><input class="emp-to"${n===1?' required':''}></div>
+      <div class="field full"><label${n===1?' class="req"':''}>Reason for Leaving</label><input class="emp-reason"${n===1?' required':''}></div>
+      <div class="field"><label class="req">Subject to FMCSRs while employed?</label><div class="yn"><label><input type="radio" name="emp_fmcsr_${n}" value="yes"${n===1?' required':''}> Yes</label><label><input type="radio" name="emp_fmcsr_${n}" value="no"> No</label></div></div>
+      <div class="field"><label class="req">Performed safety-sensitive DOT function?</label><div class="yn"><label><input type="radio" name="emp_dot_${n}" value="yes"${n===1?' required':''}> Yes</label><label><input type="radio" name="emp_dot_${n}" value="no"> No</label></div></div>
+    </div>
+  </div>`);
+}
+
+// ── Accident blocks ────────────────────────────────────
+function addAccident() {
+  const c = document.getElementById('accidents-container');
+  const n = c.children.length + 1;
+  c.insertAdjacentHTML('beforeend', `<div class="rep-block">
+    <h3>Accident ${n} <button type="button" class="remove-btn" onclick="this.closest('.rep-block').remove()">Remove</button></h3>
+    <div class="field-grid">
+      <div class="field"><label>Date</label><input type="date" class="acc-date"></div>
+      <div class="field full"><label>Nature of Accident</label><input class="acc-nature"></div>
+      <div class="field"><label>Fatalities</label><input type="number" class="acc-fatal" min="0" value="0"></div>
+      <div class="field"><label>Injuries</label><input type="number" class="acc-injury" min="0" value="0"></div>
+      <div class="field"><label>Hazardous Material Spill?</label><div class="yn"><label><input type="radio" name="acc_hazmat_${Date.now()}" value="yes"> Yes</label><label><input type="radio" name="acc_hazmat_${Date.now()}" value="no" checked> No</label></div></div>
+    </div>
+  </div>`);
+}
+
+// ── Violation blocks ───────────────────────────────────
+function addViolation() {
+  const c = document.getElementById('violations-container');
+  const n = c.children.length + 1;
+  c.insertAdjacentHTML('beforeend', `<div class="rep-block">
+    <h3>Violation ${n} <button type="button" class="remove-btn" onclick="this.closest('.rep-block').remove()">Remove</button></h3>
+    <div class="field-grid">
+      <div class="field"><label>Date</label><input type="date" class="vio-date"></div>
+      <div class="field"><label>Location</label><input class="vio-location"></div>
+      <div class="field full"><label>Violation Description</label><textarea class="vio-desc" rows="2"></textarea></div>
+      <div class="field"><label>Penalty</label><input class="vio-penalty"></div>
+    </div>
+  </div>`);
+}
+
+// ── Previous addresses ─────────────────────────────────
+function addPrevAddr() {
+  const c = document.getElementById('prev-addresses');
+  if (c.children.length >= 3) return;
+  c.insertAdjacentHTML('beforeend', `<div class="rep-block"><h3>Previous Address <button type="button" class="remove-btn" onclick="this.closest('.rep-block').remove()">Remove</button></h3>
+    <div class="field-grid"><div class="field full"><label>Street</label><input class="paddr-street"></div><div class="field"><label>City</label><input class="paddr-city"></div><div class="field"><label>State</label><input class="paddr-state" maxlength="2"></div><div class="field"><label>ZIP</label><input class="paddr-zip"></div></div></div>`);
+}
+
+// ── Conditional toggle ─────────────────────────────────
+function toggleCond(showId) {
+  // Close all sibling conds first (the "no" variants)
+  const el = document.getElementById(showId);
+  if (el) {
+    const parent = el.parentElement;
+    parent.querySelectorAll('.cond').forEach(c => c.classList.remove('open'));
+    el.classList.add('open');
+  }
+}
+
+// ── Progress bar ───────────────────────────────────────
+function updateProgress() {
+  const bar = document.getElementById('progress-bar');
+  const label = document.getElementById('progress-label');
+  bar.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const cls = i < currentStep ? 'seg done' : i === currentStep ? 'seg active' : 'seg';
+    bar.innerHTML += `<div class="${cls}"></div>`;
+  }
+  const stepEl = document.querySelector(`.step[data-step="${currentStep}"]`);
+  const stepLabel = stepEl?.dataset.label || '';
+  label.innerHTML = `Step <strong>${currentStep}</strong> of ${TOTAL} — ${stepLabel}`;
+}
+
+// ── Step navigation ────────────────────────────────────
+function showStep(n) {
+  STEPS.forEach(s => s.classList.remove('active'));
+  const target = document.querySelector(`.step[data-step="${n}"]`);
+  if (target) target.classList.add('active');
+  currentStep = n;
+
+  document.getElementById('btn-prev').style.display = n === 1 ? 'none' : '';
+  document.getElementById('btn-next').style.display = n === TOTAL ? 'none' : '';
+  document.getElementById('btn-submit').style.display = n === TOTAL ? '' : 'none';
+
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (!testModeActive) {
+    // Validate current step required fields
+    const stepEl = document.querySelector(`.step[data-step="${currentStep}"]`);
+    const invalids = stepEl.querySelectorAll(':invalid');
+    if (invalids.length > 0) {
+      invalids[0].reportValidity();
+      return;
+    }
+  }
+  if (currentStep < TOTAL) showStep(currentStep + 1);
+}
+
+function prevStep() {
+  if (currentStep > 1) showStep(currentStep - 1);
+}
+
+// ── Collect all form data ──────────────────────────────
+function getRadio(name) { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ''; }
+function getChecked(groupId) { return Array.from(document.querySelectorAll('#'+groupId+' input[type=checkbox]:checked')).map(c => c.value); }
+function val(id) { return document.getElementById(id)?.value || ''; }
+
+function collectAll() {
+  // Availability matrix
+  const availability = {};
+  DAYS.forEach(d => { availability[d.toLowerCase()] = getRadio('avail_' + d.toLowerCase()); });
+
+  // Driving experience
+  const driving_experience = [];
+  EXP_TYPES.forEach((t, i) => {
+    const from = document.querySelectorAll('.exp-from')[i]?.value || '';
+    const to = document.querySelectorAll('.exp-to')[i]?.value || '';
+    const miles = document.querySelectorAll('.exp-miles')[i]?.value || '';
+    if (from || to || miles) driving_experience.push({ type: t, from, to, miles });
+  });
+
+  // Employment
+  const employment_history = Array.from(document.querySelectorAll('#employers-container .rep-block')).map((b, i) => ({
+    company_name: b.querySelector('.emp-name')?.value || '',
+    phone: b.querySelector('.emp-phone')?.value || '',
+    email: b.querySelector('.emp-email')?.value || '',
+    address: b.querySelector('.emp-address')?.value || '',
+    position: b.querySelector('.emp-position')?.value || '',
+    from: b.querySelector('.emp-from')?.value || '',
+    to: b.querySelector('.emp-to')?.value || '',
+    reason_leaving: b.querySelector('.emp-reason')?.value || '',
+    fmcsr: getRadio('emp_fmcsr_' + (i+1)),
+    dot_safety_sensitive: getRadio('emp_dot_' + (i+1)),
+  })).filter(e => e.company_name);
+
+  // Accidents
+  const accidents = Array.from(document.querySelectorAll('#accidents-container .rep-block')).map(b => ({
+    date: b.querySelector('.acc-date')?.value || '',
+    nature: b.querySelector('.acc-nature')?.value || '',
+    fatalities: b.querySelector('.acc-fatal')?.value || '0',
+    injuries: b.querySelector('.acc-injury')?.value || '0',
+    hazmat_spill: b.querySelector('input[type=radio][value=yes]')?.checked ? 'yes' : 'no',
+  })).filter(a => a.date || a.nature);
+
+  // Violations
+  const violations = Array.from(document.querySelectorAll('#violations-container .rep-block')).map(b => ({
+    date: b.querySelector('.vio-date')?.value || '',
+    location: b.querySelector('.vio-location')?.value || '',
+    description: b.querySelector('.vio-desc')?.value || '',
+    penalty: b.querySelector('.vio-penalty')?.value || '',
+  })).filter(v => v.date || v.description);
+
+  // Previous addresses
+  const previous_addresses = Array.from(document.querySelectorAll('#prev-addresses .rep-block')).map(b => ({
+    street: b.querySelector('.paddr-street')?.value || '',
+    city: b.querySelector('.paddr-city')?.value || '',
+    state: b.querySelector('.paddr-state')?.value || '',
+    zip: b.querySelector('.paddr-zip')?.value || '',
+  })).filter(a => a.street);
+
+  return {
+    // Core fields (stored in dedicated columns)
+    full_name: (val('first_name') + ' ' + val('last_name')).trim(),
+    first_name: val('first_name'),
+    last_name: val('last_name'),
+    phone: val('phone'),
+    email: val('email'),
+    date_of_birth: val('dob') || null,
+    address: val('addr_street'),
+    city: val('addr_city'),
+    state: val('addr_state'),
+    zip: val('addr_zip'),
+    cdl_number: val('cdl_number'),
+    cdl_state: val('cdl_state'),
+    cdl_class: val('cdl_class'),
+    cdl_endorsements: getChecked('endorsements-group'),
+    cdl_restrictions: val('cdl_restrictions') ? val('cdl_restrictions').split(',').map(s=>s.trim()) : [],
+    cdl_expiration: val('cdl_exp') || null,
+    employment_history,
+    accident_history: accidents,
+    violation_history: violations,
+    signature_name: val('auth_sig'),
+    signature_date: val('auth_date'),
+    consent_background: document.getElementById('cl_fbi').checked,
+    consent_mvr: true,
+    consent_drug_test: document.getElementById('cl_drug').checked,
+
+    // Extended form_data (stored as JSONB)
+    form_data: {
+      // Personal
+      first_name: val('first_name'),
+      last_name: val('last_name'),
+      phone: val('phone'),
+      email: val('email'),
+      date_of_birth: val('dob'),
+      date_of_application: val('app_date'),
+      position_applied_for: val('position_applied'),
+      date_available: val('date_available'),
+      rate_of_pay_expected: val('rate_of_pay'),
+      referral_source: val('referral_source'),
+      legal_right_to_work: getRadio('legal_work'),
+      currently_employed: getRadio('currently_employed'),
+      time_since_last_employment: val('time_since_employment'),
+      worked_for_werner: getRadio('worked_werner'),
+      werner_previous: { from: val('werner_from'), to: val('werner_to'), position: val('werner_position'), pay: val('werner_pay') },
+
+      // Position requirements
+      has_p_endorsement: getRadio('has_p_endorsement'),
+      has_air_brakes: getRadio('has_air_brakes'),
+      can_manual: getRadio('can_manual'),
+      can_lift: getRadio('can_lift'),
+      unable_to_perform: getRadio('unable_perform'),
+      unable_explanation: val('unable_explanation'),
+
+      // Availability
+      availability,
+      availability_restrictions: val('avail_restrictions'),
+      available_overnight: getRadio('overnight'),
+      recurring_obligations: getRadio('obligations'),
+      obligations_description: val('obligations_desc'),
+
+      // Residential
+      current_address: { street: val('addr_street'), city: val('addr_city'), state: val('addr_state'), zip: val('addr_zip') },
+      years_at_current_address: val('addr_years'),
+      previous_addresses,
+
+      // CDL
+      cdl_state: val('cdl_state'),
+      cdl_number: val('cdl_number'),
+      cdl_class: val('cdl_class'),
+      cdl_endorsements: getChecked('endorsements-group'),
+      cdl_restrictions: val('cdl_restrictions'),
+      cdl_expiration: val('cdl_exp'),
+      other_license: getRadio('other_license') === 'yes' ? { state: val('other_lic_state'), number: val('other_lic_number'), class: val('other_lic_class') } : null,
+
+      // Experience
+      driving_experience,
+      states_operated: val('states_operated'),
+
+      // Accidents & Violations
+      has_accidents: getRadio('has_accidents'),
+      accidents,
+      has_violations: getRadio('has_violations'),
+      violations,
+      license_denied: getRadio('license_denied'),
+      denial_explanation: val('denial_explanation'),
+      license_suspended: getRadio('license_suspended'),
+      suspension_explanation: val('suspension_explanation'),
+
+      // Employment
+      employment_history,
+      employment_gaps: val('employment_gaps'),
+
+      // Education
+      education_level: val('education_level'),
+      education_details: val('education_details'),
+
+      // Clearances
+      clearance_fbi: document.getElementById('cl_fbi').checked,
+      clearance_child_abuse: document.getElementById('cl_child').checked,
+      clearance_drug_test: document.getElementById('cl_drug').checked,
+      clearance_fmcsa: document.getElementById('cl_fmcsa').checked,
+
+      // Signatures
+      auth_name: val('auth_name'), auth_date: val('auth_date'), auth_signature: val('auth_sig'),
+      disc_name: val('disc_name'), disc_date: val('disc_date'), disc_signature: val('disc_sig'),
+      psp_name: val('psp_name'), psp_date: val('psp_date'), psp_signature: val('psp_sig'),
+      psp_acknowledged: document.getElementById('psp_ack').checked,
+    },
+  };
+}
+
+// ── Submit ──────────────────────────────────────────────
+async function doSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-submit');
+  const status = document.getElementById('submit-status');
+  btn.disabled = true;
+  status.textContent = 'Submitting your application...';
+  status.style.color = '#6b7280';
+
+  try {
+    const payload = collectAll();
+    if (testModeActive) payload.is_test = true;
+    const res = await fetch(SB_URL + '/functions/v1/dqf-application-submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': ANON_KEY },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    document.getElementById('form-container').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.app-header').style.display = 'none';
+    document.getElementById('thank-you').style.display = 'block';
+  } catch (err) {
+    status.textContent = 'Error: ' + err.message + '. Please try again or call (610) 933-7100.';
+    status.style.color = '#ef4444';
+    btn.disabled = false;
+  }
+}
+
+// ── Init ────────────────────────────────────────────────
+showStep(1);
+</script>
+</body>
+</html>
