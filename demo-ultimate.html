@@ -215,18 +215,41 @@
     .foot-btm a{color:rgba(255,255,255,.25)}
     .foot-btm a:hover{color:var(--gold)}
 
-    /* ── HERO QUOTE FORM ── */
-    .hero-quote{background:rgba(11,29,58,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:22px 28px;margin-top:32px;max-width:700px}
-    .hero-quote-title{font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-    .hero-quote-fields{display:grid;grid-template-columns:.85fr 1.2fr 1.2fr .8fr auto;gap:10px;align-items:end}
-    .hero-quote-field label{display:block;font-size:.7rem;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:5px;letter-spacing:.5px}
-    .hero-quote-field input,.hero-quote-field select{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);color:white;font-size:.86rem;font-family:inherit;transition:border-color .2s,background .2s}
-    .hero-quote-field input::placeholder{color:rgba(255,255,255,.3)}
-    .hero-quote-field input:focus,.hero-quote-field select:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
-    .hero-quote-field select option{background:var(--navy);color:white}
-    .hero-quote-btn{padding:10px 24px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 45%,#a6843e 100%);color:var(--navy);font-size:.78rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;border:none;border-radius:22px;cursor:pointer;white-space:nowrap;transition:all .35s;box-shadow:0 2px 10px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);position:relative;overflow:hidden}
-    .hero-quote-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
-    .hero-quote-btn:hover{background:linear-gradient(145deg,#dfc085 0%,#cba96d 45%,#B8965A 100%);transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.3)}
+    /* ── HERO QUOTE FORM — Progressive Disclosure ── */
+    .hq{background:rgba(11,29,58,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-top:32px;max-width:580px;overflow:hidden}
+    .hq-title{font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);padding:20px 24px 0}
+    .hq-types{display:flex;gap:0;padding:12px 24px 0}
+    .hq-type{flex:1;padding:10px 0;text-align:center;font-size:.76rem;font-weight:600;letter-spacing:.5px;color:rgba(255,255,255,.45);cursor:pointer;border-bottom:2px solid transparent;transition:all .25s;text-transform:uppercase}
+    .hq-type:hover{color:rgba(255,255,255,.7)}
+    .hq-type.active{color:var(--gold);border-bottom-color:var(--gold)}
+    .hq-steps{padding:0 24px 20px}
+    .hq-step{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s ease,padding .3s ease;padding:0}
+    .hq-step.open{max-height:400px;opacity:1;padding:16px 0 0}
+    .hq-step.done{max-height:36px;opacity:1;padding:8px 0 0}
+    .hq-summary{display:none;font-size:.78rem;color:rgba(255,255,255,.55);cursor:pointer;padding:4px 0;transition:color .2s}
+    .hq-summary:hover{color:var(--gold)}
+    .hq-summary::before{content:'✓ ';color:var(--gold)}
+    .hq-step.done .hq-summary{display:block}
+    .hq-step.done .hq-fields{display:none}
+    .hq-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+    .hq-row.single{grid-template-columns:1fr}
+    .hq-row.triple{grid-template-columns:1fr 1fr 1fr}
+    .hq-field label{display:block;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}
+    .hq-field input,.hq-field select{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);color:white;font-size:.86rem;font-family:inherit;transition:border-color .2s,background .2s}
+    .hq-field input::placeholder{color:rgba(255,255,255,.3)}
+    .hq-field input:focus,.hq-field select:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
+    .hq-field select option{background:var(--navy);color:white}
+    .hq-confirm{display:flex;justify-content:flex-end;margin-top:6px}
+    .hq-confirm-btn{padding:8px 20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:.74rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:18px;cursor:pointer;transition:all .25s}
+    .hq-confirm-btn:hover{background:rgba(255,255,255,.18);color:white;border-color:rgba(255,255,255,.3)}
+    .hq-submit-btn{width:100%;padding:14px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 45%,#a6843e 100%);color:var(--navy);font-size:.84rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border:none;border-radius:24px;cursor:pointer;transition:all .35s;box-shadow:0 2px 12px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);position:relative;overflow:hidden;margin-top:4px}
+    .hq-submit-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
+    .hq-submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.3);background:linear-gradient(145deg,#dfc085 0%,#cba96d 45%,#B8965A 100%)}
+    .hq-success{text-align:center;padding:32px 24px;display:none}
+    .hq-success.show{display:block}
+    .hq-success h3{font-family:'Playfair Display',Georgia,serif;color:white;font-size:1.4rem;margin-bottom:8px}
+    .hq-success p{color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.6}
+    .pac-container{z-index:10000!important}
 
     /* ── GOOGLE REVIEWS BADGE ── */
     .reviews-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(11,29,58,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 16px;margin-top:16px}
@@ -273,8 +296,10 @@
       .mob-cta .mob-p{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7)!important}
       .hero{min-height:auto;padding-bottom:48px;padding-top:40px}
       .hero h1{font-size:2.2rem}
-      .hero-quote-fields{grid-template-columns:1fr}
-      .hero-quote{padding:20px}
+      .hq{max-width:100%}
+      .hq-row,.hq-row.triple{grid-template-columns:1fr}
+      .hq-types{flex-wrap:wrap;gap:0}
+      .hq-type{flex:none;width:50%;padding:8px 0;font-size:.72rem}
       .logos-grid{gap:24px}
       .logos-grid span{font-size:.88rem}
       .hero-body,.wrap{padding:0 20px}
@@ -355,32 +380,65 @@
       <p class="hero-eyebrow">Phoenixville, Pennsylvania &bull; Established 1929</p>
       <h1>Philadelphia's Premier Charter Bus Company</h1>
       <p>Family-owned for nearly a century. Luxury 54-passenger motorcoaches with professional CDL drivers, serving the Northeast corridor from New York City to Washington, D.C.</p>
-      <div class="hero-quote">
-        <div class="hero-quote-title">Get a Free Quote in Minutes</div>
-        <form class="hero-quote-fields" action="/quote-widget.html" method="get">
-          <div class="hero-quote-field">
-            <label>Trip Date</label>
-            <input type="date" name="date" required>
+      <div class="hq" id="heroQuote">
+        <div class="hq-title">Get a Free Quote in Minutes</div>
+        <div class="hq-types">
+          <div class="hq-type active" data-type="roundtrip" onclick="hqSetType(this)">Round Trip</div>
+          <div class="hq-type" data-type="oneway" onclick="hqSetType(this)">One Way</div>
+          <div class="hq-type" data-type="multiday" onclick="hqSetType(this)">Multi-Day</div>
+          <div class="hq-type" data-type="wedding" onclick="hqSetType(this)">Wedding</div>
+        </div>
+        <div class="hq-steps">
+          <!-- Step 1: Locations -->
+          <div class="hq-step open" id="hqStep1">
+            <div class="hq-summary" onclick="hqReopen(1)"></div>
+            <div class="hq-fields">
+              <div class="hq-row">
+                <div class="hq-field"><label>Pickup Location</label><input type="text" id="hqPickup" placeholder="Address or venue" autocomplete="off"></div>
+                <div class="hq-field"><label>Destination</label><input type="text" id="hqDest" placeholder="Address or venue" autocomplete="off"></div>
+              </div>
+              <div class="hq-confirm"><button type="button" class="hq-confirm-btn" onclick="hqConfirm(1)">Continue &rarr;</button></div>
+            </div>
           </div>
-          <div class="hero-quote-field">
-            <label>Pickup</label>
-            <input type="text" name="pickup" placeholder="City or address">
+          <!-- Step 2: Date & Time -->
+          <div class="hq-step" id="hqStep2">
+            <div class="hq-summary" onclick="hqReopen(2)"></div>
+            <div class="hq-fields">
+              <div class="hq-row triple" id="hqDateRow">
+                <div class="hq-field"><label>Departure Date</label><input type="date" id="hqDate"></div>
+                <div class="hq-field"><label>Pickup Time</label><select id="hqTime"><option value="">Select time</option></select></div>
+                <div class="hq-field" id="hqReturnWrap"><label>Return Date</label><input type="date" id="hqReturn"></div>
+              </div>
+              <div class="hq-row" id="hqReturnTimeRow">
+                <div class="hq-field"><label>Return Time</label><select id="hqReturnTime"><option value="">Select time</option></select></div>
+                <div class="hq-field"><label>Coaches Needed</label>
+                  <select id="hqCoaches"><option value="1">1 coach (up to 54 passengers)</option><option value="2">2 coaches</option><option value="3">3 coaches</option><option value="4">4 coaches</option><option value="5">5+ coaches</option></select>
+                </div>
+              </div>
+              <div class="hq-confirm"><button type="button" class="hq-confirm-btn" onclick="hqConfirm(2)">Continue &rarr;</button></div>
+            </div>
           </div>
-          <div class="hero-quote-field">
-            <label>Destination</label>
-            <input type="text" name="destination" placeholder="City or address">
+          <!-- Step 3: Contact Info & Submit -->
+          <div class="hq-step" id="hqStep3">
+            <div class="hq-summary" onclick="hqReopen(3)"></div>
+            <div class="hq-fields">
+              <div class="hq-row">
+                <div class="hq-field"><label>First Name</label><input type="text" id="hqFirst" placeholder="First name"></div>
+                <div class="hq-field"><label>Last Name</label><input type="text" id="hqLast" placeholder="Last name"></div>
+              </div>
+              <div class="hq-row">
+                <div class="hq-field"><label>Email</label><input type="email" id="hqEmail" placeholder="you@example.com"></div>
+                <div class="hq-field"><label>Phone</label><input type="tel" id="hqPhone" placeholder="(555) 123-4567"></div>
+              </div>
+              <button type="button" class="hq-submit-btn" onclick="hqSubmit()">Request My Free Quote</button>
+            </div>
           </div>
-          <div class="hero-quote-field">
-            <label>Coaches</label>
-            <select name="coaches">
-              <option value="">How many?</option>
-              <option>1 coach (up to 54)</option>
-              <option>2 coaches</option>
-              <option>3+ coaches</option>
-            </select>
+          <!-- Success -->
+          <div class="hq-success" id="hqSuccess">
+            <h3>Quote Request Received!</h3>
+            <p>We'll get back to you within a few hours with a personalized quote. For immediate assistance, call <a href="tel:+18005329800" style="color:var(--gold)">(800) 532-9800</a>.</p>
           </div>
-          <button type="submit" class="hero-quote-btn">Get Quote</button>
-        </form>
+        </div>
       </div>
       <div class="reviews-badge">
         <span class="reviews-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -728,6 +786,165 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- GOOGLE MAPS + HERO QUOTE FORM -->
+  <script>
+  (function(){
+    var hqType='roundtrip';
+    var hqAcPickup,hqAcDest;
+    var MAPS_KEY='AIzaSyA38IZTVw4Fx3mVEjGUWBeonyzCu_mFGi0';
+    var SUBMIT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
+
+    // Populate time selects with 15-min intervals
+    function populateTimes(){
+      ['hqTime','hqReturnTime'].forEach(function(id){
+        var sel=document.getElementById(id);
+        for(var h=0;h<24;h++){
+          for(var m=0;m<60;m+=15){
+            var hh=h.toString().padStart(2,'0');
+            var mm=m.toString().padStart(2,'0');
+            var disp=(h%12||12)+':'+mm+' '+(h>=12?'PM':'AM');
+            var opt=document.createElement('option');
+            opt.value=hh+':'+mm;opt.textContent=disp;sel.appendChild(opt);
+          }
+        }
+      });
+    }
+
+    // Load Google Maps Places
+    function loadMaps(){
+      var s=document.createElement('script');
+      s.src='https://maps.googleapis.com/maps/api/js?key='+MAPS_KEY+'&libraries=places&callback=hqInitMaps';
+      s.async=true;s.defer=true;document.head.appendChild(s);
+    }
+
+    window.hqInitMaps=function(){
+      var opts={types:['geocode','establishment'],componentRestrictions:{country:'us'}};
+      hqAcPickup=new google.maps.places.Autocomplete(document.getElementById('hqPickup'),opts);
+      hqAcDest=new google.maps.places.Autocomplete(document.getElementById('hqDest'),opts);
+    };
+
+    // Trip type selection
+    window.hqSetType=function(el){
+      document.querySelectorAll('.hq-type').forEach(function(t){t.classList.remove('active');});
+      el.classList.add('active');
+      hqType=el.dataset.type;
+      var retWrap=document.getElementById('hqReturnWrap');
+      var retTimeRow=document.getElementById('hqReturnTimeRow');
+      if(hqType==='oneway'){
+        retWrap.style.display='none';
+        retTimeRow.querySelector('.hq-field').style.display='none';
+      }else{
+        retWrap.style.display='';
+        retTimeRow.querySelector('.hq-field').style.display='';
+      }
+    };
+
+    // Confirm a step — collapse it and open the next
+    window.hqConfirm=function(step){
+      var stepEl=document.getElementById('hqStep'+step);
+      var nextEl=document.getElementById('hqStep'+(step+1));
+      // Validate
+      if(step===1){
+        var p=document.getElementById('hqPickup').value.trim();
+        var d=document.getElementById('hqDest').value.trim();
+        if(!p||!d){
+          if(!p)document.getElementById('hqPickup').style.borderColor='#c0392b';
+          if(!d)document.getElementById('hqDest').style.borderColor='#c0392b';
+          return;
+        }
+        stepEl.querySelector('.hq-summary').textContent=p+' → '+d;
+      }
+      if(step===2){
+        var dt=document.getElementById('hqDate').value;
+        var tm=document.getElementById('hqTime').value;
+        if(!dt||!tm){
+          if(!dt)document.getElementById('hqDate').style.borderColor='#c0392b';
+          if(!tm)document.getElementById('hqTime').style.borderColor='#c0392b';
+          return;
+        }
+        var fmtDate=new Date(dt+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+        var timeParts=tm.split(':');var h=parseInt(timeParts[0]);
+        var fmtTime=(h%12||12)+':'+timeParts[1]+' '+(h>=12?'PM':'AM');
+        var summary=fmtDate+' at '+fmtTime;
+        if(hqType!=='oneway'){
+          var rd=document.getElementById('hqReturn').value;
+          if(rd){
+            var fmtRd=new Date(rd+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+            summary+=' → return '+fmtRd;
+          }
+        }
+        var coaches=document.getElementById('hqCoaches').value;
+        if(coaches>1)summary+=' · '+coaches+' coaches';
+        stepEl.querySelector('.hq-summary').textContent=summary;
+      }
+      stepEl.classList.remove('open');
+      stepEl.classList.add('done');
+      if(nextEl){nextEl.classList.add('open');}
+    };
+
+    // Reopen a collapsed step
+    window.hqReopen=function(step){
+      // Close all steps
+      document.querySelectorAll('.hq-step').forEach(function(s){s.classList.remove('open','done');});
+      // Open the clicked step
+      document.getElementById('hqStep'+step).classList.add('open');
+    };
+
+    // Submit
+    window.hqSubmit=function(){
+      var first=document.getElementById('hqFirst').value.trim();
+      var last=document.getElementById('hqLast').value.trim();
+      var email=document.getElementById('hqEmail').value.trim();
+      var phone=document.getElementById('hqPhone').value.trim();
+      if(!first||!email||!phone){
+        if(!first)document.getElementById('hqFirst').style.borderColor='#c0392b';
+        if(!email)document.getElementById('hqEmail').style.borderColor='#c0392b';
+        if(!phone)document.getElementById('hqPhone').style.borderColor='#c0392b';
+        return;
+      }
+      var typeLabels={roundtrip:'Round Trip',oneway:'One Way',multiday:'Multi-Day',wedding:'Wedding'};
+      var formData={
+        firstName:first,lastName:last,email:email,phone:phone,
+        tripType:hqType,
+        locations:[document.getElementById('hqPickup').value,document.getElementById('hqDest').value],
+        pickupDate:document.getElementById('hqDate').value,
+        pickupTime:document.getElementById('hqTime').value,
+        returnDate:document.getElementById('hqReturn').value,
+        returnTime:document.getElementById('hqReturnTime').value,
+        numVehicles:document.getElementById('hqCoaches').value,
+        source:'homepage-hero',
+        submittedAt:new Date().toISOString()
+      };
+      // Submit to Google Sheets
+      fetch(SUBMIT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});
+      // Show success
+      document.querySelectorAll('.hq-step').forEach(function(s){s.classList.remove('open','done');s.style.display='none';});
+      document.getElementById('hqSuccess').classList.add('show');
+    };
+
+    // Phone formatting
+    document.getElementById('hqPhone').addEventListener('input',function(){
+      var val=this.value.replace(/\D/g,'');
+      if(val.length>=6)val='('+val.slice(0,3)+') '+val.slice(3,6)+'-'+val.slice(6,10);
+      else if(val.length>=3)val='('+val.slice(0,3)+') '+val.slice(3);
+      this.value=val;
+    });
+
+    // Clear red borders on focus
+    document.querySelectorAll('.hq-field input,.hq-field select').forEach(function(el){
+      el.addEventListener('focus',function(){this.style.borderColor='';});
+    });
+
+    // Set min date to today
+    var today=new Date().toISOString().split('T')[0];
+    document.getElementById('hqDate').setAttribute('min',today);
+    document.getElementById('hqReturn').setAttribute('min',today);
+
+    populateTimes();
+    loadMaps();
+  })();
   </script>
 
 </body>
