@@ -216,15 +216,15 @@
     .foot-btm a:hover{color:var(--gold)}
 
     /* ── HERO QUOTE FORM — Progressive Disclosure ── */
-    .hq{background:rgba(11,29,58,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-top:32px;max-width:580px;overflow:hidden}
+    .hq{background:rgba(11,29,58,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-top:32px;max-width:620px;overflow:hidden}
     .hq-title{font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);padding:20px 24px 0}
     .hq-types{display:flex;gap:0;padding:12px 24px 0}
     .hq-type{flex:1;padding:10px 0;text-align:center;font-size:.76rem;font-weight:600;letter-spacing:.5px;color:rgba(255,255,255,.45);cursor:pointer;border-bottom:2px solid transparent;transition:all .25s;text-transform:uppercase}
     .hq-type:hover{color:rgba(255,255,255,.7)}
     .hq-type.active{color:var(--gold);border-bottom-color:var(--gold)}
     .hq-steps{padding:0 24px 20px}
-    .hq-step{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s ease,padding .3s ease;padding:0}
-    .hq-step.open{max-height:400px;opacity:1;padding:16px 0 0}
+    .hq-step{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s ease,opacity .3s ease,padding .3s ease;padding:0}
+    .hq-step.open{max-height:500px;opacity:1;padding:16px 0 0}
     .hq-step.done{max-height:36px;opacity:1;padding:8px 0 0}
     .hq-summary{display:none;font-size:.78rem;color:rgba(255,255,255,.55);cursor:pointer;padding:4px 0;transition:color .2s}
     .hq-summary:hover{color:var(--gold)}
@@ -235,7 +235,8 @@
     .hq-row.single{grid-template-columns:1fr}
     .hq-row.triple{grid-template-columns:1fr 1fr 1fr}
     .hq-field label{display:block;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}
-    .hq-field input,.hq-field select{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);color:white;font-size:.86rem;font-family:inherit;transition:border-color .2s,background .2s}
+    .hq-field input,.hq-field select{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);color:white;font-size:.86rem;font-family:inherit;transition:border-color .2s,background .2s;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+    .hq-field select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px}
     .hq-field input::placeholder{color:rgba(255,255,255,.3)}
     .hq-field input:focus,.hq-field select:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
     .hq-field select option{background:var(--navy);color:white}
@@ -404,15 +405,23 @@
           <div class="hq-step" id="hqStep2">
             <div class="hq-summary" onclick="hqReopen(2)"></div>
             <div class="hq-fields">
-              <div class="hq-row triple" id="hqDateRow">
+              <div class="hq-row">
                 <div class="hq-field"><label>Departure Date</label><input type="date" id="hqDate"></div>
                 <div class="hq-field"><label>Pickup Time</label><select id="hqTime"><option value="">Select time</option></select></div>
-                <div class="hq-field" id="hqReturnWrap"><label>Return Date</label><input type="date" id="hqReturn"></div>
               </div>
-              <div class="hq-row" id="hqReturnTimeRow">
-                <div class="hq-field"><label>Return Time</label><select id="hqReturnTime"><option value="">Select time</option></select></div>
+              <div class="hq-row" id="hqReturnRow">
+                <div class="hq-field"><label>Return Date</label><input type="date" id="hqReturn"></div>
+                <div class="hq-field"><label>Drop-off Time (Trip Complete)</label><select id="hqReturnTime"><option value="">Select time</option></select></div>
+              </div>
+              <div class="hq-row single">
                 <div class="hq-field"><label>Coaches Needed</label>
-                  <select id="hqCoaches"><option value="1">1 coach (up to 54 passengers)</option><option value="2">2 coaches</option><option value="3">3 coaches</option><option value="4">4 coaches</option><option value="5">5+ coaches</option></select>
+                  <select id="hqCoaches">
+                    <option value="1">1 coach (up to 54 passengers)</option>
+                    <option value="2">2 coaches (up to 108 passengers)</option>
+                    <option value="3">3 coaches (up to 162 passengers)</option>
+                    <option value="4">4 coaches (up to 216 passengers)</option>
+                    <option value="5">5+ coaches — call for details</option>
+                  </select>
                 </div>
               </div>
               <div class="hq-confirm"><button type="button" class="hq-confirm-btn" onclick="hqConfirm(2)">Continue &rarr;</button></div>
@@ -830,14 +839,11 @@
       document.querySelectorAll('.hq-type').forEach(function(t){t.classList.remove('active');});
       el.classList.add('active');
       hqType=el.dataset.type;
-      var retWrap=document.getElementById('hqReturnWrap');
-      var retTimeRow=document.getElementById('hqReturnTimeRow');
+      var retRow=document.getElementById('hqReturnRow');
       if(hqType==='oneway'){
-        retWrap.style.display='none';
-        retTimeRow.querySelector('.hq-field').style.display='none';
+        retRow.style.display='none';
       }else{
-        retWrap.style.display='';
-        retTimeRow.querySelector('.hq-field').style.display='';
+        retRow.style.display='';
       }
     };
 
