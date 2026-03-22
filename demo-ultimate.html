@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Werner Coach | Charter Bus Rental in Philadelphia Since 1929</title>
+  <meta name="description" content="Werner Coach: family-owned charter bus company in Phoenixville, PA since 1929. Luxury 54-passenger motorcoach rental for weddings, schools, corporate groups, and tours. NYC to DC. Free quotes: (800) 532-9800.">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════════════════════════
+       WERNER COACH — ULTIMATE PRODUCTION BUILD
+       Heritage editorial design with premium photography
+       ══════════════════════════════════════════════════════════════ */
+    :root {
+      --navy:   #0B1D3A;
+      --navy-l: #142a4f;
+      --gold:   #B8965A;
+      --gold-l: #cba96d;
+      --gold-d: #9a7a42;
+      --cream:  #F8F4EE;
+      --cream2: #EDE8DE;
+      --char:   #1C1C1C;
+      --text:   #2C2C2C;
+      --muted:  #6B6B6B;
+      --white:  #FFFFFF;
+      --mw:     1200px;
+      --nh:     72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Source Sans 3',system-ui,sans-serif;color:var(--text);line-height:1.65;background:var(--white)}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--gold);text-decoration:none;transition:color .2s}
+    a:hover{color:var(--gold-l)}
+
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 40px}
+
+    /* ── NAV ── */
+    .nav{background:var(--navy);position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(184,150,90,.12)}
+    .nav-inner{max-width:var(--mw);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:var(--nh)}
+    .nav-logo{display:flex;align-items:center;background:rgba(255,255,255,.95);border-radius:6px;padding:4px 10px}
+    .nav-logo img{height:38px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+    .nav-links a{color:rgba(255,255,255,.8);padding:8px 14px;font-size:.88rem;font-weight:400;letter-spacing:.4px;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-dropdown{position:relative}
+    .nav-dropdown .drop{display:none;position:absolute;top:100%;left:0;background:var(--navy);border-top:2px solid var(--gold);min-width:220px;padding:8px 0;z-index:1001;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+    .nav-dropdown:hover .drop{display:block}
+    .drop a{display:block;padding:10px 20px;border-radius:0;font-size:.88rem}
+    .nav-cta{display:flex;gap:16px;align-items:center}
+    .nav-phone{color:rgba(255,255,255,.55)!important;font-size:.78rem;letter-spacing:.3px;white-space:nowrap}
+    .nav-phone:hover{color:var(--gold)!important}
+    @keyframes nav-shimmer{0%{left:-100%}100%{left:200%}}
+    .nav-btn-q{padding:8px 20px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);color:var(--navy)!important;font-size:.74rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;transition:all .35s;border:none;border-radius:22px;box-shadow:0 2px 8px rgba(184,150,90,.25),inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;white-space:nowrap}
+    .nav-btn-q::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
+    .nav-btn-q:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(184,150,90,.4),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(145deg,#dfc085 0%,#cba96d 50%,#B8965A 100%)}
+    .nav-btn-p{color:rgba(255,255,255,.2)!important;font-size:.68rem;letter-spacing:.3px;transition:all .2s;white-space:nowrap}
+    .nav-btn-p:hover{color:rgba(255,255,255,.45)!important}
+    .nav-tog{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .nav-tog span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.8);margin:6px 0;transition:transform .3s,opacity .3s}
+    .nav-tog.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+    .nav-tog.active span:nth-child(2){opacity:0}
+    .nav-tog.active span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+    .nav-mob{display:none}
+
+    /* ── HERO ── */
+    .hero{position:relative;background:var(--navy);color:var(--white);min-height:92vh;display:flex;align-items:flex-end;padding-bottom:80px;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:url('/images/hero-valleyforge.webp') center 40%/cover no-repeat}
+    .hero-grad{position:absolute;inset:0;background:linear-gradient(to right,rgba(11,29,58,.82) 0%,rgba(11,29,58,.55) 38%,rgba(11,29,58,.12) 65%,transparent 100%),linear-gradient(to top,rgba(11,29,58,.5) 0%,transparent 40%)}
+    .hero-body{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;padding:0 40px;width:100%}
+    .hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:16px}
+    .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);display:inline-block}
+    .hero h1{font-family:'Playfair Display',Georgia,serif;font-size:4.2rem;font-weight:700;line-height:1.1;margin-bottom:24px;max-width:620px;color:var(--white)}
+    .hero p{font-size:1.08rem;font-weight:300;opacity:.85;max-width:500px;margin-bottom:0;line-height:1.8}
+    .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+
+    /* ── BUTTONS ── */
+    .btn{display:inline-block;padding:14px 34px;font-size:.86rem;font-weight:600;letter-spacing:.4px;transition:all .3s cubic-bezier(.25,.46,.45,.94);cursor:pointer;text-align:center;border-radius:28px;border:none;text-decoration:none}
+    .btn-gold{background:linear-gradient(160deg,#d4b577 0%,#B8965A 45%,#a6843e 100%);color:var(--navy);box-shadow:0 4px 14px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden}
+    .btn-gold::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s ease}
+    .btn-gold:hover{color:var(--navy);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(160deg,#dfc085 0%,#cba96d 45%,#B8965A 100%)}
+    .btn-gold:hover::before{left:120%}
+    .btn-gold:active{transform:translateY(0);box-shadow:0 2px 8px rgba(184,150,90,.25)}
+    .btn-ghost{border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.85);background:rgba(255,255,255,.04);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.6);color:white;background:rgba(255,255,255,.08);transform:translateY(-2px)}
+    .btn-navy{background:var(--navy);color:var(--white)!important;box-shadow:0 2px 8px rgba(11,29,58,.15)}
+    .btn-navy:hover{background:var(--navy-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,29,58,.25)}
+    .btn-outline-navy{border:1px solid var(--navy);color:var(--navy)!important;background:transparent}
+    .btn-outline-navy:hover{background:var(--navy);color:var(--white)!important;transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,29,58,.15)}
+
+    /* ── STATS STRIP ── */
+    .stats{background:var(--cream);border-bottom:1px solid var(--cream2)}
+    .stats-inner{max-width:860px;margin:0 auto;padding:44px 40px;display:grid;grid-template-columns:repeat(4,1fr)}
+    .stat{text-align:center;padding:0 24px;border-right:1px solid var(--cream2)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-family:'Playfair Display',Georgia,serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;margin-bottom:6px}
+    .stat-l{font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+    /* ── SECTIONS ── */
+    .sec{padding:100px 0}
+    .sec-cream{background:var(--cream)}
+    .sec-navy{background:var(--navy);color:var(--white)}
+    .sec-char{background:var(--char);color:var(--white)}
+    .sec-hd{text-align:center;margin-bottom:60px}
+    .eye{font-size:.68rem;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+    .sec-t{font-family:'Playfair Display',Georgia,serif;font-size:2.6rem;font-weight:700;color:var(--navy);line-height:1.2}
+    .sec-navy .sec-t,.sec-char .sec-t{color:var(--white)}
+    .sec-sub{font-size:1rem;font-weight:300;color:var(--muted);max-width:520px;margin:16px auto 0;line-height:1.8}
+    .sec-navy .sec-sub{color:rgba(255,255,255,.6)}
+
+    /* ── SERVICE CARDS — Photo grid ── */
+    .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--cream2)}
+    .svc-card{background:var(--white);position:relative;text-decoration:none;display:block;color:var(--text);transition:background .3s;overflow:hidden}
+    .svc-img{height:220px;overflow:hidden}
+    .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .svc-card:hover .svc-img img{transform:scale(1.06)}
+    .svc-body{padding:28px 28px 32px}
+    .svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .3s}
+    .svc-card:hover{background:var(--cream);color:var(--text)}
+    .svc-card:hover::after{background:var(--gold)}
+    .svc-n{font-size:.65rem;color:var(--gold);letter-spacing:1.5px;margin-bottom:12px;font-weight:600}
+    .svc-card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.3}
+    .svc-card p{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.7}
+    .svc-more{margin-top:14px;font-size:.78rem;font-weight:600;color:var(--gold);letter-spacing:.5px;opacity:0;transform:translateX(-8px);transition:all .3s}
+    .svc-card:hover .svc-more{opacity:1;transform:translateX(0)}
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+    .photo-strip img{width:100%;height:300px;object-fit:cover;display:block;transition:opacity .3s}
+    .photo-strip img:hover{opacity:.85}
+
+    /* ── FULL-WIDTH IMAGE BREAK ── */
+    .img-break{position:relative;height:420px;overflow:hidden}
+    .img-break img{width:100%;height:100%;object-fit:cover}
+    .img-break-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,29,58,.7),transparent 60%)}
+    .img-break-text{position:absolute;bottom:48px;left:0;right:0;text-align:center}
+    .img-break-text p{font-family:'Playfair Display',Georgia,serif;font-size:1.7rem;color:white;font-weight:400;font-style:italic;max-width:700px;margin:0 auto;padding:0 20px}
+
+    /* ── FLEET PREVIEW ── */
+    .fleet-preview{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1000px;margin:0 auto}
+    .fleet-img{border-radius:6px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.12)}
+    .fleet-img img{width:100%;height:380px;object-fit:cover}
+    .fleet-text h3{font-family:'Playfair Display',Georgia,serif;font-size:1.7rem;font-weight:500;color:var(--navy);margin-bottom:18px}
+    .fleet-text p{font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:12px}
+    .fleet-text ul{list-style:none;margin:20px 0 28px}
+    .fleet-text li{font-size:.9rem;color:var(--text);padding:8px 0;border-bottom:1px solid var(--cream2);display:flex;align-items:center;gap:12px}
+    .fleet-text li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+    /* ── WHY WERNER ── */
+    .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:48px 72px;max-width:940px;margin:0 auto}
+    .why-item{position:relative;padding-left:24px}
+    .why-item::before{content:'';position:absolute;left:0;top:6px;width:3px;height:24px;background:var(--gold);border-radius:2px}
+    .why-item h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:500;color:var(--white);margin-bottom:10px}
+    .why-item p{font-size:.9rem;font-weight:300;color:rgba(255,255,255,.65);line-height:1.75}
+
+    /* ── DESTINATIONS / SERVICE AREA ── */
+    .dest-band{position:relative;overflow:hidden;padding:100px 0}
+    .dest-band-bg{position:absolute;inset:0}
+    .dest-band-bg img{width:100%;height:100%;object-fit:cover}
+    .dest-band-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,29,58,.92) 0%,rgba(11,29,58,.75) 100%)}
+    .dest-inner{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .dest-text .eye{color:var(--gold)}
+    .dest-text h2{font-family:'Playfair Display',Georgia,serif;font-size:2.2rem;font-weight:700;color:var(--white);margin-bottom:20px;line-height:1.2}
+    .dest-text p{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:24px}
+    .dest-cities{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .dest-city{display:flex;align-items:center;gap:10px;font-size:.9rem;color:rgba(255,255,255,.8);font-weight:400}
+    .dest-city::before{content:'';width:8px;height:1px;background:var(--gold);flex-shrink:0}
+    .dest-map{text-align:center;color:rgba(255,255,255,.5);font-size:.85rem}
+    .dest-map-visual{display:grid;grid-template-columns:1fr;gap:16px}
+    .dest-route{display:flex;align-items:center;justify-content:center;gap:20px;padding:16px 0}
+    .dest-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--gold);position:relative}
+    .dest-dot.active{background:var(--gold)}
+    .dest-line{flex:1;height:1px;background:rgba(184,150,90,.3);max-width:60px}
+    .dest-dot-label{font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:6px}
+
+    /* ── TESTIMONIALS ── */
+    .testi-wrap{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:40px}
+    .testi{padding:36px;background:var(--white);border-radius:8px;box-shadow:0 2px 20px rgba(0,0,0,.05);position:relative;border-left:3px solid var(--gold)}
+    .testi::before{content:'\201C';font-family:'Playfair Display',Georgia,serif;font-size:4rem;line-height:1;color:var(--gold);opacity:.15;position:absolute;top:16px;right:24px}
+    .testi blockquote{font-size:.95rem;font-style:italic;color:var(--text);line-height:1.75;margin-bottom:16px}
+    .testi cite{font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-style:normal}
+    .testi-featured{grid-column:1/-1;border-left-width:4px;padding:44px 48px}
+    .testi-featured blockquote{font-size:1.1rem}
+
+    /* ── CTA BAND ── */
+    .cta{position:relative;padding:100px 20px;text-align:center;overflow:hidden}
+    .cta-bg{position:absolute;inset:0}
+    .cta-bg img{width:100%;height:100%;object-fit:cover}
+    .cta-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,29,58,.93),rgba(11,29,58,.85))}
+    .cta-inner{position:relative;z-index:2}
+    .cta h2{font-family:'Playfair Display',Georgia,serif;font-size:2.8rem;font-weight:400;color:var(--white);margin-bottom:16px}
+    .cta > .cta-inner > p{font-size:1.05rem;font-weight:300;color:rgba(255,255,255,.7);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8}
+    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+    /* ── MID-PAGE QUOTE CTA (inline) ── */
+    .inline-cta{background:linear-gradient(135deg,#cba96d 0%,#B8965A 50%,#a6843e 100%);padding:44px 40px;text-align:center}
+    .inline-cta p{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-weight:400;color:var(--navy);margin-bottom:20px}
+    .inline-cta .btn{background:var(--navy);color:var(--white)!important;padding:13px 36px;box-shadow:0 4px 16px rgba(11,29,58,.2)}
+    .inline-cta .btn:hover{background:var(--navy-l);box-shadow:0 8px 28px rgba(11,29,58,.3)}
+
+    /* ── FOOTER ── */
+    .foot{background:var(--char);color:rgba(255,255,255,.65);padding:72px 40px 0}
+    .foot-grid{max-width:var(--mw);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .foot-brand img{height:44px;margin-bottom:18px;background:rgba(255,255,255,.9);border-radius:6px;padding:4px 10px}
+    .foot-brand p{font-size:.84rem;line-height:1.7;font-weight:300;max-width:280px}
+    .foot h4{color:var(--white);font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:20px}
+    .foot-links{list-style:none}
+    .foot-links li{margin-bottom:10px}
+    .foot-links a{color:rgba(255,255,255,.45);font-size:.84rem;font-weight:300}
+    .foot-links a:hover{color:var(--gold)}
+    .foot-btm{max-width:var(--mw);margin:0 auto;padding:20px 0;display:flex;justify-content:space-between;font-size:.77rem;color:rgba(255,255,255,.25)}
+    .foot-btm a{color:rgba(255,255,255,.25)}
+    .foot-btm a:hover{color:var(--gold)}
+
+    /* ── HERO QUOTE FORM ── */
+    .hero-quote{background:rgba(11,29,58,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:22px 28px;margin-top:32px;max-width:700px}
+    .hero-quote-title{font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+    .hero-quote-fields{display:grid;grid-template-columns:.85fr 1.2fr 1.2fr .8fr auto;gap:10px;align-items:end}
+    .hero-quote-field label{display:block;font-size:.7rem;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:5px;letter-spacing:.5px}
+    .hero-quote-field input,.hero-quote-field select{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);color:white;font-size:.86rem;font-family:inherit;transition:border-color .2s,background .2s}
+    .hero-quote-field input::placeholder{color:rgba(255,255,255,.3)}
+    .hero-quote-field input:focus,.hero-quote-field select:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
+    .hero-quote-field select option{background:var(--navy);color:white}
+    .hero-quote-btn{padding:10px 24px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 45%,#a6843e 100%);color:var(--navy);font-size:.78rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;border:none;border-radius:22px;cursor:pointer;white-space:nowrap;transition:all .35s;box-shadow:0 2px 10px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);position:relative;overflow:hidden}
+    .hero-quote-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
+    .hero-quote-btn:hover{background:linear-gradient(145deg,#dfc085 0%,#cba96d 45%,#B8965A 100%);transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.3)}
+
+    /* ── GOOGLE REVIEWS BADGE ── */
+    .reviews-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(11,29,58,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 16px;margin-top:16px}
+    .reviews-stars{color:#FBBC04;font-size:1.1rem;letter-spacing:1px}
+    .reviews-text{font-size:.78rem;color:rgba(255,255,255,.75);font-weight:400}
+    .reviews-text strong{color:white;font-weight:600}
+    .reviews-g{font-size:.7rem;color:rgba(255,255,255,.4);letter-spacing:.5px}
+
+    /* ── CLIENT LOGOS ── */
+    .logos{padding:40px 0;border-bottom:1px solid var(--cream2);background:var(--cream)}
+    .logos-inner{max-width:var(--mw);margin:0 auto;padding:0 40px;text-align:center}
+    .logos-label{font-size:.62rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+    .logos-grid{display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap;opacity:.45}
+    .logos-grid span{font-family:'Playfair Display',Georgia,serif;font-size:.95rem;font-weight:500;color:var(--navy);white-space:nowrap}
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .svc-grid{grid-template-columns:repeat(2,1fr)}
+      .foot-grid{grid-template-columns:repeat(2,1fr)}
+      .stats-inner{grid-template-columns:repeat(2,1fr);gap:24px}
+      .stat{padding:16px 24px}
+      .stat:nth-child(2){border-right:none}
+      .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--cream2);padding-bottom:24px}
+      .stat:nth-child(3),.stat:nth-child(4){padding-top:24px}
+      .testi-wrap{grid-template-columns:1fr}
+      .testi-featured{grid-column:1}
+      .dest-inner{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      .nav-links,.nav-cta{display:none}
+      .nav-tog{display:block}
+      .nav-mob{display:none;position:fixed;inset:0;top:var(--nh);background:var(--navy);padding:24px;z-index:999;overflow-y:auto}
+      .nav-mob.open{display:block}
+      .nav-mob a{display:block;color:rgba(255,255,255,.85);padding:14px 0;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.07)}
+      .nav-mob a:hover{color:var(--gold)}
+      .mob-cta{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+      .mob-cta a{text-align:center;padding:14px;font-weight:600;border-bottom:none!important}
+      .mob-cta .mob-q{background:var(--gold);color:var(--navy)!important}
+      .mob-cta .mob-p{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7)!important}
+      .hero{min-height:auto;padding-bottom:48px;padding-top:40px}
+      .hero h1{font-size:2.2rem}
+      .hero-quote-fields{grid-template-columns:1fr}
+      .hero-quote{padding:20px}
+      .logos-grid{gap:24px}
+      .logos-grid span{font-size:.88rem}
+      .hero-body,.wrap{padding:0 20px}
+      .nav-inner{padding:0 20px}
+      .stats-inner{grid-template-columns:1fr;gap:0;padding:28px 20px}
+      .stat{border-right:none!important;border-bottom:1px solid var(--cream2);padding:18px 0!important}
+      .stat:last-child{border-bottom:none}
+      .svc-grid{grid-template-columns:1fr}
+      .photo-strip{grid-template-columns:repeat(2,1fr)}
+      .photo-strip img{height:200px}
+      .fleet-preview{grid-template-columns:1fr;gap:32px}
+      .fleet-img img{height:260px}
+      .why-grid{grid-template-columns:1fr;gap:32px}
+      .testi-featured blockquote{font-size:.95rem}
+      .foot-grid{grid-template-columns:1fr;gap:28px}
+      .foot{padding:48px 20px 0}
+      .foot-btm{flex-direction:column;gap:6px}
+      .sec{padding:64px 0}
+      .img-break{height:300px}
+      .img-break-text p{font-size:1.2rem}
+      .dest-inner{gap:40px;padding:0 20px}
+      .dest-cities{grid-template-columns:1fr}
+      .cta h2{font-size:2rem}
+      .inline-cta p{font-size:1.2rem}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/demo-ultimate.html" class="nav-logo"><img src="/images/logo.png" alt="Werner Coach" width="160" height="48"></a>
+      <ul class="nav-links">
+        <li><a href="/demo-ultimate.html" class="active">Home</a></li>
+        <li class="nav-dropdown">
+          <a href="/services/">Services</a>
+          <div class="drop">
+            <a href="/services/wedding.html">Wedding Transportation</a>
+            <a href="/services/school.html">School Groups</a>
+            <a href="/services/corporate.html">Corporate Transportation</a>
+          </div>
+        </li>
+        <li><a href="/fleet.html">Fleet</a></li>
+        <li><a href="/testimonials.html">Testimonials</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+18005329800" class="nav-phone">(800) 532-9800</a>
+        <a href="/quote-widget.html" class="nav-btn-q">Get a Free Quote</a>
+        <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" class="nav-btn-p" target="_blank" rel="noopener">Pay Online</a>
+      </div>
+      <button class="nav-tog" onclick="this.classList.toggle('active');document.querySelector('.nav-mob').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav-mob">
+      <a href="/demo-ultimate.html">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/services/wedding.html">Wedding Transportation</a>
+      <a href="/services/school.html">School Groups</a>
+      <a href="/services/corporate.html">Corporate Transportation</a>
+      <a href="/fleet.html">Fleet</a>
+      <a href="/testimonials.html">Testimonials</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contact.html">Contact</a>
+      <div class="mob-cta">
+        <a href="tel:+18005329800" class="mob-p">(800) 532-9800</a>
+        <a href="/quote-widget.html" class="mob-q">Get a Free Quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grad"></div>
+    <div class="hero-body">
+      <p class="hero-eyebrow">Phoenixville, Pennsylvania &bull; Established 1929</p>
+      <h1>Philadelphia's Premier Charter Bus Company</h1>
+      <p>Family-owned for nearly a century. Luxury 54-passenger motorcoaches with professional CDL drivers, serving the Northeast corridor from New York City to Washington, D.C.</p>
+      <div class="hero-quote">
+        <div class="hero-quote-title">Get a Free Quote in Minutes</div>
+        <form class="hero-quote-fields" action="/quote-widget.html" method="get">
+          <div class="hero-quote-field">
+            <label>Trip Date</label>
+            <input type="date" name="date" required>
+          </div>
+          <div class="hero-quote-field">
+            <label>Pickup</label>
+            <input type="text" name="pickup" placeholder="City or address">
+          </div>
+          <div class="hero-quote-field">
+            <label>Destination</label>
+            <input type="text" name="destination" placeholder="City or address">
+          </div>
+          <div class="hero-quote-field">
+            <label>Coaches</label>
+            <select name="coaches">
+              <option value="">How many?</option>
+              <option>1 coach (up to 54)</option>
+              <option>2 coaches</option>
+              <option>3+ coaches</option>
+            </select>
+          </div>
+          <button type="submit" class="hero-quote-btn">Get Quote</button>
+        </form>
+      </div>
+      <div class="reviews-badge">
+        <span class="reviews-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="reviews-text"><strong>30+</strong> five-star reviews on Google</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="stat fade-up">
+        <div class="stat-n">97</div>
+        <div class="stat-l">Years of Service</div>
+      </div>
+      <div class="stat fade-up">
+        <div class="stat-n">54</div>
+        <div class="stat-l">Passenger Capacity</div>
+      </div>
+      <div class="stat fade-up">
+        <div class="stat-n">NYC&ndash;DC</div>
+        <div class="stat-l">Service Corridor</div>
+      </div>
+      <div class="stat fade-up">
+        <div class="stat-n">100%</div>
+        <div class="stat-l">Company-Owned Fleet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUSTED BY -->
+  <div class="logos fade-up">
+    <div class="logos-inner">
+      <div class="logos-label">Trusted by Organizations Across the Region</div>
+      <div class="logos-grid">
+        <span>Valley Forge National Park</span>
+        <span>The Franklin Institute</span>
+        <span>Archdiocese of Philadelphia</span>
+        <span>Penn State</span>
+        <span>Villanova University</span>
+        <span>Chester County Schools</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-hd fade-up">
+        <p class="eye">What We Do</p>
+        <h2 class="sec-t">Motorcoach Transportation<br>for Every Occasion</h2>
+        <p class="sec-sub">Luxury, USDOT-compliant motorcoaches with professional CDL-licensed drivers. Day trips to multi-day events across the East Coast.</p>
+      </div>
+      <div class="svc-grid">
+        <a href="/services/wedding.html" class="svc-card fade-up">
+          <div class="svc-img"><img src="/images/wedding.webp" alt="Wedding transportation" loading="lazy" style="object-position:center 20%"></div>
+          <div class="svc-body">
+            <p class="svc-n">WEDDINGS</p>
+            <h3>Wedding Transportation</h3>
+            <p>Guest shuttles between ceremony, reception, and hotel venues. Coordinated with your wedding planner for seamless day-of logistics.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
+        </a>
+        <a href="/services/school.html" class="svc-card fade-up">
+          <div class="svc-img"><img src="/images/bus-franklin-institute.webp" alt="School group transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">EDUCATION</p>
+            <h3>School Groups</h3>
+            <p>Field trips, college visits, competitions, band travel, and sporting events with USDOT-compliant coaches and background-checked drivers.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
+        </a>
+        <a href="/services/corporate.html" class="svc-card fade-up">
+          <div class="svc-img"><img src="/images/philly-skyline.webp" alt="Corporate transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">CORPORATE</p>
+            <h3>Corporate Transportation</h3>
+            <p>Employee shuttles, conferences, retreats, holiday parties, and client transportation throughout the tri-state area.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
+        </a>
+        <a href="/fleet.html" class="svc-card fade-up">
+          <div class="svc-img"><img src="/images/bus-baseball-stadium.webp" alt="Athletic team transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">ATHLETICS</p>
+            <h3>Athletic Teams</h3>
+            <p>Comfortable travel for high school, college, and club sports teams with undercarriage equipment storage.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
+        </a>
+        <a href="/fleet.html" class="svc-card fade-up">
+          <div class="svc-img"><img src="/images/philly-bridge-sunset.webp" alt="Tours and day trips" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">TOURS</p>
+            <h3>Tours &amp; Day Trips</h3>
+            <p>Custom single-day and multi-day itineraries built by our in-house trip planning team.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
+        </a>
+        <a href="/fleet.html" class="svc-card fade-up">
+          <div class="svc-img"><img src="/images/nyc-skyline.webp" alt="Special events transportation" loading="lazy"></div>
+          <div class="svc-body">
+            <p class="svc-n">SPECIAL EVENTS</p>
+            <h3>Group Events</h3>
+            <p>Bachelor parties, family reunions, church groups, senior outings, and any occasion that brings people together.</p>
+            <p class="svc-more">Learn more &rarr;</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MID-PAGE QUOTE CTA -->
+  <div class="inline-cta fade-up">
+    <p>Planning a trip? Get a personalized quote in minutes &mdash; free, no obligation.</p>
+    <a href="/quote-widget.html" class="btn">Request a Free Quote</a>
+  </div>
+
+  <!-- PHOTO STRIP -->
+  <div class="photo-strip">
+    <img src="/images/bus-side-full.webp" alt="Werner Coach motorcoach at Valley Forge" loading="lazy">
+    <img src="/images/charter-bus-rent-philadelphia02.webp" alt="Werner Coach at Valley Forge arch" loading="lazy">
+    <img src="/images/bus-franklin-institute.webp" alt="Werner Coach at Franklin Institute" loading="lazy">
+    <img src="/images/bus-front-quarter.webp" alt="Werner Coach front quarter view" loading="lazy">
+  </div>
+
+  <!-- WHY WERNER -->
+  <section class="sec sec-navy">
+    <div class="wrap">
+      <div class="sec-hd fade-up">
+        <p class="eye">Why Werner Coach</p>
+        <h2 class="sec-t">A Bus Company,<br>Not a Broker</h2>
+        <p class="sec-sub">You ride on our coaches, driven by our drivers, maintained in our shop. No middlemen, no surprises.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item fade-up">
+          <h3>Family-Owned Since 1929</h3>
+          <p>One of the oldest charter bus companies in the Philadelphia region, with nearly a century of continuous family ownership and an unbroken record for reliability.</p>
+        </div>
+        <div class="why-item fade-up">
+          <h3>Direct Fleet Operator</h3>
+          <p>Every coach is company-owned and maintained in our Phoenixville shop. No subcontracting, no unfamiliar drivers, no surprises on the day of your trip.</p>
+        </div>
+        <div class="why-item fade-up">
+          <h3>Safety &amp; Compliance</h3>
+          <p>Full USDOT and FMCSA compliance. Background-checked drivers, onboard cameras, GPS tracking, and regular DOT inspections at every service interval.</p>
+        </div>
+        <div class="why-item fade-up">
+          <h3>Transparent Pricing</h3>
+          <p>One quote covers the coach, driver, fuel, and tolls. No surprise surcharges, no hidden fees, no bait-and-switch pricing on the day you travel.</p>
+        </div>
+        <div class="why-item fade-up">
+          <h3>Local Expertise</h3>
+          <p>Based in Phoenixville with deep knowledge of southeastern Pennsylvania, the tri-state region, and every mile of the I-95 corridor from New York to Washington.</p>
+        </div>
+        <div class="why-item fade-up">
+          <h3>Full-Service Trip Planning</h3>
+          <p>Our team builds custom itineraries and handles all routing, scheduling, and logistics &mdash; so you arrive on time without the headache.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLEET PREVIEW -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="fleet-preview fade-up">
+        <div class="fleet-img">
+          <img src="/images/bus-medium-angle.webp" alt="Werner Coach luxury motorcoach" loading="lazy">
+        </div>
+        <div class="fleet-text">
+          <p class="eye">Our Fleet</p>
+          <h3>Luxury 54-Passenger Motorcoaches</h3>
+          <p>Every coach in our fleet is company-owned and maintained in our Phoenixville shop by our full-time mechanics.</p>
+          <ul>
+            <li>Reclining seats with armrests and footrests</li>
+            <li>Climate-controlled cabin</li>
+            <li>Onboard restroom</li>
+            <li>Complimentary Wi-Fi and power outlets</li>
+            <li>PA system and Bluetooth audio</li>
+            <li>Ample overhead and undercarriage luggage storage</li>
+          </ul>
+          <a href="/fleet.html" class="btn btn-navy" style="font-size:.84rem;padding:12px 30px;">Explore Our Fleet</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATMOSPHERIC IMAGE BREAK -->
+  <div class="img-break">
+    <img src="/images/bus-snow-hd.webp" alt="Werner Coach in snow" loading="lazy">
+    <div class="img-break-overlay"></div>
+    <div class="img-break-text">
+      <p>Serving the Northeast &mdash; rain, shine, or snow &mdash; since 1929.</p>
+    </div>
+  </div>
+
+  <!-- SERVICE AREA / DESTINATIONS -->
+  <div class="dest-band">
+    <div class="dest-band-bg"><img src="/images/philly-skyline-bright.webp" alt="" loading="lazy"></div>
+    <div class="dest-band-overlay"></div>
+    <div class="dest-inner">
+      <div class="dest-text fade-up">
+        <p class="eye">Service Area</p>
+        <h2>New York City to Washington, D.C. &mdash; and Everywhere Between</h2>
+        <p>Headquartered in Phoenixville, PA, we serve the entire Northeast corridor. Whether your group is headed to a stadium, a conference center, a campus, or a wedding venue &mdash; we know the roads.</p>
+        <div class="dest-cities">
+          <span class="dest-city">Philadelphia &amp; Suburbs</span>
+          <span class="dest-city">King of Prussia &amp; Valley Forge</span>
+          <span class="dest-city">New York City</span>
+          <span class="dest-city">Washington, D.C.</span>
+          <span class="dest-city">Baltimore</span>
+          <span class="dest-city">Atlantic City</span>
+          <span class="dest-city">The Poconos</span>
+          <span class="dest-city">Gettysburg</span>
+        </div>
+      </div>
+      <div class="dest-map fade-up">
+        <div class="dest-route">
+          <div style="text-align:center">
+            <div class="dest-dot active"></div>
+            <div class="dest-dot-label">NYC</div>
+          </div>
+          <div class="dest-line"></div>
+          <div style="text-align:center">
+            <div class="dest-dot active"></div>
+            <div class="dest-dot-label">PHL</div>
+          </div>
+          <div class="dest-line"></div>
+          <div style="text-align:center">
+            <div class="dest-dot active"></div>
+            <div class="dest-dot-label">BAL</div>
+          </div>
+          <div class="dest-line"></div>
+          <div style="text-align:center">
+            <div class="dest-dot active"></div>
+            <div class="dest-dot-label">D.C.</div>
+          </div>
+        </div>
+        <p style="margin-top:20px;font-size:.78rem;color:rgba(255,255,255,.35);letter-spacing:.5px;">I-95 NORTHEAST CORRIDOR</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section class="sec sec-cream">
+    <div class="wrap">
+      <div class="sec-hd fade-up">
+        <p class="eye">Testimonials</p>
+        <h2 class="sec-t">Trusted by Groups<br>Across the Region</h2>
+        <p class="sec-sub">Schools, wedding parties, corporations, and community groups trust Werner Coach for their most important trips.</p>
+      </div>
+      <div class="testi-wrap">
+        <div class="testi testi-featured fade-up">
+          <blockquote>"Thank you so much for your incredible customer service in planning the coach buses for our wedding. Everything worked out just as you said and the buses were perfect! You were an absolute pleasure to work with and I really appreciate your help with all of this."</blockquote>
+          <cite>Nicole and Dan &mdash; PA</cite>
+        </div>
+        <div class="testi fade-up">
+          <blockquote>"I am a tour guide at Valley Forge and this morning I had the good fortune of having Joseph M. as the operator of your coach. He is a very capable operator who reflects well upon himself and Werner Coach."</blockquote>
+          <cite>Radnall &mdash; PA</cite>
+        </div>
+        <div class="testi fade-up">
+          <blockquote>"I STRONGLY recommend Werner Coach. You will not be disappointed!"</blockquote>
+          <cite>JP &mdash; PA (Travel Company)</cite>
+        </div>
+        <div class="testi fade-up">
+          <blockquote>"Amazing customer service for our wedding shuttle. Would use them again in a heartbeat!"</blockquote>
+          <cite>Megan B.</cite>
+        </div>
+        <div class="testi fade-up">
+          <blockquote>"Our driver arrived early and was phenomenal. His promptness and laid-back demeanor were great."</blockquote>
+          <cite>Mica &mdash; PA</cite>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:52px" class="fade-up">
+        <a href="/testimonials.html" class="btn btn-outline-navy">Read All Testimonials</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <div class="cta">
+    <div class="cta-bg"><img src="/images/philly-bridge-sunset.webp" alt="" loading="lazy"></div>
+    <div class="cta-overlay"></div>
+    <div class="cta-inner fade-up">
+      <p class="eye">Get Started</p>
+      <h2>Ready to Book Your Trip?</h2>
+      <p style="font-size:1.05rem;font-weight:300;color:rgba(255,255,255,.7);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8">Tell us your group size, date, and destination. Most quotes come back the same day.</p>
+      <div class="cta-btns">
+        <a href="/quote-widget.html" class="btn btn-gold">Request a Free Quote</a>
+        <a href="tel:+18005329800" class="btn btn-ghost">Call (800) 532-9800</a>
+      </div>
+      <div style="margin-top:28px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.5)">
+        <span style="color:#FBBC04">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>30+ five-star Google reviews &middot; Free quotes, no obligation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="/images/logo.png" alt="Werner Coach" width="140" height="42">
+        <p>Family-owned charter bus company serving the Greater Philadelphia region and the Northeast corridor since 1929.</p>
+        <p style="margin-top:14px">144 Chester Ave.<br>Phoenixville, PA 19460</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul class="foot-links">
+          <li><a href="/services/wedding.html">Wedding Transportation</a></li>
+          <li><a href="/services/school.html">School Groups</a></li>
+          <li><a href="/services/corporate.html">Corporate Transportation</a></li>
+          <li><a href="/fleet.html">Our Fleet</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul class="foot-links">
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/testimonials.html">Testimonials</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="foot-links">
+          <li><a href="tel:+18005329800">(800) 532-9800</a></li>
+          <li><a href="tel:+16109337100">(610) 933-7100</a></li>
+          <li><a href="mailto:contact@wernercoach.com">contact@wernercoach.com</a></li>
+          <li><a href="https://www.facebook.com/WernerCoach" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>&copy; 2026 Werner Coach. All rights reserved.</span>
+      <span><a href="/privacy.html">Privacy Policy</a> &middot; <a href="/terms.html">Terms of Use</a></span>
+    </div>
+  </footer>
+
+  <!-- SCROLL ANIMATION -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

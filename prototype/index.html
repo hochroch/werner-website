@@ -4,482 +4,184 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Werner Coach — Philadelphia's Premier Charter Bus Company</title>
+<meta name="description" content="Werner Coach is Philadelphia's premier charter bus company with roots dating back to 1929. Family-owned, 54-passenger luxury motorcoaches for weddings, school trips, corporate events, and group transportation. Free quotes: (800) 532-9800.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://wernercoach.com/">
+<link rel="icon" type="image/png" href="../images/Mask-Group-1.png">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Werner Coach — Philadelphia's Premier Charter Bus Company">
+<meta property="og:description" content="Family-owned charter bus company serving Philadelphia since 1929. Luxury 54-passenger motorcoaches for weddings, schools, corporate events. Free quotes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wernercoach.com/">
+<meta property="og:image" content="https://wernercoach.com/images/werner-coach-philadelphia-copy.webp">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Werner Coach — Philadelphia Charter Bus Rental">
+<meta name="twitter:description" content="Family-owned charter bus company with roots back to 1929. 54-passenger luxury motorcoaches. Free quotes: (800) 532-9800.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-/* ── Reset & Tokens ── */
-:root {
-  --navy: #0B1D3A;
-  --navy-light: #132B52;
-  --red: #B22234;
-  --red-dark: #8B1A29;
-  --gold: #C6973F;
-  --gold-light: #E4CB7A;
-  --gold-dim: rgba(198,151,63,0.15);
-  --cream: #FAF8F4;
-  --cream-dark: #F0EDE6;
-  --white: #FFFFFF;
-  --text: #2c3e50;
-  --text-muted: #6c757d;
-  --text-light: #999;
-  --border: #E0DCD4;
-  --success: #2E7D4F;
-  --error: #C0392B;
-  --shadow-sm: 0 1px 3px rgba(11,29,58,0.06);
-  --shadow-md: 0 4px 16px rgba(11,29,58,0.08);
-  --shadow-lg: 0 12px 40px rgba(11,29,58,0.12);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --radius-lg: 16px;
-  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  color: var(--text);
-  background: var(--white);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.6;
-}
-img { max-width: 100%; height: auto; display: block; }
-a { color: inherit; text-decoration: none; }
-h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.2; color: var(--navy); }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.section { padding: 100px 0; }
-.section-cream { background: var(--cream); }
-.section-navy { background: var(--navy); color: var(--white); }
-.section-navy h2, .section-navy h3 { color: var(--white); }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 15px;
-  padding: 14px 32px; border-radius: var(--radius-sm); border: none;
-  cursor: pointer; transition: all var(--transition); text-decoration: none;
-}
-.btn-red { background: var(--red); color: var(--white); }
-.btn-red:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.btn-gold { background: var(--gold); color: var(--white); }
-.btn-gold:hover { background: #b8892e; transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.btn-navy { background: var(--navy); color: var(--white); }
-.btn-navy:hover { background: var(--navy-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.btn-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
-.btn-outline:hover { background: var(--gold); color: var(--white); }
+<link rel="preload" as="image" href="../images/werner-coach-philadelphia-copy.webp" type="image/webp">
+<link rel="stylesheet" href="css/style.css">
 
-/* ── Fade-up animation ── */
-.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5C2GCQ32K"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-V5C2GCQ32K');</script>
 
-/* ══════════════════════════════════════
-   1. NAVIGATION
-   ══════════════════════════════════════ */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: var(--white);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+<!-- LocalBusiness JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "BusOrCoach"],
+  "name": "Werner Coach",
+  "alternateName": "Werner Coach, Inc.",
+  "description": "Family-owned charter bus and motorcoach company based in Phoenixville, PA, serving the Greater Philadelphia region and the Northeast corridor since 1929.",
+  "url": "https://wernercoach.com",
+  "telephone": "+1-800-532-9800",
+  "email": "contact@wernercoach.com",
+  "foundingDate": "1929",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "144 Chester Ave",
+    "addressLocality": "Phoenixville",
+    "addressRegion": "PA",
+    "postalCode": "19460",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 40.1307,
+    "longitude": -75.5152
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "17:00"
+  },
+  "areaServed": [
+    {"@type": "State", "name": "Pennsylvania"},
+    {"@type": "State", "name": "New Jersey"},
+    {"@type": "State", "name": "Delaware"},
+    {"@type": "City", "name": "Philadelphia"},
+    {"@type": "City", "name": "New York City"},
+    {"@type": "City", "name": "Washington, D.C."},
+    {"@type": "City", "name": "Baltimore"}
+  ],
+  "priceRange": "$",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Charter Bus Services",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Wedding Transportation"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "School & Educational Transportation"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Corporate Transportation"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Athletic Team Travel"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Tour Packages"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Special Events"}}
+    ]
+  },
+  "sameAs": ["https://www.facebook.com/WernerCoach"],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "32",
+    "bestRating": "5"
+  }
 }
-.nav-inner {
-  width: 100%; padding: 0 32px;
-  display: flex; align-items: center; height: 130px;
-}
-.nav-logo { flex-shrink: 0; }
-.nav-logo img { height: 110px; width: auto; }
-.nav-center { flex: 1; display: flex; align-items: center; justify-content: center; gap: 28px; }
-.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
-.nav-links a {
-  font-size: 20px; font-weight: 500; color: var(--text);
-  transition: color var(--transition); position: relative;
-}
-.nav-links a:hover { color: var(--red); }
-.nav-dropdown { position: relative; }
-.nav-dropdown-menu {
-  position: absolute; top: 100%; left: 0; min-width: 200px;
-  background: var(--white); border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-lg); padding: 8px 0;
-  opacity: 0; visibility: hidden; transform: translateY(8px);
-  transition: all 0.25s ease;
-}
-.nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.nav-dropdown-menu a { display: block; padding: 10px 20px; font-size: 14px; color: var(--text); }
-.nav-dropdown-menu a:hover { background: var(--cream); color: var(--navy); }
-.nav-ctas { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
-.nav-phone { color: var(--navy); font-size: 20px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
-.nav-phone svg { width: 18px; height: 18px; }
-.nav-phone:hover { color: var(--red); }
-.nav-cta-btn {
-  padding: 20px 44px; border-radius: 9999px; font-size: 20px; font-weight: 700;
-  transition: all var(--transition); cursor: pointer; border: none;
-  text-align: center; display: inline-flex; align-items: center; justify-content: center;
-  letter-spacing: 0.3px;
-}
-.nav-cta-quote { background: var(--red); color: var(--white); }
-.nav-cta-quote:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.nav-cta-pay { background: var(--navy); color: var(--white); }
-.nav-cta-pay:hover { background: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-/* Hamburger */
-.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
-.hamburger span { display: block; width: 26px; height: 2.5px; background: var(--navy); margin: 5px 0; transition: all 0.3s; }
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
-/* Mobile nav */
-.mobile-menu {
-  display: none; position: fixed; top: 130px; left: 0; right: 0; bottom: 0;
-  background: var(--white); padding: 24px; overflow-y: auto; z-index: 999;
-}
-.mobile-menu.open { display: block; }
-.mobile-menu a { display: block; padding: 14px 0; font-size: 16px; color: var(--text); border-bottom: 1px solid var(--border); }
-.mobile-menu .nav-cta-btn { display: block; text-align: center; margin-top: 12px; padding: 16px; border-radius: 9999px; font-size: 18px; font-weight: 700; border: none; }
-.mobile-menu .nav-cta-quote { background: var(--red); color: var(--white); }
-.mobile-menu .nav-cta-pay { background: var(--navy); color: var(--white); }
+</script>
 
-@media (max-width: 1024px) {
-  .nav-center, .nav-ctas { display: none; }
-  .hamburger { display: block; }
+<!-- FAQPage JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does it cost to rent a charter bus in Philadelphia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Charter bus pricing depends on the trip distance, duration, and time of year. A typical single-day charter in the Philadelphia area starts around $1,200 to $1,800 for a full-size 54-passenger motorcoach. Multi-day trips, peak season dates, and longer distances will affect pricing. Contact us at (800) 532-9800 or request a free quote for an exact price based on your group's needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many passengers can a Werner Coach motorcoach hold?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We operate full-size luxury motorcoaches that seat up to 54 passengers. Each coach includes reclining seats, a restroom, climate control, Wi-Fi, power outlets, and a video system. For groups larger than 54, we can provide multiple coaches."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What areas does Werner Coach serve?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Werner Coach is based in Phoenixville, PA, minutes from Philadelphia, Valley Forge, and King of Prussia. We primarily serve the Greater Philadelphia area and southeastern Pennsylvania, and we regularly travel throughout the tri-state region (Pennsylvania, New Jersey, Delaware). Our standard service range covers the entire Northeast corridor from New York City to Washington, D.C., including Baltimore, Atlantic City, the Poconos, and destinations across the East Coast."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should I book a charter bus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We recommend booking at least 2 to 4 weeks in advance for most trips, and 2 to 3 months ahead for peak season (May through October) and popular event dates like prom season and graduation weekends. Last-minute bookings are sometimes possible depending on fleet availability. Call (610) 933-7100 to check."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are your drivers professionally licensed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All Werner Coach drivers hold valid Commercial Driver's Licenses (CDL) with passenger endorsements, undergo DOT-mandated background checks and drug testing, and complete ongoing safety training. We maintain full USDOT and FMCSA compliance with regular vehicle inspections and driver qualification file management."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I rent a charter bus for a wedding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Wedding transportation is one of our most popular services. We provide guest shuttles between ceremony venues, reception halls, and hotels. Our coaches comfortably seat up to 54 guests with luxury amenities. We coordinate timing with your wedding planner to ensure seamless transportation throughout the event."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you provide transportation for school field trips?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Werner Coach has been providing school transportation since 1929. Our motorcoaches are USDOT-compliant, and all drivers pass enhanced background checks. We work with schools across the Philadelphia region for field trips, college visits, academic competitions, band and choir travel, and sporting events."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What amenities are on a Werner Coach bus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every motorcoach includes reclining seats with headrests, onboard restroom, overhead storage, climate control, PA system and microphone, Wi-Fi, power outlets at every seat, and a DVD/video system. We can also arrange add-ons like bottled water for your group."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long has Werner Coach been in business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Werner Coach was established in 1929 in Phoenixville, Pennsylvania. Now a second-generation family business, we are one of the oldest charter bus companies in the Philadelphia region."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I get a free quote?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We provide complimentary quotes with no obligation. Submit a quote request right here on this page, or call (800) 532-9800 during business hours. We just need your group size, travel dates, and pickup/destination to provide an accurate price."
+      }
+    }
+  ]
 }
-
-/* ══════════════════════════════════════
-   2. HERO
-   ══════════════════════════════════════ */
-.hero {
-  position: relative; display: flex; align-items: stretch;
-  min-height: 75vh; overflow: hidden; margin-top: 130px;
-}
-.hero-bg { position: absolute; inset: 0; z-index: 0; }
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center right; }
-.hero-bg picture img { display: block; }
-.hero-panel {
-  position: relative; z-index: 2;
-  width: 29%; flex-shrink: 0; display: flex; align-items: center;
-  padding: 44px 36px;
-  background: linear-gradient(to right, var(--navy) 70%, rgba(11,29,58,0) 100%);
-}
-.hero-panel-inner { max-width: 340px; }
-.hero-panel h1 {
-  font-size: clamp(28px, 3.5vw, 44px); color: var(--white); margin-bottom: 16px; line-height: 1.15;
-}
-.hero-panel p {
-  font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 28px; line-height: 1.7;
-}
-.hero-cta { margin-bottom: 28px; }
-.hero-cta .btn {
-  padding: 18px 40px; font-size: 18px; border-radius: 9999px; font-weight: 700;
-}
-.hero-shortcuts { display: flex; gap: 10px; flex-wrap: wrap; }
-.hero-shortcut {
-  padding: 9px 20px; background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15); border-radius: 9999px;
-  color: rgba(255,255,255,0.7); font-weight: 500; font-size: 13px;
-  transition: all var(--transition); cursor: pointer; text-decoration: none;
-}
-.hero-shortcut:hover { background: rgba(255,255,255,0.15); color: var(--white); border-color: rgba(255,255,255,0.3); }
-@media (max-width: 768px) {
-  .hero { min-height: auto; flex-direction: column; }
-  .hero-panel { width: 100%; padding: 40px 24px; background: var(--navy); }
-  .hero-bg { position: relative; height: 300px; }
-}
-
-/* ══════════════════════════════════════
-   3. WHO WE ARE
-   ══════════════════════════════════════ */
-.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.intro-img { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
-.intro-img img { width: 100%; height: 400px; object-fit: cover; }
-.intro-text .eyebrow { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
-.intro-text h2 { font-size: clamp(28px, 3.5vw, 40px); margin-bottom: 20px; }
-.intro-text p { margin-bottom: 16px; color: var(--text-muted); line-height: 1.8; }
-@media (max-width: 768px) {
-  .intro-grid { grid-template-columns: 1fr; gap: 32px; }
-  .intro-img img { height: 280px; }
-}
-
-/* ══════════════════════════════════════
-   4. FLEET OVERVIEW
-   ══════════════════════════════════════ */
-.fleet-banner {
-  position: relative; width: 100%; min-height: 420px;
-  display: flex; align-items: center; overflow: hidden;
-}
-.fleet-banner-bg {
-  position: absolute; inset: 0; z-index: 0;
-}
-.fleet-banner-bg img { width: 100%; height: 100%; object-fit: cover; }
-.fleet-banner-overlay {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(90deg, rgba(11,29,58,0.85) 0%, rgba(11,29,58,0.4) 100%);
-}
-.fleet-banner-content {
-  position: relative; z-index: 2;
-  max-width: 1200px; margin: 0 auto; padding: 60px 24px;
-}
-.fleet-banner-content .eyebrow { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
-.fleet-banner-content h2 { font-size: clamp(28px, 3.5vw, 42px); color: var(--white); margin-bottom: 16px; }
-.fleet-banner-content p { color: rgba(255,255,255,0.85); line-height: 1.8; max-width: 560px; margin-bottom: 16px; font-size: 16px; }
-.fleet-stats { display: flex; gap: 40px; margin-top: 28px; margin-bottom: 28px; }
-.fleet-stat-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--gold); }
-.fleet-stat-label { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.6); }
-@media (max-width: 768px) {
-  .fleet-banner { min-height: 360px; }
-  .fleet-banner-overlay { background: rgba(11,29,58,0.8); }
-  .fleet-stats { gap: 24px; }
-}
-
-/* ══════════════════════════════════════
-   5. SERVICES GRID
-   ══════════════════════════════════════ */
-.services-header { text-align: center; margin-bottom: 48px; }
-.services-header .eyebrow { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
-.services-header h2 { font-size: clamp(28px, 3.5vw, 40px); }
-.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.service-card {
-  position: relative; border-radius: var(--radius-lg); overflow: hidden;
-  height: 320px; cursor: pointer; transition: transform var(--transition), box-shadow var(--transition);
-}
-.service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-.service-card-bg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.service-card:hover .service-card-bg { transform: scale(1.05); }
-.service-card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(0deg, rgba(11,29,58,0.85) 0%, rgba(11,29,58,0.15) 60%);
-  display: flex; flex-direction: column; justify-content: flex-end; padding: 28px;
-}
-.service-card-icon { display: none; }
-.service-card-title { color: var(--white); font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; }
-@media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } .service-card { height: 260px; } }
-
-/* ══════════════════════════════════════
-   6. WHY WERNER
-   ══════════════════════════════════════ */
-.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-.why-card {
-  background: var(--white); border-radius: var(--radius); padding: 36px 28px;
-  box-shadow: var(--shadow-sm); transition: all var(--transition);
-}
-.why-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-.why-icon { font-size: 32px; margin-bottom: 16px; }
-.why-card h3 { font-size: 18px; margin-bottom: 10px; }
-.why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
-@media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
-
-/* ══════════════════════════════════════
-   7. TESTIMONIALS
-   ══════════════════════════════════════ */
-.testimonials-header { text-align: center; margin-bottom: 48px; }
-.testimonials-header .eyebrow { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
-.testimonials-header h2 { font-size: clamp(28px, 3.5vw, 40px); }
-.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.testimonial-card {
-  background: var(--white); border-radius: var(--radius); padding: 32px;
-  box-shadow: var(--shadow-sm); position: relative;
-}
-.testimonial-card::before { display: none; }
-.testimonial-stars { color: var(--gold); font-size: 16px; margin-bottom: 12px; letter-spacing: 2px; }
-.testimonial-text { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
-.testimonial-author { font-weight: 600; font-size: 14px; color: var(--navy); }
-.testimonial-location { font-size: 13px; color: var(--text-muted); }
-@media (max-width: 1024px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .testimonials-grid { grid-template-columns: 1fr; } }
-
-/* ══════════════════════════════════════
-   8. ABOUT / FLEET GALLERY
-   ══════════════════════════════════════ */
-.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
-.gallery-grid img {
-  width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-sm);
-  transition: transform var(--transition);
-}
-.gallery-grid img:hover { transform: scale(1.03); }
-@media (max-width: 768px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid img { height: 180px; } }
-
-/* ══════════════════════════════════════
-   9. FAQ
-   ══════════════════════════════════════ */
-.faq-header { text-align: center; margin-bottom: 48px; }
-.faq-header .eyebrow { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
-.faq-header h2 { font-size: clamp(28px, 3.5vw, 40px); }
-.faq-list { max-width: 800px; margin: 0 auto; }
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-item summary {
-  padding: 20px 0; font-size: 16px; font-weight: 600; color: var(--navy);
-  cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
-}
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after { content: '+'; font-size: 24px; color: var(--gold); transition: transform 0.3s; }
-.faq-item[open] summary::after { content: '\2212'; }
-.faq-answer { padding: 0 0 20px; font-size: 15px; color: var(--text-muted); line-height: 1.8; }
-
-/* ══════════════════════════════════════
-   10. QUOTE WIDGET (Embedded)
-   ══════════════════════════════════════ */
-.quote-section { background: var(--cream); }
-.quote-section .eyebrow { text-align: center; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
-/* Widget styles scoped */
-.quote-widget { max-width: 960px; margin: 0 auto; }
-.qw-header { text-align: center; margin-bottom: 36px; }
-.qw-header h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 10px; }
-.qw-header p { color: var(--text-muted); font-size: 15px; max-width: 480px; margin: 0 auto; line-height: 1.6; }
-.qw-progress { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 32px; }
-.qw-step { display: flex; align-items: center; gap: 10px; }
-.qw-step .step-circle { width: 36px; height: 36px; border-radius: 50%; background: var(--white); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: var(--text-light); transition: all var(--transition); flex-shrink: 0; }
-.qw-step.active .step-circle { background: var(--navy); border-color: var(--navy); color: var(--white); box-shadow: 0 0 0 4px rgba(11,29,58,0.12); }
-.qw-step.completed .step-circle { background: var(--gold); border-color: var(--gold); color: var(--white); }
-.qw-step .step-label { font-size: 13px; font-weight: 500; color: var(--text-light); white-space: nowrap; }
-.qw-step.active .step-label { color: var(--navy); font-weight: 600; }
-.qw-step.completed .step-label { color: var(--gold); }
-.qw-connector { width: 40px; height: 2px; background: var(--border); margin: 0 8px; transition: background var(--transition); flex-shrink: 0; }
-.qw-connector.filled { background: var(--gold); }
-@media (max-width: 640px) { .qw-step .step-label { display: none; } .qw-connector { width: 28px; } }
-.qw-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
-.qw-panel { display: none; padding: 36px 40px 32px; }
-.qw-panel.active { display: block; }
-@media (max-width: 640px) { .qw-panel { padding: 24px 20px 20px; } }
-.qw-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
-.qw-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; }
-.qw-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.qw-row.single { grid-template-columns: 1fr; }
-@media (max-width: 640px) { .qw-row { grid-template-columns: 1fr; } }
-.qw-group { display: flex; flex-direction: column; }
-.qw-group label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 6px; }
-.qw-group label .req { color: var(--gold); margin-left: 2px; }
-.qw-group input, .qw-group select, .qw-group textarea {
-  width: 100%; padding: 12px 14px; font-family: 'DM Sans', sans-serif;
-  font-size: 15px; color: var(--text); background: var(--cream);
-  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-  outline: none; transition: all var(--transition);
-}
-.qw-group input:focus, .qw-group select:focus, .qw-group textarea:focus { border-color: var(--navy); background: var(--white); box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
-.qw-group input::placeholder, .qw-group textarea::placeholder { color: var(--text-light); }
-.qw-group textarea { resize: vertical; min-height: 80px; }
-.qw-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-.qw-group .error-msg { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
-.qw-group.error input, .qw-group.error select { border-color: var(--error); background: #fef7f6; }
-.qw-group.error .error-msg { display: block; }
-.qw-trip-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
-.qw-trip-btn { padding: 16px 12px; border: 2px solid var(--border); border-radius: var(--radius); background: var(--white); cursor: pointer; text-align: center; transition: all var(--transition); }
-.qw-trip-btn:hover { border-color: var(--navy-light); background: var(--cream); }
-.qw-trip-btn.selected { border-color: var(--navy); background: rgba(11,29,58,0.03); box-shadow: 0 0 0 1px var(--navy); }
-.qw-trip-btn .tt-icon { font-size: 22px; margin-bottom: 6px; display: block; }
-.qw-trip-btn .tt-label { font-weight: 600; font-size: 14px; color: var(--navy); }
-.qw-trip-btn .tt-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-@media (max-width: 480px) { .qw-trip-types { grid-template-columns: 1fr; } }
-.qw-map { width: 100%; height: 280px; border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; border: 1.5px solid var(--border); background: var(--cream-dark); display: flex; align-items: center; justify-content: center; }
-.qw-map-placeholder { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-light); }
-.qw-map-placeholder svg { opacity: 0.4; }
-.qw-map-placeholder span { font-size: 13px; }
-.qw-route-info { display: none; gap: 20px; padding: 12px 16px; background: var(--gold-dim); border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 14px; align-items: center; }
-.qw-locations { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-.qw-loc-row { display: flex; align-items: center; gap: 10px; }
-.qw-loc-marker { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
-.qw-loc-marker.origin { background: var(--navy); color: var(--white); }
-.qw-loc-marker.dest { background: var(--gold); color: var(--white); }
-.qw-loc-marker.stop { background: var(--gold-dim); color: var(--gold); border: 1.5px solid var(--gold); }
-.qw-loc-row input { flex: 1; }
-.qw-loc-row .remove-stop { width: 32px; height: 32px; border: none; background: none; cursor: pointer; color: var(--text-light); font-size: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all var(--transition); flex-shrink: 0; }
-.qw-loc-row .remove-stop:hover { background: #fdecea; color: var(--error); }
-.qw-add-stop { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--navy); background: none; border: 1.5px dashed var(--border); border-radius: var(--radius-sm); padding: 10px 16px; cursor: pointer; transition: all var(--transition); margin-bottom: 20px; }
-.qw-add-stop:hover { border-color: var(--navy); background: var(--cream); }
-.qw-divider { border: none; margin: 28px 0 4px; height: 0; }
-.qw-section-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); margin-bottom: 14px; }
-.qw-itinerary { display: none; margin-bottom: 20px; }
-.qw-itinerary.visible { display: block; }
-.qw-itinerary .itinerary-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); margin-bottom: 6px; }
-.qw-itinerary .itinerary-hint { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
-.qw-vehicles { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
-.qw-vehicle-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 20px 16px; text-align: center; cursor: pointer; transition: all var(--transition); background: var(--white); position: relative; }
-.qw-vehicle-card:hover { border-color: var(--navy-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.qw-vehicle-card.selected { border-color: var(--navy); background: rgba(11,29,58,0.02); box-shadow: 0 0 0 1px var(--navy), var(--shadow-md); }
-.qw-vehicle-card .v-icon { font-size: 36px; margin-bottom: 8px; display: block; }
-.qw-vehicle-card .v-name { font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 2px; }
-.qw-vehicle-card .v-seats { font-size: 12px; color: var(--text-muted); }
-.qw-vehicle-card .v-check { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: var(--white); display: none; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
-.qw-vehicle-card.selected .v-check { display: flex; }
-.qw-gratuity { display: flex; gap: 12px; margin-bottom: 20px; }
-.qw-grat-btn { padding: 12px 28px; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--white); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--text-muted); transition: all var(--transition); }
-.qw-grat-btn:hover { border-color: var(--navy-light); }
-.qw-grat-btn.selected { border-color: var(--navy); background: rgba(11,29,58,0.03); color: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
-.qw-checkboxes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-bottom: 20px; }
-.qw-cb-item { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); font-size: 14px; color: var(--text); }
-.qw-cb-item:hover { border-color: var(--navy-light); background: var(--cream); }
-.qw-cb-item.checked { border-color: var(--navy); background: rgba(11,29,58,0.03); }
-.qw-cb-item input { display: none; }
-.qw-cb-item .cb-box { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all var(--transition); font-size: 11px; color: transparent; }
-.qw-cb-item.checked .cb-box { background: var(--navy); border-color: var(--navy); color: var(--white); }
-.qw-review-section { background: var(--cream); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; }
-.qw-review-section h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.qw-review-section .edit-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--gold); cursor: pointer; margin-left: auto; text-decoration: underline; }
-.qw-review-section .edit-btn:hover { color: var(--navy); }
-.qw-review-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; border-bottom: 1px solid rgba(0,0,0,0.04); }
-.qw-review-row:last-child { border-bottom: none; }
-.qw-review-row .label { color: var(--text-muted); }
-.qw-review-row .value { font-weight: 500; color: var(--text); text-align: right; max-width: 60%; }
-.qw-review-map { width: 100%; height: 180px; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 12px; border: 1px solid var(--border); background: var(--cream-dark); }
-.qw-footer { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px 28px; border-top: 1px solid var(--border); }
-@media (max-width: 640px) { .qw-footer { padding: 16px 20px 20px; } }
-.qw-btn { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 13px 28px; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all var(--transition); display: inline-flex; align-items: center; gap: 8px; }
-.qw-btn-back { background: none; color: var(--text-muted); padding: 13px 16px; }
-.qw-btn-back:hover { color: var(--navy); }
-.qw-btn-next { background: var(--navy); color: var(--white); }
-.qw-btn-next:hover { background: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.qw-btn-submit { background: var(--gold); color: var(--navy); font-size: 15px; padding: 14px 36px; }
-.qw-btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.qw-btn svg { width: 16px; height: 16px; }
-.qw-success { display: none; text-align: center; padding: 60px 40px; }
-.qw-success.active { display: block; }
-.qw-success-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--gold-dim); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-.qw-success-icon svg { width: 32px; height: 32px; color: var(--gold); }
-.qw-success h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--navy); margin-bottom: 10px; }
-.qw-success p { color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 420px; margin: 0 auto; }
-.qw-note { text-align: center; margin-top: 20px; font-size: 12px; color: var(--text-light); }
-.qw-vehicle-warning { display: none; align-items: center; gap: 10px; padding: 12px 16px; background: #FFF8E1; border: 1.5px solid #F9A825; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 14px; color: #5D4037; }
-.qw-vehicle-warning.visible { display: flex; }
-.qw-vehicle-warning svg { flex-shrink: 0; }
-
-/* ══════════════════════════════════════
-   11. CONTACT
-   ══════════════════════════════════════ */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
-.contact-info h3 { font-size: 20px; margin-bottom: 24px; }
-.contact-item { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
-.contact-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--gold-dim); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.contact-icon svg { width: 20px; height: 20px; color: var(--gold); }
-.contact-item-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-.contact-item-value { font-weight: 500; color: var(--navy); }
-.contact-item-value a { color: var(--navy); }
-.contact-item-value a:hover { color: var(--gold); }
-.contact-map {
-  border-radius: var(--radius-lg); overflow: hidden;
-  background: var(--cream); display: flex; align-items: center; justify-content: center;
-  min-height: 320px; border: 1px solid var(--border);
-}
-.contact-map-inner { text-align: center; padding: 40px; color: var(--text-muted); }
-.contact-map-inner svg { opacity: 0.3; margin-bottom: 12px; }
-.contact-map-inner p { font-size: 14px; }
-.contact-map-inner a { color: var(--gold); font-weight: 600; }
-@media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
-
-/* ══════════════════════════════════════
-   12. FOOTER
-   ══════════════════════════════════════ */
-.footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 64px 0 0; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 48px; }
-.footer-brand img { height: 52px; margin-bottom: 16px; }
-.footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
-.footer h4 { color: var(--white); font-size: 16px; margin-bottom: 20px; }
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: 10px; }
-.footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); transition: color var(--transition); }
-.footer-links a:hover { color: var(--gold); }
-.footer-contact-item { font-size: 14px; margin-bottom: 10px; }
-.footer-contact-item a { color: rgba(255,255,255,0.65); }
-.footer-contact-item a:hover { color: var(--gold); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 24px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-.footer-bottom p { font-size: 13px; }
-.footer-legal { display: flex; gap: 24px; }
-.footer-legal a { font-size: 13px; color: rgba(255,255,255,0.5); }
-.footer-legal a:hover { color: var(--gold); }
-@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-</style>
+</script>
 </head>
 <body>
 
@@ -488,31 +190,32 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
      ══════════════════════════════════════ -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo"><img src="images/Mask-Group-1.png" alt="Werner Coach Logo"></a>
+    <a href="index.html" class="nav-logo"><img src="../images/Mask-Group-1.png" alt="Werner Coach Logo"></a>
     <div class="nav-center">
       <ul class="nav-links">
-        <li><a href="#hero">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li class="nav-dropdown">
-          <a href="#services">Services</a>
+          <a href="services/">Services</a>
           <div class="nav-dropdown-menu">
-            <a href="#services">Wedding Transport</a>
-            <a href="#services">School Groups</a>
-            <a href="#services">Corporate Transport</a>
+            <a href="services/wedding.html">Wedding Transport</a>
+            <a href="services/school.html">School Groups</a>
+            <a href="services/corporate.html">Corporate Transport</a>
             <a href="#services">Athletic Teams</a>
             <a href="#services">Day Tours</a>
             <a href="#services">Bachelor/Bachelorette</a>
           </div>
         </li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="fleet.html">Fleet</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
       <a href="tel:8005329800" class="nav-phone" data-cs-tel="phone_tollfree_raw" data-cs="phone_tollfree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(800) 532-9800</a>
     </div>
     <div class="nav-ctas">
       <a href="#quote" class="nav-cta-btn nav-cta-quote">Request Quote</a>
-      <a href="#" class="nav-cta-btn nav-cta-pay">Make a Payment</a>
+      <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" target="_blank" rel="noopener noreferrer" class="nav-cta-btn nav-cta-pay">Pay Online</a>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
@@ -520,15 +223,16 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
   </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#hero" onclick="closeMobileMenu()">Home</a>
-  <a href="#services" onclick="closeMobileMenu()">Services</a>
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
-  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
-  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
+  <a href="services/" onclick="closeMobileMenu()">Services</a>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="fleet.html" onclick="closeMobileMenu()">Fleet</a>
+  <a href="testimonials.html" onclick="closeMobileMenu()">Testimonials</a>
+  <a href="faq.html" onclick="closeMobileMenu()">FAQ</a>
+  <a href="contact.html" onclick="closeMobileMenu()">Contact</a>
   <a href="tel:6109337100" onclick="closeMobileMenu()" data-cs-tel="phone_main_raw" data-cs="phone_main">(610) 933-7100</a>
   <a href="#quote" class="nav-cta-btn nav-cta-quote" onclick="closeMobileMenu()">Request Quote</a>
-  <a href="#" class="nav-cta-btn nav-cta-pay" onclick="closeMobileMenu()">Make a Payment</a>
+  <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" target="_blank" rel="noopener noreferrer" class="nav-cta-btn nav-cta-pay" onclick="closeMobileMenu()">Pay Online</a>
 </div>
 
 <!-- ══════════════════════════════════════
@@ -537,9 +241,9 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
 <section class="hero" id="hero">
   <div class="hero-bg">
     <picture>
-      <source media="(max-width: 600px)" srcset="images/werner-coach-philadelphia-media.webp">
-      <source media="(max-width: 1024px)" srcset="images/werner-coach-philadelphiamedium.webp">
-      <img src="images/werner-coach-philadelphia-copy.webp" alt="Werner Coach charter bus in Philadelphia" loading="eager">
+      <source media="(max-width: 600px)" srcset="../images/werner-coach-philadelphia-media.webp">
+      <source media="(max-width: 1024px)" srcset="../images/werner-coach-philadelphiamedium.webp">
+      <img src="../images/werner-coach-philadelphia-copy.webp" alt="Werner Coach charter bus in Philadelphia" loading="eager">
     </picture>
   </div>
   <div class="hero-panel">
@@ -550,9 +254,9 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
         <a href="#quote" class="btn btn-red">Request a Free Quote</a>
       </div>
       <div class="hero-shortcuts">
-        <a href="#services" class="hero-shortcut">School Groups</a>
-        <a href="#services" class="hero-shortcut">Weddings</a>
-        <a href="#services" class="hero-shortcut">Corporate</a>
+        <a href="services/school.html" class="hero-shortcut">School Groups</a>
+        <a href="services/wedding.html" class="hero-shortcut">Weddings</a>
+        <a href="services/corporate.html" class="hero-shortcut">Corporate</a>
         <a href="#services" class="hero-shortcut">Day Tours</a>
       </div>
     </div>
@@ -566,14 +270,14 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
   <div class="container">
     <div class="intro-grid">
       <div class="intro-img fade-up">
-        <img src="images/IMG_0004-copy.webp" alt="Werner Coach charter bus fleet in Philadelphia" loading="lazy">
+        <img src="../images/IMG_0004-copy.webp" alt="Werner Coach charter bus fleet in Philadelphia" loading="lazy">
       </div>
       <div class="intro-text fade-up">
         <div class="eyebrow">Who We Are</div>
         <h2>Philadelphia's Premier Charter Bus Company</h2>
         <p>With roots going back to <span data-cs="founded_year">1929</span>, Werner Coach has been a trusted name in group transportation throughout the greater Philadelphia area for over <span data-cs="years_in_business">97</span> years. Now a second-generation family business, we've grown into one of the region's most respected charter bus companies.</p>
         <p>We take pride in our commitment to safety, reliability, and personalized service. Whether you're planning a school field trip, coordinating wedding guest transportation, or organizing a corporate outing, our experienced team ensures every detail is handled with care.</p>
-        <a href="#about" class="btn btn-red">Learn More About Us</a>
+        <a href="about.html" class="btn btn-red">Learn More About Us</a>
       </div>
     </div>
   </div>
@@ -584,7 +288,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
      ══════════════════════════════════════ -->
 <section class="fleet-banner" id="fleet">
   <div class="fleet-banner-bg">
-    <img src="images/Werner-Bus-In-Snow-copy.webp" alt="Werner Coach bus in winter weather" loading="lazy">
+    <img src="../images/Werner-Bus-In-Snow-copy.webp" alt="Werner Coach bus in winter weather" loading="lazy">
   </div>
   <div class="fleet-banner-overlay"></div>
   <div class="fleet-banner-content fade-up">
@@ -619,30 +323,30 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
       <h2>Group Transportation for Every Occasion</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card fade-up">
-        <img class="service-card-bg" src="images/Werner-Bus-Baseball-Stadium.webp" alt="Charter bus for athletic teams in Philadelphia" loading="lazy">
-        <div class="service-card-overlay"><img class="service-card-icon" src="images/athletic-teams-copy.webp" alt=""><div class="service-card-title">Athletic Teams</div></div>
-      </div>
-      <div class="service-card fade-up">
-        <img class="service-card-bg" src="images/Werner-Bus-Franklin-Institute.webp" alt="School trip charter bus rental Philadelphia" loading="lazy">
-        <div class="service-card-overlay"><img class="service-card-icon" src="images/school-trips-copy.webp" alt=""><div class="service-card-title">School Trips</div></div>
-      </div>
-      <div class="service-card fade-up">
-        <img class="service-card-bg" src="images/charter-bus-rent-philadelphia03.webp" alt="Single day tour charter bus Philadelphia" loading="lazy">
-        <div class="service-card-overlay"><img class="service-card-icon" src="images/Single-Day-Tours-copy.webp" alt=""><div class="service-card-title">Single Day Tours</div></div>
-      </div>
-      <div class="service-card fade-up">
-        <img class="service-card-bg" src="images/wedding.webp" alt="Wedding party charter bus transportation" loading="lazy">
-        <div class="service-card-overlay"><img class="service-card-icon" src="images/Wedding-Parties-copy.webp" alt=""><div class="service-card-title">Wedding Parties</div></div>
-      </div>
-      <div class="service-card fade-up">
-        <img class="service-card-bg" src="images/charter-bus-rent-philadelphia02.webp" alt="Corporate and business charter bus Philadelphia" loading="lazy">
-        <div class="service-card-overlay"><img class="service-card-icon" src="images/Corporate-Business-copy.webp" alt=""><div class="service-card-title">Corporate &amp; Business</div></div>
-      </div>
-      <div class="service-card fade-up">
-        <img class="service-card-bg" src="images/charter-bus-rent-philadelphia04.webp" alt="Bachelor and bachelorette party bus rental" loading="lazy">
-        <div class="service-card-overlay"><img class="service-card-icon" src="images/bachalor-parties-copy.webp" alt=""><div class="service-card-title">Bachelor &amp; Bachelorette</div></div>
-      </div>
+      <a href="#services" class="service-card fade-up">
+        <img class="service-card-bg" src="../images/Werner-Bus-Baseball-Stadium.webp" alt="Charter bus for athletic teams in Philadelphia" loading="lazy">
+        <div class="service-card-overlay"><img class="service-card-icon" src="../images/athletic-teams-copy.webp" alt=""><div class="service-card-title">Athletic Teams</div></div>
+      </a>
+      <a href="services/school.html" class="service-card fade-up">
+        <img class="service-card-bg" src="../images/Werner-Bus-Franklin-Institute.webp" alt="School trip charter bus rental Philadelphia" loading="lazy">
+        <div class="service-card-overlay"><img class="service-card-icon" src="../images/school-trips-copy.webp" alt=""><div class="service-card-title">School Trips</div></div>
+      </a>
+      <a href="#services" class="service-card fade-up">
+        <img class="service-card-bg" src="../images/charter-bus-rent-philadelphia03.webp" alt="Single day tour charter bus Philadelphia" loading="lazy">
+        <div class="service-card-overlay"><img class="service-card-icon" src="../images/Single-Day-Tours-copy.webp" alt=""><div class="service-card-title">Single Day Tours</div></div>
+      </a>
+      <a href="services/wedding.html" class="service-card fade-up">
+        <img class="service-card-bg" src="../images/wedding.webp" alt="Wedding party charter bus transportation" loading="lazy">
+        <div class="service-card-overlay"><img class="service-card-icon" src="../images/Wedding-Parties-copy.webp" alt=""><div class="service-card-title">Wedding Parties</div></div>
+      </a>
+      <a href="services/corporate.html" class="service-card fade-up">
+        <img class="service-card-bg" src="../images/charter-bus-rent-philadelphia02.webp" alt="Corporate and business charter bus Philadelphia" loading="lazy">
+        <div class="service-card-overlay"><img class="service-card-icon" src="../images/Corporate-Business-copy.webp" alt=""><div class="service-card-title">Corporate &amp; Business</div></div>
+      </a>
+      <a href="#services" class="service-card fade-up">
+        <img class="service-card-bg" src="../images/charter-bus-rent-philadelphia04.webp" alt="Bachelor and bachelorette party bus rental" loading="lazy">
+        <div class="service-card-overlay"><img class="service-card-icon" src="../images/bachalor-parties-copy.webp" alt=""><div class="service-card-title">Bachelor &amp; Bachelorette</div></div>
+      </a>
     </div>
   </div>
 </section>
@@ -755,10 +459,10 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
       <p style="font-size:16px;color:var(--text-muted);line-height:1.8;">We carry on a tradition of putting passengers first &mdash; combining old-fashioned reliability with modern comfort and safety standards. Every trip is an opportunity to earn your trust, and we take that seriously.</p>
     </div>
     <div class="gallery-grid fade-up">
-      <img src="images/charter-bus-rent-philadelphia.webp" alt="Charter bus rental Philadelphia" loading="lazy">
-      <img src="images/charter-bus-rent-philadelphia02.webp" alt="Philadelphia charter bus service" loading="lazy">
-      <img src="images/charter-bus-rent-philadelphia03.webp" alt="Rent a charter bus in Philadelphia" loading="lazy">
-      <img src="images/charter-bus-rent-philadelphia04.webp" alt="Werner Coach fleet Philadelphia" loading="lazy">
+      <img src="../images/charter-bus-rent-philadelphia.webp" alt="Charter bus rental Philadelphia" loading="lazy">
+      <img src="../images/charter-bus-rent-philadelphia02.webp" alt="Philadelphia charter bus service" loading="lazy">
+      <img src="../images/charter-bus-rent-philadelphia03.webp" alt="Rent a charter bus in Philadelphia" loading="lazy">
+      <img src="../images/charter-bus-rent-philadelphia04.webp" alt="Werner Coach fleet Philadelphia" loading="lazy">
     </div>
   </div>
 </section>
@@ -989,10 +693,6 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
           <div><div class="contact-item-label">Phone</div><div class="contact-item-value"><a href="tel:6109337100" data-cs-tel="phone_main_raw" data-cs="phone_main">(610) 933-7100</a></div></div>
         </div>
         <div class="contact-item">
-          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="mailto:info@wernercoach.com" data-cs-mailto="email_sales" data-cs="email_sales">info@wernercoach.com</a></div></div>
-        </div>
-        <div class="contact-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div>
             <div class="contact-item-label">Business Hours</div>
@@ -1005,11 +705,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
         </div>
       </div>
       <div class="contact-map">
-        <div class="contact-map-inner">
-          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <p data-cs="full_address">144 Chester Ave, Phoenixville, PA 19460</p>
-          <p style="margin-top:8px;"><a href="https://www.google.com/maps/dir//144+Chester+Ave+Phoenixville+PA+19460" data-cs-href="maps_url" target="_blank" rel="noopener">Get Directions &rarr;</a></p>
-        </div>
+        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA38IZTVw4Fx3mVEjGUWBeonyzCu_mFGi0&q=144+Chester+Ave,+Phoenixville,+PA+19460&zoom=14" width="100%" height="100%" style="border:0;min-height:320px;border-radius:var(--radius-lg);" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Werner Coach location on Google Maps"></iframe>
       </div>
     </div>
   </div>
@@ -1022,15 +718,15 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="images/Mask-Group-1.png" alt="Werner Coach Logo">
+        <img src="../images/Mask-Group-1.png" alt="Werner Coach Logo">
         <p>Philadelphia's trusted charter bus company with roots dating back to <span data-cs="founded_year">1929</span>. Family-owned, safety-focused, and dedicated to making every trip exceptional.</p>
       </div>
       <div>
         <h4>Services</h4>
         <ul class="footer-links">
-          <li><a href="#services">Wedding Transport</a></li>
-          <li><a href="#services">School Groups</a></li>
-          <li><a href="#services">Corporate Events</a></li>
+          <li><a href="services/wedding.html">Wedding Transport</a></li>
+          <li><a href="services/school.html">School Groups</a></li>
+          <li><a href="services/corporate.html">Corporate Events</a></li>
           <li><a href="#services">Athletic Teams</a></li>
           <li><a href="#services">Day Tours</a></li>
           <li><a href="#services">Bachelor/Bachelorette</a></li>
@@ -1039,10 +735,10 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
       <div>
         <h4>Company</h4>
         <ul class="footer-links">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#fleet">Our Fleet</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="fleet.html">Our Fleet</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="#quote">Get a Quote</a></li>
         </ul>
       </div>
@@ -1050,15 +746,16 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-hei
         <h4>Contact Us</h4>
         <div class="footer-contact-item"><span data-cs="address_street">144 Chester Ave</span><br><span data-cs="address_city">Phoenixville</span>, <span data-cs="address_state">PA</span> <span data-cs="address_zip">19460</span></div>
         <div class="footer-contact-item"><a href="tel:6109337100" data-cs-tel="phone_main_raw" data-cs="phone_main">(610) 933-7100</a></div>
-        <div class="footer-contact-item"><a href="mailto:info@wernercoach.com" data-cs-mailto="email_sales" data-cs="email_sales">info@wernercoach.com</a></div>
         <div class="footer-contact-item" style="margin-top:16px;">Mon&ndash;Fri: 8AM&ndash;5PM<br>Sat: By appointment</div>
+        <div class="footer-contact-item" style="font-size:12px; color:var(--text-muted);"><a href="mailto:contact@wernercoach.com" style="color:var(--text-muted); font-size:12px;" data-cs-mailto="email_sales" data-cs="email_sales">contact@wernercoach.com</a></div>
       </div>
     </div>
+    <div class="footer-cta"><a href="#quote" class="btn btn-red">Request a Free Quote</a><p>Or call <a href="tel:8005329800" style="color:var(--gold);" data-cs="phone_tollfree">(800) 532-9800</a></p></div>
     <div class="footer-bottom">
       <p data-cs="copyright">&copy; 2026 Werner Coach. All rights reserved.</p>
       <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -1088,7 +785,7 @@ var COMPANY = {
   address_city:       'Phoenixville',
   address_state:      'PA',
   address_zip:        '19460',
-  email_sales:        'info@wernercoach.com',
+  email_sales:        'contact@wernercoach.com',
   website:            'wernercoach.com',
   garage_address:     '144 Chester Ave, Phoenixville, PA 19460',
   hours_weekday:      'Monday \u2013 Friday: 8:00 AM \u2013 5:00 PM',
@@ -1491,5 +1188,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('qwPassengers').addEventListener('input', qwCheckCapacity);
 });
 </script>
+<div class="mobile-sticky-cta"><a href="#quote">Request a Free Quote</a></div>
 </body>
 </html>

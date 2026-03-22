@@ -7,21 +7,171 @@
   <meta name="description" content="Rent a luxury charter bus in Philadelphia. Werner Coach motorcoaches seat up to 54 with Wi-Fi, restrooms, and power outlets. Weddings, corporate events, school trips, athletic teams, and custom tours. NYC to DC service area.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://wernercoach.com/fleet.html">
-  <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0B1D3A;--navy-l:#142a4f;--gold:#B8965A;--gold-l:#cba96d;--gold-d:#9a7a42;--cream:#F8F4EE;--cream2:#EDE8DE;--char:#1C1C1C;--text:#2C2C2C;--muted:#6B6B6B;--white:#FFFFFF;--mw:1200px;--nh:72px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Source Sans 3',system-ui,sans-serif;color:var(--text);line-height:1.65;background:var(--white)}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--gold);text-decoration:none;transition:color .2s}
+    a:hover{color:var(--gold-l)}
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 40px}
+
+    /* NAV */
+    .nav{background:var(--navy);position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(184,150,90,.12)}
+    .nav-inner{max-width:var(--mw);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:var(--nh)}
+    .nav-logo{display:flex;align-items:center;background:rgba(255,255,255,.95);border-radius:6px;padding:4px 10px}
+    .nav-logo img{height:38px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+    .nav-links a{color:rgba(255,255,255,.8);padding:8px 14px;font-size:.88rem;font-weight:400;letter-spacing:.4px;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-dropdown{position:relative}
+    .nav-dropdown .drop{display:none;position:absolute;top:100%;left:0;background:var(--navy);border-top:2px solid var(--gold);min-width:220px;padding:8px 0;z-index:1001;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+    .nav-dropdown:hover .drop{display:block}
+    .drop a{display:block;padding:10px 20px;border-radius:0;font-size:.88rem}
+    .nav-cta{display:flex;gap:12px;align-items:center}
+    .nav-phone{color:rgba(255,255,255,.55)!important;font-size:.78rem;letter-spacing:.3px;white-space:nowrap}
+    .nav-phone:hover{color:var(--gold)!important}
+    @keyframes nav-shimmer{0%{left:-100%}100%{left:200%}}
+    .nav-btn-q{padding:8px 20px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);color:var(--navy)!important;font-size:.74rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;transition:all .35s;border:none;border-radius:22px;box-shadow:0 2px 8px rgba(184,150,90,.25),inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;white-space:nowrap}
+    .nav-btn-q::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
+    .nav-btn-q:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(184,150,90,.4),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(145deg,#dfc085 0%,#cba96d 50%,#B8965A 100%)}
+    .nav-btn-p{color:rgba(255,255,255,.2)!important;font-size:.68rem;letter-spacing:.3px;transition:all .2s;white-space:nowrap}
+    .nav-btn-p:hover{color:rgba(255,255,255,.45)!important}
+    .nav-tog{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .nav-tog span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.8);margin:6px 0;transition:transform .3s,opacity .3s}
+    .nav-tog.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+    .nav-tog.active span:nth-child(2){opacity:0}
+    .nav-tog.active span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+    .nav-mob{display:none}
+
+    /* PAGE HEADER */
+    .page-hdr{position:relative;background:var(--navy);color:var(--white);padding:72px 0;overflow:hidden}
+    .page-hdr-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.25}
+    .page-hdr-inner{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+    .page-hdr h1{font-family:'Playfair Display',Georgia,serif;font-size:2.6rem;font-weight:700;margin-bottom:8px}
+    .page-hdr-sub{font-size:1.05rem;font-weight:300;color:rgba(255,255,255,.7);max-width:500px}
+    .eye{font-size:.68rem;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:12px}
+
+    /* BUTTONS */
+    .btn{display:inline-block;padding:15px 36px;font-size:.88rem;font-weight:600;letter-spacing:.5px;transition:all .25s;cursor:pointer;text-align:center}
+    .btn-gold{background:var(--gold);color:var(--navy)}
+    .btn-gold:hover{background:var(--gold-l);color:var(--navy);transform:translateY(-2px);box-shadow:0 8px 24px rgba(184,150,90,.35)}
+    .btn-ghost{border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.9)}
+    .btn-ghost:hover{border-color:white;color:white;transform:translateY(-2px)}
+    .btn-navy{background:var(--navy);color:var(--white)!important}
+    .btn-navy:hover{background:var(--navy-l);transform:translateY(-2px)}
+    .btn-outline-navy{border:1px solid var(--navy);color:var(--navy)!important}
+    .btn-outline-navy:hover{background:var(--navy);color:var(--white)!important}
+
+    /* SECTIONS */
+    .sec{padding:100px 0}
+    .sec-cream{background:var(--cream)}
+    .sec-navy{background:var(--navy);color:var(--white)}
+    .sec-hd{text-align:center;margin-bottom:48px}
+    .sec-t{font-family:'Playfair Display',Georgia,serif;font-size:2.6rem;font-weight:700;color:var(--navy);line-height:1.2}
+    .sec-navy .sec-t{color:var(--white)}
+    .sec-sub{font-size:1rem;font-weight:300;color:var(--muted);max-width:520px;margin:16px auto 0;line-height:1.8}
+    .sec-navy .sec-sub{color:rgba(255,255,255,.6)}
+
+    /* FLEET GALLERY */
+    .fleet-gallery{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px;margin:0 auto}
+    .fleet-gallery img{width:100%;height:360px;object-fit:cover;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+    .fleet-gallery img:last-child:nth-child(odd){grid-column:1/-1;height:420px}
+
+    /* SPEC CARDS */
+    .spec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1000px;margin:0 auto}
+    .spec-card{background:var(--white);padding:32px 24px;border-radius:8px;text-align:center;box-shadow:0 2px 16px rgba(0,0,0,.06);border-top:3px solid var(--gold)}
+    .spec-icon{font-size:2rem;margin-bottom:12px}
+    .spec-card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;font-weight:500;color:var(--navy);margin-bottom:8px}
+    .spec-card p{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.6}
+
+    /* AMENITY GRID */
+    .amenity-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:700px;margin:0 auto}
+    .amenity-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--cream);border-radius:6px;font-size:.92rem;color:var(--text)}
+    .a-check{color:var(--gold);font-weight:700;font-size:1.1rem}
+
+    /* FEATURES (safety) */
+    .features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;max-width:900px;margin:0 auto}
+    .feature-item{display:flex;gap:20px;align-items:flex-start}
+    .feature-icon{font-size:2rem;flex-shrink:0;margin-top:4px}
+    .feature-item h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:500;color:var(--white);margin-bottom:8px}
+    .feature-item p{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.65);line-height:1.7}
+
+    /* CTA BAND */
+    .cta-band{background:var(--navy);color:var(--white);padding:80px 0;text-align:center}
+    .cta-band-inner{max-width:600px;margin:0 auto;padding:0 20px}
+    .cta-band h2{font-family:'Playfair Display',Georgia,serif;font-size:2.2rem;font-weight:400;margin-bottom:14px}
+    .cta-band p{font-size:1rem;font-weight:300;color:rgba(255,255,255,.65);margin-bottom:32px;line-height:1.8}
+    .cta-band-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+    /* FOOTER */
+    .foot{background:var(--char);color:rgba(255,255,255,.65);padding:72px 40px 0}
+    .foot-grid{max-width:var(--mw);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .foot-brand img{height:44px;margin-bottom:18px;background:rgba(255,255,255,.9);border-radius:6px;padding:4px 10px}
+    .foot-brand p{font-size:.84rem;line-height:1.7;font-weight:300;max-width:280px}
+    .foot h4{color:var(--white);font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:20px}
+    .foot-links{list-style:none}
+    .foot-links li{margin-bottom:10px}
+    .foot-links a{color:rgba(255,255,255,.45);font-size:.84rem;font-weight:300}
+    .foot-links a:hover{color:var(--gold)}
+    .foot-btm{max-width:var(--mw);margin:0 auto;padding:20px 0;display:flex;justify-content:space-between;font-size:.77rem;color:rgba(255,255,255,.25)}
+    .foot-btm a{color:rgba(255,255,255,.25)}
+    .foot-btm a:hover{color:var(--gold)}
+
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:1024px){
+      .spec-grid{grid-template-columns:repeat(2,1fr)}
+      .features-grid{grid-template-columns:1fr}
+      .foot-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:768px){
+      .nav-links,.nav-cta{display:none}
+      .nav-tog{display:block}
+      .nav-mob{display:none;position:fixed;inset:0;top:var(--nh);background:var(--navy);padding:24px;z-index:999;overflow-y:auto}
+      .nav-mob.open{display:block}
+      .nav-mob a{display:block;color:rgba(255,255,255,.85);padding:14px 0;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.07)}
+      .nav-mob a:hover{color:var(--gold)}
+      .mob-cta{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+      .mob-cta a{text-align:center;padding:14px;font-weight:600;border-bottom:none!important}
+      .mob-cta .mob-q{background:var(--gold);color:var(--navy)!important}
+      .mob-cta .mob-p{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7)!important}
+      .page-hdr{padding:48px 0}
+      .page-hdr-inner{flex-direction:column;text-align:center;padding:0 20px}
+      .page-hdr h1{font-size:2rem}
+      .wrap{padding:0 20px}
+      .nav-inner{padding:0 20px}
+      .fleet-gallery{grid-template-columns:1fr}
+      .fleet-gallery img{height:260px}
+      .spec-grid{grid-template-columns:1fr}
+      .amenity-grid{grid-template-columns:1fr}
+      .features-grid{grid-template-columns:1fr}
+      .foot-grid{grid-template-columns:1fr;gap:28px}
+      .foot{padding:48px 20px 0}
+      .foot-btm{flex-direction:column;gap:6px}
+      .sec{padding:64px 0}
+    }
+  </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5C2GCQ32K"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-V5C2GCQ32K');</script>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/" class="nav-logo"><img src="/images/logo.png" alt="Werner Coach" width="160" height="48"></a>
+      <a href="/demo-ultimate.html" class="nav-logo"><img src="/images/logo.png" alt="Werner Coach" width="160" height="48"></a>
       <ul class="nav-links">
-        <li><a href="/">Home</a></li>
+        <li><a href="/demo-ultimate.html">Home</a></li>
         <li class="nav-dropdown">
           <a href="/services/">Services</a>
-          <div class="dropdown-menu">
+          <div class="drop">
             <a href="/services/wedding.html">Wedding Transportation</a>
             <a href="/services/school.html">School Groups</a>
             <a href="/services/corporate.html">Corporate Transportation</a>
@@ -34,13 +184,14 @@
       </ul>
       <div class="nav-cta">
         <a href="tel:+18005329800" class="nav-phone">(800) 532-9800</a>
-        <a href="https://www.wernercoach.com/request-quote" class="btn-quote">Get a Quote</a>
-        <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" class="btn-pay" target="_blank" rel="noopener">Pay Online</a>
+        <a href="/quote-widget.html" class="nav-btn-q">Get a Free Quote</a>
+        <a href="https://api.ipospays.com/v1/sl/DbEzA_050126162213" class="nav-btn-p" target="_blank" rel="noopener">Pay Online</a>
       </div>
-      <button class="nav-toggle" onclick="document.querySelector('.nav-mobile').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="nav-tog" onclick="this.classList.toggle('active');document.querySelector('.nav-mob').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
-    <div class="nav-mobile">
-      <a href="/">Home</a>
+    <div class="nav-mob">
+      <a href="/demo-ultimate.html">Home</a>
+      <a href="/services/">Services</a>
       <a href="/services/wedding.html">Wedding Transportation</a>
       <a href="/services/school.html">School Groups</a>
       <a href="/services/corporate.html">Corporate Transportation</a>
@@ -48,70 +199,82 @@
       <a href="/testimonials.html">Testimonials</a>
       <a href="/faq.html">FAQ</a>
       <a href="/contact.html">Contact</a>
-      <div class="mobile-cta">
-        <a href="tel:+18005329800" class="btn-quote">(800) 532-9800</a>
-        <a href="https://www.wernercoach.com/request-quote" class="btn-quote">Get a Quote</a>
+      <div class="mob-cta">
+        <a href="tel:+18005329800" class="mob-p">(800) 532-9800</a>
+        <a href="/quote-widget.html" class="mob-q">Get a Free Quote</a>
       </div>
     </div>
   </nav>
 
-  <div class="page-header">
-    <h1>Our Fleet</h1>
-    <p>Modern luxury motorcoaches equipped for comfort, safety, and reliability.</p>
+  <!-- PAGE HEADER -->
+  <div class="page-hdr">
+    <div class="page-hdr-bg" style="background-image:url('/images/bus-medium-angle.webp')"></div>
+    <div class="page-hdr-inner">
+      <div>
+        <p class="eye" style="color:var(--gold)">OUR FLEET</p>
+        <h1>Luxury Motorcoaches</h1>
+        <p class="page-hdr-sub">Modern luxury motorcoaches equipped for comfort, safety, and reliability.</p>
+      </div>
+      <a href="/quote-widget.html" class="btn btn-gold">Request a Free Quote</a>
+    </div>
   </div>
 
-  <!-- Fleet Photos -->
-  <section class="section">
-    <div class="container">
-      <div class="fleet-gallery">
-        <img src="/images/hero-bus.webp" alt="Werner Coach MCI J4500 motorcoach exterior" loading="lazy">
-        <img src="/images/bus-snow.webp" alt="Werner Coach motorcoach in winter conditions" loading="lazy">
+  <!-- FLEET PHOTOS -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="fleet-gallery fade-up">
+        <img src="/images/bus-side-full.webp" alt="Werner Coach MCI J4500 motorcoach exterior" loading="lazy">
+        <img src="/images/bus-snow-hd.webp" alt="Werner Coach motorcoach in winter conditions" loading="lazy">
+        <img src="/images/bus-medium-angle.webp" alt="Werner Coach motorcoach front quarter view" loading="lazy">
       </div>
     </div>
   </section>
 
-  <!-- Specs -->
-  <section class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Vehicle Specifications</h2>
-      <p class="section-subtitle">Full-size MCI luxury motorcoaches built for long-distance comfort and group travel.</p>
-      <div class="fleet-specs">
-        <div class="spec-card">
+  <!-- SPECS -->
+  <section class="sec sec-cream">
+    <div class="wrap">
+      <div class="sec-hd fade-up">
+        <p class="eye" style="color:var(--gold)">SPECIFICATIONS</p>
+        <h2 class="sec-t">Vehicle Specifications</h2>
+        <p class="sec-sub">Full-size MCI luxury motorcoaches built for long-distance comfort and group travel.</p>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x1F465;</div>
           <h3>54 Passengers</h3>
           <p>Full-size seating capacity with room for every group member</p>
         </div>
-        <div class="spec-card">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x1F4FA;</div>
           <h3>Entertainment</h3>
           <p>PA system and overhead video for announcements or movies</p>
         </div>
-        <div class="spec-card">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x1F4F6;</div>
           <h3>Wi-Fi</h3>
           <p>Complimentary onboard wireless internet for all passengers</p>
         </div>
-        <div class="spec-card">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x1F50C;</div>
           <h3>Power Outlets</h3>
           <p>Charging at every seat for phones, laptops, and tablets</p>
         </div>
-        <div class="spec-card">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x1F6BB;</div>
           <h3>Restroom</h3>
           <p>Onboard lavatory so no emergency stops are needed</p>
         </div>
-        <div class="spec-card">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x2744;</div>
           <h3>Climate Control</h3>
           <p>Full heating and air conditioning for year-round comfort</p>
         </div>
-        <div class="spec-card">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x1F9F3;</div>
           <h3>Luggage Storage</h3>
           <p>Overhead bins and large undercarriage compartments</p>
         </div>
-        <div class="spec-card">
+        <div class="spec-card fade-up">
           <div class="spec-icon">&#x1F4F7;</div>
           <h3>Safety Cameras</h3>
           <p>Onboard camera systems on every coach for security</p>
@@ -120,55 +283,61 @@
     </div>
   </section>
 
-  <!-- Amenities Detail -->
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h2 class="section-title">Full Amenity List</h2>
-      <div class="amenity-grid">
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Reclining seats with headrests</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Onboard restroom</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Full climate control (heat &amp; A/C)</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Complimentary Wi-Fi</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Power outlets at every seat</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> PA system</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Video entertainment system</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Overhead storage bins</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Undercarriage luggage compartments</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Onboard safety camera systems</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> GPS tracking</div>
-        <div class="amenity-item"><span class="a-icon">&#x2705;</span> Tinted windows</div>
+  <!-- AMENITY LIST -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-hd fade-up">
+        <p class="eye" style="color:var(--gold)">AMENITIES</p>
+        <h2 class="sec-t">Full Amenity List</h2>
+      </div>
+      <div class="amenity-grid fade-up">
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Reclining seats with headrests</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Onboard restroom</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Full climate control (heat &amp; A/C)</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Complimentary Wi-Fi</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Power outlets at every seat</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> PA system</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Video entertainment system</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Overhead storage bins</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Undercarriage luggage compartments</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Onboard safety camera systems</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> GPS tracking</div>
+        <div class="amenity-item"><span class="a-check">&#x2713;</span> Tinted windows</div>
       </div>
     </div>
   </section>
 
-  <!-- Safety & Maintenance -->
-  <section class="section section-navy">
-    <div class="container">
-      <h2 class="section-title">Safety &amp; Maintenance</h2>
-      <p class="section-subtitle">Every vehicle in our fleet meets or exceeds federal safety standards.</p>
+  <!-- SAFETY -->
+  <section class="sec sec-navy">
+    <div class="wrap">
+      <div class="sec-hd fade-up">
+        <p class="eye" style="color:var(--gold)">SAFETY</p>
+        <h2 class="sec-t">Safety &amp; Maintenance</h2>
+        <p class="sec-sub">Every vehicle in our fleet meets or exceeds federal safety standards.</p>
+      </div>
       <div class="features-grid">
-        <div class="feature-item">
+        <div class="feature-item fade-up">
           <div class="feature-icon">&#x1F6E1;</div>
           <div>
             <h3>USDOT &amp; FMCSA Compliant</h3>
             <p>All vehicles registered with the U.S. Department of Transportation and compliant with Federal Motor Carrier Safety Administration regulations.</p>
           </div>
         </div>
-        <div class="feature-item">
+        <div class="feature-item fade-up">
           <div class="feature-icon">&#x1F527;</div>
           <div>
             <h3>Preventive Maintenance</h3>
             <p>Regular scheduled maintenance in our Phoenixville shop with full recordkeeping per DOT requirements.</p>
           </div>
         </div>
-        <div class="feature-item">
+        <div class="feature-item fade-up">
           <div class="feature-icon">&#x1F9F9;</div>
           <div>
             <h3>Nightly Cleaning</h3>
             <p>Every coach is cleaned and inspected after each trip. Interior detailing, exterior wash, and condition logging.</p>
           </div>
         </div>
-        <div class="feature-item">
+        <div class="feature-item fade-up">
           <div class="feature-icon">&#x1F4CD;</div>
           <div>
             <h3>GPS Fleet Monitoring</h3>
@@ -179,25 +348,29 @@
     </div>
   </section>
 
-  <section class="cta-banner" style="background:var(--white); color:var(--navy);">
-    <h2 style="color:var(--navy);">Ready to Ride?</h2>
-    <p style="color:var(--gray-dark);">Contact us for a complimentary quote. We just need your group size, dates, and destination.</p>
-    <div class="cta-buttons">
-      <a href="https://www.wernercoach.com/request-quote" class="btn btn-primary">Request a Free Quote</a>
-      <a href="tel:+18005329800" class="btn btn-outline">Call (800) 532-9800</a>
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="cta-band-inner fade-up">
+      <h2>Ready to Book Your Trip?</h2>
+      <p>Contact us for a free quote. We just need your group size, dates, and destination.</p>
+      <div class="cta-band-btns">
+        <a href="/quote-widget.html" class="btn btn-gold">Request a Free Quote</a>
+        <a href="tel:+18005329800" class="btn btn-ghost">Call (800) 532-9800</a>
+      </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-grid">
-      <div class="footer-brand">
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-grid">
+      <div class="foot-brand">
         <img src="/images/logo.png" alt="Werner Coach" width="140" height="42">
         <p>Family-owned charter bus company serving the Greater Philadelphia region and the Northeast corridor since 1929.</p>
-        <p style="margin-top:12px;">144 Chester Ave.<br>Phoenixville, PA 19460</p>
+        <p style="margin-top:14px">144 Chester Ave.<br>Phoenixville, PA 19460</p>
       </div>
       <div>
         <h4>Services</h4>
-        <ul class="footer-links">
+        <ul class="foot-links">
           <li><a href="/services/wedding.html">Wedding Transportation</a></li>
           <li><a href="/services/school.html">School Groups</a></li>
           <li><a href="/services/corporate.html">Corporate Transportation</a></li>
@@ -206,7 +379,7 @@
       </div>
       <div>
         <h4>Company</h4>
-        <ul class="footer-links">
+        <ul class="foot-links">
           <li><a href="/about.html">About Us</a></li>
           <li><a href="/testimonials.html">Testimonials</a></li>
           <li><a href="/faq.html">FAQ</a></li>
@@ -215,7 +388,7 @@
       </div>
       <div>
         <h4>Contact</h4>
-        <ul class="footer-links">
+        <ul class="foot-links">
           <li><a href="tel:+18005329800">(800) 532-9800</a></li>
           <li><a href="tel:+16109337100">(610) 933-7100</a></li>
           <li><a href="mailto:contact@wernercoach.com">contact@wernercoach.com</a></li>
@@ -223,10 +396,17 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="foot-btm">
       <span>&copy; 2026 Werner Coach. All rights reserved.</span>
       <span><a href="/privacy.html">Privacy Policy</a> &middot; <a href="/terms.html">Terms of Use</a></span>
     </div>
   </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
