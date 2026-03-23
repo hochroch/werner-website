@@ -43,14 +43,14 @@
     .nav-inner{max-width:var(--mw);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:var(--nh)}
     .nav-logo{display:flex;align-items:center;background:rgba(255,255,255,.95);border-radius:8px;padding:6px 14px}
     .nav-logo img{height:46px;width:auto}
-    .nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+    .nav-links{display:flex;align-items:center;gap:4px;list-style:none;flex-shrink:1;min-width:0}
     .nav-links a{color:rgba(255,255,255,.8);padding:8px 16px;font-size:.9rem;font-weight:400;letter-spacing:.4px;transition:color .2s}
     .nav-links a:hover,.nav-links a.active{color:var(--gold)}
     .nav-dropdown{position:relative}
     .nav-dropdown .drop{display:none;position:absolute;top:100%;left:0;background:var(--navy);border-top:2px solid var(--gold);min-width:220px;padding:8px 0;z-index:1001;box-shadow:0 8px 24px rgba(0,0,0,.3)}
     .nav-dropdown:hover .drop{display:block}
     .drop a{display:block;padding:10px 20px;border-radius:0;font-size:.88rem}
-    .nav-cta{display:flex;gap:16px;align-items:center}
+    .nav-cta{display:flex;gap:14px;align-items:center;flex-shrink:0}
     .nav-phone{color:rgba(255,255,255,.85)!important;font-size:.88rem;font-weight:500;letter-spacing:.3px;white-space:nowrap}
     .nav-phone:hover{color:var(--gold)!important}
     @keyframes nav-shimmer{0%{left:-100%}100%{left:200%}}
