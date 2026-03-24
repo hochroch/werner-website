@@ -28,3 +28,24 @@
   to = "https://wernercoach.com/:splat"
   status = 301
   force = true
+
+# Block dev/demo files from public access
+[[redirects]]
+  from = "/demo-*"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/prototype/*"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/taglines.md"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/HANDOFF.md"
+  to = "/404"
+  status = 404

@@ -68,8 +68,8 @@
     .nav-btn-q{padding:10px 26px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);color:var(--navy)!important;font-size:.82rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;transition:all .35s;border:none;border-radius:24px;box-shadow:0 2px 8px rgba(184,150,90,.25),inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;white-space:nowrap}
     .nav-btn-q::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
     .nav-btn-q:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(184,150,90,.4),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(145deg,#dfc085 0%,#cba96d 50%,#B8965A 100%)}
-    .nav-btn-p{color:white!important;font-size:.78rem;font-weight:600;letter-spacing:.3px;transition:all .2s;white-space:nowrap;background:#C0392B;border:1px solid transparent;padding:6px 14px;border-radius:16px}
-    .nav-btn-p:hover{background:#a93226!important;color:white!important;transform:translateY(-1px);box-shadow:0 4px 12px rgba(192,57,43,.4)}
+    .nav-btn-p{color:var(--navy)!important;font-size:.78rem;font-weight:600;letter-spacing:.3px;transition:all .2s;white-space:nowrap;background:rgba(255,255,255,.92);border:1px solid transparent;padding:6px 14px;border-radius:16px}
+    .nav-btn-p:hover{background:white!important;color:var(--navy)!important;transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,255,255,.2)}
     .nav-tog{display:none;background:none;border:none;cursor:pointer;padding:8px}
     .nav-tog span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.8);margin:6px 0;transition:transform .3s,opacity .3s}
     .nav-tog.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
@@ -562,6 +562,21 @@
     </div>
   </div>
 
+  <!-- TRUSTED BY -->
+  <div class="logos fade-up">
+    <div class="logos-inner">
+      <div class="logos-label">Trusted by Organizations Across the Region</div>
+      <div class="logos-grid">
+        <span>Valley Forge National Park</span>
+        <span>The Franklin Institute</span>
+        <span>Archdiocese of Philadelphia</span>
+        <span>Penn State</span>
+        <span>Villanova University</span>
+        <span>Chester County Schools</span>
+      </div>
+    </div>
+  </div>
+
   <!-- SERVICES -->
   <section class="sec">
     <div class="wrap">
@@ -635,6 +650,14 @@
     </div>
   </section>
 
+  <!-- MID-PAGE QUOTE CTA -->
+  <!-- v2: stronger copy + micro-copy beneath button -->
+  <div class="inline-cta fade-up">
+    <p>Planning a trip? Get a personalized quote. Free, no obligation.</p>
+    <a href="/quote-widget.html" class="btn">Request a Free Quote</a>
+    <div class="inline-cta-micro">Response within 1 business day &middot; No commitment required &middot; (800) 532-9800</div>
+  </div>
+
   <!-- PHOTO STRIP -->
   <div class="photo-strip">
     <img src="/images/bus-side-full.webp" alt="Werner Coach motorcoach at Valley Forge" loading="lazy">
@@ -658,11 +681,11 @@
         </div>
         <div class="why-item fade-up">
           <h3>Direct Fleet Operator</h3>
-          <p>Every coach is company-owned and maintained in our Phoenixville shop. Werner Coaches, Werner Drivers, Werner Reliability.</p>
+          <p>Every coach is company-owned and maintained in our Phoenixville shop. When you book with Werner, you get Werner coaches, Werner drivers, and Werner accountability on the day of your trip.</p>
         </div>
         <div class="why-item fade-up">
           <h3>Safety &amp; Compliance</h3>
-          <p>Full USDOT and FMCSA compliance. Background-checked drivers, onboard cameras, GPS tracking, and regular DOT inspections.</p>
+          <p>Full USDOT and FMCSA compliance. Background-checked drivers, onboard cameras, GPS tracking, and regular DOT inspections at every service interval.</p>
         </div>
         <div class="why-item fade-up">
           <h3>Transparent Pricing</h3>
@@ -670,7 +693,7 @@
         </div>
         <div class="why-item fade-up">
           <h3>Local Expertise</h3>
-          <p>Based in Phoenixville with deep knowledge of the tri-state region, as well as the eastern seaboard.</p>
+          <p>Based in Phoenixville with deep knowledge of southeastern Pennsylvania, the tri-state region, and every mile of the I-95 corridor from New York to Washington.</p>
         </div>
         <div class="why-item fade-up">
           <h3>Full-Service Trip Planning</h3>
@@ -679,13 +702,6 @@
       </div>
     </div>
   </section>
-
-  <!-- MID-PAGE QUOTE CTA -->
-  <div class="inline-cta fade-up">
-    <p>Planning a trip? Get a personalized quote. Free, no obligation.</p>
-    <a href="/quote-widget.html" class="btn">Request a Free Quote</a>
-    <div class="inline-cta-micro">Response within 1 business day &middot; No commitment required &middot; (800) 532-9800</div>
-  </div>
 
   <!-- FLEET PREVIEW -->
   <section class="sec">
