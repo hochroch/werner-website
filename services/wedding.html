@@ -176,6 +176,33 @@
     .float-bar-quote::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
     @media(max-width:768px){.float-bar{display:flex;align-items:center}body{padding-bottom:80px}}
   </style>
+  <!-- Service Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Wedding Transportation & Shuttle Service",
+    "description": "Luxury motorcoach guest shuttle service for weddings in the Greater Philadelphia area. Shuttles between ceremony, reception, and hotel venues with professional CDL-licensed drivers.",
+    "provider": {
+      "@type": "LocalBusiness",
+      "@id": "https://wernercoach.com/#organization",
+      "name": "Werner Coach"
+    },
+    "areaServed": [
+      { "@type": "State", "name": "Pennsylvania" },
+      { "@type": "State", "name": "New Jersey" },
+      { "@type": "State", "name": "Delaware" }
+    ],
+    "serviceType": "Wedding Transportation",
+    "offers": {
+      "@type": "Offer",
+      "priceRange": "$1,500 - $3,000",
+      "priceCurrency": "USD",
+      "description": "4-6 hour wedding shuttle in the Philadelphia area for a 54-passenger motorcoach"
+    }
+  }
+  </script>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5C2GCQ32K"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-V5C2GCQ32K');</script>
 </head>
