@@ -127,8 +127,9 @@
     .foot-btm a{color:rgba(255,255,255,.25)}
     .foot-btm a:hover{color:var(--gold)}
 
-    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-    .fade-up.visible{opacity:1;transform:translateY(0)}
+    .fade-up{transition:opacity .6s ease,transform .6s ease}
+    .fade-up.will-animate{opacity:0;transform:translateY(24px)}
+    .fade-up.will-animate.visible{opacity:1;transform:translateY(0)}
 
     @media(max-width:1024px){
       .nav-links{display:none}
