@@ -243,10 +243,10 @@
     /* ── HERO QUOTE FORM ── */
     .hq{background:rgba(11,29,58,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-top:32px;max-width:620px;overflow:hidden}
     .hq-title{font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);padding:20px 24px 0}
-    .hq-types{display:flex;gap:0;padding:12px 24px 0}
-    .hq-type{flex:1;padding:10px 0;text-align:center;font-size:.76rem;font-weight:600;letter-spacing:.5px;color:rgba(255,255,255,.45);cursor:pointer;border-bottom:2px solid transparent;transition:all .25s;text-transform:uppercase}
+    .hq-types{display:flex;gap:3px;padding:12px 24px 0;background:rgba(255,255,255,.07);margin:12px 24px 0;border-radius:8px;padding:3px}
+    .hq-type{flex:1;padding:9px 0;text-align:center;font-size:.72rem;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.45);cursor:pointer;border-radius:6px;transition:all .2s;text-transform:uppercase}
     .hq-type:hover{color:rgba(255,255,255,.7)}
-    .hq-type.active{color:var(--gold);border-bottom-color:var(--gold)}
+    .hq-type.active{background:var(--gold);color:var(--navy)}
 
     /* v2: step progress dots at top of form steps */
     .hq-progress{display:flex;align-items:center;justify-content:center;gap:6px;padding:14px 24px 0}
@@ -352,7 +352,8 @@
       .hero h1{font-size:2.2rem}
       .hq{max-width:100%}
       .hq-title{padding:12px 16px 0}
-      .hq-types{flex-wrap:wrap;gap:0;padding:8px 16px 0}
+      .hq-types{flex-wrap:wrap;gap:3px;margin:8px 16px 0;padding:3px}
+      .hq-type{width:calc(50% - 2px);flex:none}
       .hq-progress{padding:10px 16px 0}
       .hq-steps{padding:0 16px 12px}
       .hq-field input,.hq-field select{padding:8px 10px;font-size:.82rem}
