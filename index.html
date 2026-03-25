@@ -314,11 +314,11 @@
 
     /* ── MOBILE FLOAT BAR ── */
     /* v2: fixed bottom bar on mobile — always-visible CTA after hero scrolls away */
-    .float-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(184,150,90,.2);padding:10px 16px 10px;gap:10px;transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+    .float-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(184,150,90,.2);padding:12px 16px;gap:10px;transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);box-shadow:0 -4px 20px rgba(0,0,0,.3)}
     .float-bar.visible{transform:translateY(0)}
-    .float-bar-phone{flex:1;text-align:center;padding:11px 8px;border:1px solid rgba(255,255,255,.2);border-radius:28px;color:rgba(255,255,255,.8)!important;font-size:.82rem;font-weight:500;letter-spacing:.3px;white-space:nowrap}
+    .float-bar-phone{flex:1;text-align:center;padding:13px 8px;border:1px solid rgba(255,255,255,.2);border-radius:28px;color:rgba(255,255,255,.8)!important;font-size:.98rem;font-weight:500;letter-spacing:.3px;white-space:nowrap}
     .float-bar-phone:hover{color:white!important;border-color:rgba(255,255,255,.4)}
-    .float-bar-quote{flex:2;text-align:center;padding:11px 8px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);border-radius:28px;color:var(--navy)!important;font-size:.82rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);white-space:nowrap}
+    .float-bar-quote{flex:2;text-align:center;padding:13px 8px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);border-radius:28px;color:var(--navy)!important;font-size:.98rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);white-space:nowrap}
     .float-bar-quote::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
 
     /* ── RESPONSIVE ── */
@@ -893,8 +893,11 @@
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.fade-up').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('visible'); }
+      else { observer.observe(el); }
+    });
   </script>
 
   <!-- v2 ENHANCEMENTS: scroll progress, mobile float bar, stat counters, form progress dots -->
