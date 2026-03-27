@@ -600,11 +600,11 @@
             <div class="hq-fields">
               <div class="hq-row">
                 <div class="hq-field"><label>Departure Date</label><input type="date" id="hqDate"></div>
-                <div class="hq-field"><label>Pickup Time</label><select id="hqTime"><option value="">Select time</option></select></div>
+                <div class="hq-field"><label>Pickup Time</label><div style="display:flex;gap:6px;"><select id="hqTimeHr" style="flex:1"><option value="">Hour</option></select><select id="hqTimeMin" style="flex:1"><option value="">Min</option></select></div></div>
               </div>
               <div class="hq-row" id="hqReturnRow">
                 <div class="hq-field"><label>Return Date</label><input type="date" id="hqReturn"></div>
-                <div class="hq-field"><label>Drop-off Time (Trip Complete)</label><select id="hqReturnTime"><option value="">Select time</option></select></div>
+                <div class="hq-field"><label>Leave Destination Time</label><div style="display:flex;gap:6px;"><select id="hqReturnTimeHr" style="flex:1"><option value="">Hour</option></select><select id="hqReturnTimeMin" style="flex:1"><option value="">Min</option></select></div></div>
               </div>
               <div class="hq-row single">
                 <div class="hq-field"><label>Coaches Needed</label>
@@ -1089,17 +1089,23 @@
     var SUBMIT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
 
     function populateTimes(){
-      ['hqTime','hqReturnTime'].forEach(function(id){
+      ['hqTimeHr','hqReturnTimeHr'].forEach(function(id){
         var sel=document.getElementById(id);
         for(var h=0;h<24;h++){
-          for(var m=0;m<60;m+=15){
-            var hh=h.toString().padStart(2,'0');
-            var mm=m.toString().padStart(2,'0');
-            var disp=(h%12||12)+':'+mm+' '+(h>=12?'PM':'AM');
-            var opt=document.createElement('option');
-            opt.value=hh+':'+mm;opt.textContent=disp;sel.appendChild(opt);
-          }
+          var opt=document.createElement('option');
+          opt.value=h;
+          opt.textContent=(h%12||12)+' '+(h>=12?'PM':'AM');
+          sel.appendChild(opt);
         }
+      });
+      ['hqTimeMin','hqReturnTimeMin'].forEach(function(id){
+        var sel=document.getElementById(id);
+        [0,15,30,45].forEach(function(m){
+          var opt=document.createElement('option');
+          var mm=m<10?'0'+m:m;
+          opt.value=mm;opt.textContent=':'+mm;
+          sel.appendChild(opt);
+        });
       });
     }
 
@@ -1139,19 +1145,23 @@
       }
       if(step===2){
         var dt=document.getElementById('hqDate').value;
-        var tm=document.getElementById('hqTime').value;
+        var tmHr=document.getElementById('hqTimeHr').value;
+        var tmMin=document.getElementById('hqTimeMin').value;
         var rd=document.getElementById('hqReturn').value;
-        var rt=document.getElementById('hqReturnTime').value;
-        if(!dt||!tm||!rd||!rt){
+        var rtHr=document.getElementById('hqReturnTimeHr').value;
+        var rtMin=document.getElementById('hqReturnTimeMin').value;
+        if(!dt||tmHr===''||tmMin===''||!rd||rtHr===''||rtMin===''){
           if(!dt)document.getElementById('hqDate').style.borderColor='#c0392b';
-          if(!tm)document.getElementById('hqTime').style.borderColor='#c0392b';
+          if(tmHr==='')document.getElementById('hqTimeHr').style.borderColor='#c0392b';
+          if(tmMin==='')document.getElementById('hqTimeMin').style.borderColor='#c0392b';
           if(!rd)document.getElementById('hqReturn').style.borderColor='#c0392b';
-          if(!rt)document.getElementById('hqReturnTime').style.borderColor='#c0392b';
+          if(rtHr==='')document.getElementById('hqReturnTimeHr').style.borderColor='#c0392b';
+          if(rtMin==='')document.getElementById('hqReturnTimeMin').style.borderColor='#c0392b';
           return;
         }
+        var h=parseInt(tmHr);
         var fmtDate=new Date(dt+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-        var timeParts=tm.split(':');var h=parseInt(timeParts[0]);
-        var fmtTime=(h%12||12)+':'+timeParts[1]+' '+(h>=12?'PM':'AM');
+        var fmtTime=(h%12||12)+':'+tmMin+' '+(h>=12?'PM':'AM');
         var summary=fmtDate+' at '+fmtTime;
         var fmtRd=new Date(rd+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
         summary+=' \u2192 return '+fmtRd;
@@ -1193,9 +1203,9 @@
         tripType:hqType,
         locations:[document.getElementById('hqPickup').value,document.getElementById('hqDest').value],
         pickupDate:document.getElementById('hqDate').value,
-        pickupTime:document.getElementById('hqTime').value,
+        pickupTime:(function(){var h=document.getElementById('hqTimeHr').value;var m=document.getElementById('hqTimeMin').value;return h!==''&&m!==''?(parseInt(h)<10?'0'+h:h)+':'+m:'';})(),
         returnDate:document.getElementById('hqReturn').value,
-        returnTime:document.getElementById('hqReturnTime').value,
+        returnTime:(function(){var h=document.getElementById('hqReturnTimeHr').value;var m=document.getElementById('hqReturnTimeMin').value;return h!==''&&m!==''?(parseInt(h)<10?'0'+h:h)+':'+m:'';})(),
         numVehicles:document.getElementById('hqCoaches').value,
         notes:document.getElementById('hqNotes').value.trim(),
         source:'homepage-hero-v2',
@@ -1216,6 +1226,7 @@
 
     document.querySelectorAll('.hq-field input,.hq-field select,.hq-field textarea').forEach(function(el){
       el.addEventListener('focus',function(){this.style.borderColor='';});
+      el.addEventListener('change',function(){this.style.borderColor='';});
     });
 
     var today=new Date().toISOString().split('T')[0];
