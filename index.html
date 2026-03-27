@@ -284,10 +284,12 @@
     .hq-row.single{grid-template-columns:1fr}
     .hq-row.triple{grid-template-columns:1fr 1fr 1fr}
     .hq-field label{display:block;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}
-    .hq-field input,.hq-field select{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);color:white;font-size:.86rem;font-family:inherit;transition:border-color .2s,background .2s;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+    .hq-field input,.hq-field select,.hq-field textarea{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);color:white;font-size:.86rem;font-family:inherit;transition:border-color .2s,background .2s;}
+    .hq-field input,.hq-field select{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+    .hq-field textarea{resize:vertical;min-height:90px;}
     .hq-field select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px}
-    .hq-field input::placeholder{color:rgba(255,255,255,.3)}
-    .hq-field input:focus,.hq-field select:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
+    .hq-field input::placeholder,.hq-field textarea::placeholder{color:rgba(255,255,255,.3)}
+    .hq-field input:focus,.hq-field select:focus,.hq-field textarea:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
     .hq-field select option{background:var(--navy);color:white}
     .hq-confirm{display:flex;justify-content:flex-end;margin-top:6px}
     .hq-confirm-btn{padding:8px 20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:.74rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:18px;cursor:pointer;transition:all .25s}
@@ -371,7 +373,7 @@
       .hq-type{flex:none;width:calc(50% - 2px);padding:8px 0;font-size:.72rem}
       .hq-progress{padding:10px 16px 0}
       .hq-steps{padding:0 16px 12px}
-      .hq-field input,.hq-field select{padding:8px 10px;font-size:.82rem}
+      .hq-field input,.hq-field select,.hq-field textarea{padding:8px 10px;font-size:.82rem}
       .hq-row,.hq-row.triple{grid-template-columns:1fr}
       .logos-grid{gap:24px}
       .logos-grid span{font-size:.88rem}
@@ -575,6 +577,10 @@
           <div class="hq-prog-seg">
             <div class="hq-prog-dot" id="hqDot3"></div>
           </div>
+          <div class="hq-prog-line"></div>
+          <div class="hq-prog-seg">
+            <div class="hq-prog-dot" id="hqDot4"></div>
+          </div>
         </div>
         <div class="hq-steps">
           <!-- Step 1: Locations -->
@@ -614,9 +620,19 @@
               <div class="hq-confirm"><button type="button" class="hq-confirm-btn" onclick="hqConfirm(2)">Continue &rarr;</button></div>
             </div>
           </div>
-          <!-- Step 3: Contact Info & Submit -->
+          <!-- Step 3: Additional Notes -->
           <div class="hq-step" id="hqStep3">
             <div class="hq-summary" onclick="hqReopen(3)"></div>
+            <div class="hq-fields">
+              <div class="hq-row single">
+                <div class="hq-field"><label>Additional Notes</label><textarea id="hqNotes" placeholder="Special requests, accessibility needs, event details, anything else we should know..."></textarea></div>
+              </div>
+              <div class="hq-confirm"><button type="button" class="hq-confirm-btn" onclick="hqConfirm(3)">Continue &rarr;</button></div>
+            </div>
+          </div>
+          <!-- Step 4: Contact Info & Submit -->
+          <div class="hq-step" id="hqStep4">
+            <div class="hq-summary" onclick="hqReopen(4)"></div>
             <div class="hq-fields">
               <div class="hq-row">
                 <div class="hq-field"><label>First Name</label><input type="text" id="hqFirst" placeholder="First name"></div>
@@ -1053,7 +1069,7 @@
     // ── FORM PROGRESS DOT SYNC ──
     // Called after hqConfirm/hqReopen to update dot states
     window.hqUpdateDots = function(activeStep){
-      for(var i = 1; i <= 3; i++){
+      for(var i = 1; i <= 4; i++){
         var dot = document.getElementById('hqDot' + i);
         if(!dot) continue;
         dot.classList.remove('active','done');
@@ -1124,22 +1140,28 @@
       if(step===2){
         var dt=document.getElementById('hqDate').value;
         var tm=document.getElementById('hqTime').value;
-        if(!dt||!tm){
+        var rd=document.getElementById('hqReturn').value;
+        var rt=document.getElementById('hqReturnTime').value;
+        if(!dt||!tm||!rd||!rt){
           if(!dt)document.getElementById('hqDate').style.borderColor='#c0392b';
           if(!tm)document.getElementById('hqTime').style.borderColor='#c0392b';
+          if(!rd)document.getElementById('hqReturn').style.borderColor='#c0392b';
+          if(!rt)document.getElementById('hqReturnTime').style.borderColor='#c0392b';
           return;
         }
         var fmtDate=new Date(dt+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
         var timeParts=tm.split(':');var h=parseInt(timeParts[0]);
         var fmtTime=(h%12||12)+':'+timeParts[1]+' '+(h>=12?'PM':'AM');
         var summary=fmtDate+' at '+fmtTime;
-        if(hqType!=='oneway'){
-          var rd=document.getElementById('hqReturn').value;
-          if(rd){var fmtRd=new Date(rd+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});summary+=' \u2192 return '+fmtRd;}
-        }
+        var fmtRd=new Date(rd+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+        summary+=' \u2192 return '+fmtRd;
         var coaches=document.getElementById('hqCoaches').value;
         if(coaches>1)summary+=' \u00b7 '+coaches+' coaches';
         stepEl.querySelector('.hq-summary').textContent=summary;
+      }
+      if(step===3){
+        var notes=document.getElementById('hqNotes').value.trim();
+        stepEl.querySelector('.hq-summary').textContent=notes?notes.slice(0,60)+(notes.length>60?'\u2026':''):'No additional notes';
       }
       stepEl.classList.remove('open');
       stepEl.classList.add('done');
@@ -1159,8 +1181,9 @@
       var last=document.getElementById('hqLast').value.trim();
       var email=document.getElementById('hqEmail').value.trim();
       var phone=document.getElementById('hqPhone').value.trim();
-      if(!first||!email||!phone){
+      if(!first||!last||!email||!phone){
         if(!first)document.getElementById('hqFirst').style.borderColor='#c0392b';
+        if(!last)document.getElementById('hqLast').style.borderColor='#c0392b';
         if(!email)document.getElementById('hqEmail').style.borderColor='#c0392b';
         if(!phone)document.getElementById('hqPhone').style.borderColor='#c0392b';
         return;
@@ -1174,6 +1197,7 @@
         returnDate:document.getElementById('hqReturn').value,
         returnTime:document.getElementById('hqReturnTime').value,
         numVehicles:document.getElementById('hqCoaches').value,
+        notes:document.getElementById('hqNotes').value.trim(),
         source:'homepage-hero-v2',
         submittedAt:new Date().toISOString()
       };
@@ -1190,7 +1214,7 @@
       this.value=val;
     });
 
-    document.querySelectorAll('.hq-field input,.hq-field select').forEach(function(el){
+    document.querySelectorAll('.hq-field input,.hq-field select,.hq-field textarea').forEach(function(el){
       el.addEventListener('focus',function(){this.style.borderColor='';});
     });
 
