@@ -456,6 +456,14 @@ input[type="checkbox"], input[type="radio"] { width: auto; margin-right: 8px; }
   </div>
 </div>
 
+<!-- SMS Consent -->
+<div class="section">
+  <h2>SMS Communications Consent (Optional)</h2>
+  <div class="consent-box">
+    <label><input type="checkbox" id="sms_consent"> I consent to receive operational SMS text messages from Werner Coach, including shift reminders, trip assignments, and schedule updates, at the mobile phone number I provided above. Message frequency varies; up to 5 msgs/week. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. Consent is not required for employment. <a href="/sms-terms.html" target="_blank" style="color:#166534;">SMS Terms &amp; Conditions</a> &middot; <a href="/privacy.html" target="_blank" style="color:#166534;">Privacy Policy</a></label>
+  </div>
+</div>
+
 <!-- Submit -->
 <div style="text-align:center;margin-top:24px;">
   <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">By submitting this application, you certify that all information provided is true and accurate to the best of your knowledge.</p>
@@ -767,6 +775,7 @@ function collectAll() {
     consent_background: document.getElementById('cl_fbi').checked,
     consent_mvr: true,
     consent_drug_test: document.getElementById('cl_drug').checked,
+    sms_consent: document.getElementById('sms_consent').checked,
 
     // Extended form_data (stored as JSONB)
     form_data: {
