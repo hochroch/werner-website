@@ -642,7 +642,8 @@
                 <div class="hq-field"><label>Email</label><input type="email" id="hqEmail" placeholder="you@example.com"></div>
                 <div class="hq-field"><label>Phone</label><input type="tel" id="hqPhone" placeholder="(555) 123-4567"></div>
               </div>
-              <button type="button" class="hq-submit-btn" onclick="hqSubmit()">Request My Free Quote &rarr;</button>
+              <button type="button" class="hq-submit-btn" id="hqSubmitBtn" onclick="hqSubmit()">Request My Free Quote &rarr;</button>
+              <p id="hqError" style="display:none;color:#c0392b;font-size:.83rem;margin-top:10px;text-align:center;">Something went wrong &mdash; please call us at <a href="tel:+18005329800" style="color:#c0392b">(800) 532-9800</a>.</p>
             </div>
           </div>
           <!-- v2: richer success state -->
@@ -650,6 +651,7 @@
             <span class="hq-success-check">✦</span>
             <h3>You're All Set.</h3>
             <p>A member of the Werner Coach team will be in touch within one business day with your personalized quote.</p>
+            <p id="hqQuoteNum" style="font-size:.85rem;opacity:.75;margin-top:4px;"></p>
             <p class="hq-success-next">Questions in the meantime? Call us at <a href="tel:+18005329800" style="color:var(--gold)">(800) 532-9800</a></p>
           </div>
         </div>
@@ -1087,6 +1089,7 @@
     var hqAcPickup,hqAcDest;
     var MAPS_KEY='AIzaSyA38IZTVw4Fx3mVEjGUWBeonyzCu_mFGi0';
     var SUBMIT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
+    var EDGE_FN_URL='https://dtazswxluhmdwwibgawn.supabase.co/functions/v1/quote-submit';
 
     function populateTimes(){
       ['hqTimeHr','hqReturnTimeHr'].forEach(function(id){
@@ -1186,7 +1189,7 @@
       if(window.hqUpdateDots) window.hqUpdateDots(step);
     };
 
-    window.hqSubmit=function(){
+    window.hqSubmit=async function(){
       var first=document.getElementById('hqFirst').value.trim();
       var last=document.getElementById('hqLast').value.trim();
       var email=document.getElementById('hqEmail').value.trim();
@@ -1211,10 +1214,28 @@
         source:'homepage-hero-v2',
         submittedAt:new Date().toISOString()
       };
-      fetch(SUBMIT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});
-      document.querySelectorAll('.hq-step').forEach(function(s){s.classList.remove('open','done');s.style.display='none';});
-      document.getElementById('hqProgressBar').style.display='none';
-      document.getElementById('hqSuccess').classList.add('show');
+      var btn=document.getElementById('hqSubmitBtn');
+      var errEl=document.getElementById('hqError');
+      btn.disabled=true;
+      btn.textContent='Sending\u2026';
+      errEl.style.display='none';
+      try{
+        var resp=await fetch(EDGE_FN_URL,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});
+        var result=await resp.json();
+        if(result.status!=='success')throw new Error(result.message||'Submission failed');
+        var quoteNumber=result.quoteNumber;
+        // Fire-and-forget to Apps Script (Sheet backup)
+        fetch(SUBMIT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({},formData,{quoteNumber:quoteNumber}))});
+        // Show success
+        document.querySelectorAll('.hq-step').forEach(function(s){s.classList.remove('open','done');s.style.display='none';});
+        document.getElementById('hqProgressBar').style.display='none';
+        if(quoteNumber)document.getElementById('hqQuoteNum').textContent='Reference: '+quoteNumber;
+        document.getElementById('hqSuccess').classList.add('show');
+      }catch(err){
+        btn.disabled=false;
+        btn.textContent='Request My Free Quote \u2192';
+        errEl.style.display='block';
+      }
     };
 
     document.getElementById('hqPhone').addEventListener('input',function(){
