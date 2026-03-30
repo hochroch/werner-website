@@ -659,7 +659,7 @@
       <div class="reviews-badge">
         <span class="reviews-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <!-- v2: micro-copy added to reviews badge -->
-        <span class="reviews-text"><strong>30+</strong> five-star Google reviews &middot; Response within 1 business day</span>
+        <span class="reviews-text"><strong>40+</strong> five-star Google reviews &middot; Response within 1 business day</span>
       </div>
     </div>
   </section>
@@ -955,7 +955,7 @@
       <!-- v2: micro-copy beneath final CTA buttons -->
       <div class="cta-micro">
         <span style="color:#FBBC04">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        &nbsp; 30+ five-star reviews &middot; Response within 1 business day &middot; No commitment
+        &nbsp; 40+ five-star reviews &middot; Response within 1 business day &middot; No commitment
       </div>
     </div>
   </div>
@@ -1129,8 +1129,8 @@
       el.classList.add('active');
       hqType=el.dataset.type;
       var retRow=document.getElementById('hqReturnRow');
-      if(hqType==='oneway'){retRow.style.display='none';}
-      else{retRow.style.display='';}
+      if(hqType==='oneway'){retRow.style.visibility='hidden';}
+      else{retRow.style.visibility='';}
     };
 
     window.hqConfirm=function(step){
@@ -1153,13 +1153,14 @@
         var rd=document.getElementById('hqReturn').value;
         var rtHr=document.getElementById('hqReturnTimeHr').value;
         var rtMin=document.getElementById('hqReturnTimeMin').value;
-        if(!dt||tmHr===''||tmMin===''||!rd||rtHr===''||rtMin===''){
+        var needReturn=hqType!=='oneway';
+        if(!dt||tmHr===''||tmMin===''||(needReturn&&(!rd||rtHr===''||rtMin===''))){
           if(!dt)document.getElementById('hqDate').style.borderColor='#c0392b';
           if(tmHr==='')document.getElementById('hqTimeHr').style.borderColor='#c0392b';
           if(tmMin==='')document.getElementById('hqTimeMin').style.borderColor='#c0392b';
-          if(!rd)document.getElementById('hqReturn').style.borderColor='#c0392b';
-          if(rtHr==='')document.getElementById('hqReturnTimeHr').style.borderColor='#c0392b';
-          if(rtMin==='')document.getElementById('hqReturnTimeMin').style.borderColor='#c0392b';
+          if(needReturn&&!rd)document.getElementById('hqReturn').style.borderColor='#c0392b';
+          if(needReturn&&rtHr==='')document.getElementById('hqReturnTimeHr').style.borderColor='#c0392b';
+          if(needReturn&&rtMin==='')document.getElementById('hqReturnTimeMin').style.borderColor='#c0392b';
           return;
         }
         var h=parseInt(tmHr);
