@@ -606,7 +606,8 @@
                 <div class="hq-field"><label>Return Date</label><input type="date" id="hqReturn"></div>
                 <div class="hq-field"><label>Leave Destination Time</label><div style="display:flex;gap:6px;"><select id="hqReturnTimeHr" style="flex:1"><option value="">Hour</option></select><select id="hqReturnTimeMin" style="flex:1"><option value="">Min</option></select></div></div>
               </div>
-              <div class="hq-row single">
+              <div class="hq-row">
+                <div class="hq-field"><label>Estimated Passengers</label><input type="number" id="hqPassengers" placeholder="e.g. 45" min="1" max="500"></div>
                 <div class="hq-field"><label>Coaches Needed</label>
                   <select id="hqCoaches">
                     <option value="1">1 coach (up to 54 passengers)</option>
@@ -1086,7 +1087,10 @@
   <script>
   (function(){
     var hqType='roundtrip';
-    var hqAcPickup,hqAcDest;
+    var hqAcPickup,hqAcDest,hqDirectionsService;
+    var hqRouteDistance='',hqRouteDuration='',hqDeadheadDistance='',hqDeadheadDuration='';
+    var WERNER_BASE='144 Chester Ave, Phoenixville, PA 19460';
+    var BUS_SPEED=1.15;
     var MAPS_KEY='AIzaSyA38IZTVw4Fx3mVEjGUWBeonyzCu_mFGi0';
     var SUBMIT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
     var EDGE_FN_URL='https://dtazswxluhmdwwibgawn.supabase.co/functions/v1/quote-submit';
@@ -1122,7 +1126,34 @@
       var opts={types:['geocode','establishment'],componentRestrictions:{country:'us'}};
       hqAcPickup=new google.maps.places.Autocomplete(document.getElementById('hqPickup'),opts);
       hqAcDest=new google.maps.places.Autocomplete(document.getElementById('hqDest'),opts);
+      hqDirectionsService=new google.maps.DirectionsService();
     };
+
+    function hqCalcRoute(origin,destination){
+      if(!hqDirectionsService)return;
+      function r15(s){var m=Math.round(s/60);return Math.round(m/15)*15*60;}
+      var isRT=hqType!=='oneway';
+      var apiDest=isRT?origin:destination;
+      var wps=isRT?[{location:destination,stopover:true}]:[];
+      hqDirectionsService.route({origin:origin,destination:apiDest,waypoints:wps,travelMode:'DRIVING',optimizeWaypoints:false},function(result,status){
+        if(status!=='OK')return;
+        var td=0,tt=0;
+        result.routes[0].legs.forEach(function(leg){td+=leg.distance.value;tt+=leg.duration.value;});
+        tt=r15(tt*BUS_SPEED);
+        var mi=(td*0.000621371).toFixed(0);var hr=Math.floor(tt/3600);var mn=Math.round((tt%3600)/60);
+        hqRouteDistance=mi+' miles';hqRouteDuration=hr>0?hr+'h '+mn+'m':mn+'m';
+      });
+      var dwps=[{location:origin,stopover:true},{location:destination,stopover:true}];
+      if(isRT)dwps.push({location:origin,stopover:true});
+      hqDirectionsService.route({origin:WERNER_BASE,destination:WERNER_BASE,waypoints:dwps,travelMode:'DRIVING',optimizeWaypoints:false},function(result,status){
+        if(status!=='OK')return;
+        var td=0,tt=0;
+        result.routes[0].legs.forEach(function(leg){td+=leg.distance.value;tt+=leg.duration.value;});
+        tt=r15(tt*BUS_SPEED);
+        var mi=(td*0.000621371).toFixed(0);var hr=Math.floor(tt/3600);var mn=Math.round((tt%3600)/60);
+        hqDeadheadDistance=mi+' miles';hqDeadheadDuration=hr>0?hr+'h '+mn+'m':mn+'m';
+      });
+    }
 
     window.hqSetType=function(el){
       document.querySelectorAll('.hq-type').forEach(function(t){t.classList.remove('active');});
@@ -1145,6 +1176,7 @@
           return;
         }
         stepEl.querySelector('.hq-summary').textContent=p+' \u2192 '+d;
+        hqCalcRoute(p,d);
       }
       if(step===2){
         var dt=document.getElementById('hqDate').value;
@@ -1210,8 +1242,13 @@
         pickupTime:(function(){var h=document.getElementById('hqTimeHr').value;var m=document.getElementById('hqTimeMin').value;return h!==''&&m!==''?(parseInt(h)<10?'0'+h:h)+':'+m:'';})(),
         returnDate:document.getElementById('hqReturn').value,
         returnTime:(function(){var h=document.getElementById('hqReturnTimeHr').value;var m=document.getElementById('hqReturnTimeMin').value;return h!==''&&m!==''?(parseInt(h)<10?'0'+h:h)+':'+m:'';})(),
+        passengers:document.getElementById('hqPassengers').value||null,
         numVehicles:document.getElementById('hqCoaches').value,
         notes:document.getElementById('hqNotes').value.trim(),
+        routeDistance:hqRouteDistance,
+        routeDuration:hqRouteDuration,
+        deadheadDistance:hqDeadheadDistance,
+        deadheadDuration:hqDeadheadDuration,
         source:'homepage-hero-v2',
         submittedAt:new Date().toISOString()
       };
