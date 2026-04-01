@@ -1089,6 +1089,7 @@
     var hqType='roundtrip';
     var hqAcPickup,hqAcDest,hqDirectionsService;
     var hqRouteDistance='',hqRouteDuration='',hqDeadheadDistance='',hqDeadheadDuration='';
+    var hqRouteLegs=[];
     var WERNER_BASE='144 Chester Ave, Phoenixville, PA 19460';
     var BUS_SPEED=1.15;
     var MAPS_KEY='AIzaSyA38IZTVw4Fx3mVEjGUWBeonyzCu_mFGi0';
@@ -1137,8 +1138,8 @@
       var wps=isRT?[{location:destination,stopover:true}]:[];
       hqDirectionsService.route({origin:origin,destination:apiDest,waypoints:wps,travelMode:'DRIVING',optimizeWaypoints:false},function(result,status){
         if(status!=='OK')return;
-        var td=0,tt=0;
-        result.routes[0].legs.forEach(function(leg){td+=leg.distance.value;tt+=leg.duration.value;});
+        var td=0,tt=0;hqRouteLegs=[];
+        result.routes[0].legs.forEach(function(leg){td+=leg.distance.value;tt+=leg.duration.value;hqRouteLegs.push({startAddress:leg.start_address,endAddress:leg.end_address,durationSeconds:Math.round(leg.duration.value*BUS_SPEED),durationText:leg.duration.text,distanceMiles:parseFloat((leg.distance.value*0.000621371).toFixed(1))});});
         tt=r15(tt*BUS_SPEED);
         var mi=(td*0.000621371).toFixed(0);var hr=Math.floor(tt/3600);var mn=Math.round((tt%3600)/60);
         hqRouteDistance=mi+' miles';hqRouteDuration=hr>0?hr+'h '+mn+'m':mn+'m';
@@ -1247,6 +1248,7 @@
         notes:document.getElementById('hqNotes').value.trim(),
         routeDistance:hqRouteDistance,
         routeDuration:hqRouteDuration,
+        routeLegs:hqRouteLegs,
         deadheadDistance:hqDeadheadDistance,
         deadheadDuration:hqDeadheadDuration,
         source:'homepage-hero-v2',
