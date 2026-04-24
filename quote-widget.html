@@ -72,6 +72,7 @@
   .num-stepper input[type="number"] { flex: 1 1 auto; min-width: 0; width: auto; border: none; border-left: 1.5px solid var(--border); border-right: 1.5px solid var(--border); border-radius: 0; text-align: center; font-size: 20px; font-weight: 600; color: var(--navy); background: var(--cream); padding: 12px 8px; -moz-appearance: textfield; }
   .num-stepper.compact .stepper-btn { flex: 0 0 44px; min-height: 48px; font-size: 22px; }
   .num-stepper.compact input[type="number"] { font-size: 18px; padding: 10px 4px; }
+  .form-row.triple select, .form-row.triple .num-stepper.compact { min-height: 51px; box-sizing: border-box; }
   .num-stepper input[type="number"]:focus { background: var(--white); box-shadow: none; outline: none; }
   .num-stepper input[type="number"]::-webkit-outer-spin-button, .num-stepper input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .trip-type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
@@ -117,7 +118,7 @@
   .gratuity-toggle { display: flex; gap: 12px; margin-bottom: 20px; }
   .gratuity-btn { padding: 12px 28px; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--white); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--text-muted); transition: all var(--transition); }
   .gratuity-btn:hover { border-color: var(--navy-light); }
-  .gratuity-btn.selected { border-color: var(--navy); background: rgba(11,29,58,0.03); color: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
+  .gratuity-btn.selected { border-color: var(--navy); background: var(--navy); color: var(--white); box-shadow: 0 4px 12px rgba(11,29,58,0.25); transform: translateY(-1px); }
   .vehicle-warning { display: none; align-items: center; gap: 10px; padding: 12px 16px; background: #FFF8E1; border: 1.5px solid #F9A825; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 14px; color: #5D4037; animation: fadeIn 0.3s ease; }
   .vehicle-warning.visible { display: flex; }
   .vehicle-warning svg { flex-shrink: 0; }
