@@ -228,7 +228,10 @@
   input.wc-date-alt-input:focus { background-color: var(--white); }
 
   /* Polished month/year header */
-  .flatpickr-months { padding: 12px 8px 10px; height: auto; overflow: visible; }
+  .flatpickr-months { padding: 12px 8px 10px; height: auto; overflow: visible !important; }
+  .flatpickr-months .flatpickr-month { overflow: visible !important; }
+  .flatpickr-innerContainer { overflow: visible !important; }
+  .flatpickr-calendar { overflow: visible !important; }
   .flatpickr-current-month {
     display: flex !important;
     align-items: center;
@@ -269,13 +272,12 @@
     border-radius: 12px; box-shadow: 0 14px 36px rgba(11,29,58,0.18), 0 4px 12px rgba(0,0,0,0.06);
     padding: 6px; min-width: 150px; max-height: 280px; overflow-y: auto;
     z-index: 50;
-    opacity: 0; pointer-events: none; visibility: hidden;
-    transition: opacity .18s ease, transform .18s cubic-bezier(0.16,1,0.3,1), visibility 0s linear .2s;
+    opacity: 0; pointer-events: none;
+    transition: opacity .18s ease, transform .18s cubic-bezier(0.16,1,0.3,1);
   }
   .wc-month-dd.open .wc-month-menu {
-    opacity: 1; pointer-events: auto; visibility: visible;
+    opacity: 1; pointer-events: auto;
     transform: translateX(-50%) translateY(0) scale(1);
-    transition: opacity .18s ease, transform .18s cubic-bezier(0.16,1,0.3,1), visibility 0s;
   }
   .wc-month-opt {
     display: block; width: 100%; appearance: none; background: transparent;
