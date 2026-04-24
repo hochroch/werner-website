@@ -175,7 +175,52 @@
   select#pickupTimeHr option, select#pickupTimeMin option,
   select#returnTimeHr option, select#returnTimeMin option { color: var(--text); padding: 8px 14px; }
   .time-pair { display: flex; gap: 8px; }
+
+  /* ===== flatpickr (date picker) — Werner theme ===== */
+  .flatpickr-calendar {
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(11,29,58,0.22), 0 4px 12px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif;
+    transform-origin: top right;
+    padding: 6px 2px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .flatpickr-calendar.open {
+      animation: wcCalOpen 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+  @keyframes wcCalOpen {
+    from { opacity: 0; transform: scale(0.96) translateY(-6px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .flatpickr-months .flatpickr-month,
+  .flatpickr-current-month .flatpickr-monthDropdown-months,
+  .flatpickr-current-month input.cur-year,
+  span.flatpickr-weekday { color: var(--navy); font-weight: 600; }
+  .flatpickr-weekdays { background: transparent; }
+  .flatpickr-prev-month svg, .flatpickr-next-month svg { fill: var(--navy); }
+  .flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg { fill: var(--gold); }
+  .flatpickr-day { border-radius: 8px; color: var(--text); font-weight: 500; }
+  .flatpickr-day:hover { background: var(--cream-dark); border-color: var(--cream-dark); }
+  .flatpickr-day.today { border-color: var(--gold); color: var(--navy); }
+  .flatpickr-day.today:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+  .flatpickr-day.selected,
+  .flatpickr-day.selected:hover,
+  .flatpickr-day.startRange,
+  .flatpickr-day.endRange {
+    background: var(--navy) !important;
+    border-color: var(--navy) !important;
+    color: var(--white) !important;
+    box-shadow: 0 2px 8px rgba(11,29,58,0.25);
+  }
+  .flatpickr-day.flatpickr-disabled,
+  .flatpickr-day.flatpickr-disabled:hover { color: var(--text-light); background: transparent; border-color: transparent; }
+  /* Hide the original native date input that flatpickr keeps around */
+  input.flatpickr-input.flatpickr-mobile,
+  input[type="date"].flatpickr-input { }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
 </head>
 <body>
 <div class="widget-wrapper">
@@ -368,6 +413,7 @@ var ttl={roundtrip:'Round Trip',oneway:'One Way',multiday:'Multi-Day'};var locs=
 var ptVal=getTime('pickupTimeHr','pickupTimeMin');var rtVal=getTime('returnTimeHr','returnTimeMin');var th='<div class="review-row"><span class="label">Trip Type</span><span class="value">'+ttl[tripType]+'</span></div>'+lh+'<div class="review-row"><span class="label">Pickup Date</span><span class="value">'+formatDate(v('pickupDate'))+'</span></div><div class="review-row"><span class="label">Pickup Time</span><span class="value">'+formatTime(ptVal)+'</span></div>';if(tripType!=='oneway'&&v('returnDate'))th+='<div class="review-row"><span class="label">Return Date</span><span class="value">'+formatDate(v('returnDate'))+'</span></div>';if(tripType!=='oneway'&&rtVal)th+='<div class="review-row"><span class="label">Leave Destination Time</span><span class="value">'+formatTime(rtVal)+'</span></div>';if(tripType!=='oneway'&&selectedDinnerStop)th+='<div class="review-row"><span class="label">Dinner Stop on Return</span><span class="value">'+(selectedDinnerStop==='yes'?'Yes':'No')+'</span></div>';if(customerRouteDistance!=='—')th+='<div class="review-row"><span class="label">Distance</span><span class="value">'+customerRouteDistance+'</span></div>';if(customerRouteDuration!=='—')th+='<div class="review-row"><span class="label">Est. Drive Time</span><span class="value">'+customerRouteDuration+'</span></div>';if(tripType==='multiday'&&v('itineraryDescription'))th+='<div class="review-row"><span class="label">Itinerary</span><span class="value">'+v('itineraryDescription')+'</span></div>';document.getElementById('reviewTrip').innerHTML=th;
 var vl={'motorcoach-54':'54-Passenger Motorcoach','wedding-shuttle':'Wedding Guest Shuttle'};var opts=[];document.querySelectorAll('input[name="options"]:checked').forEach(function(cb){var ol={ada:'ADA Accessible','bottled-water':'Bottled Water ($75)'};opts.push(ol[cb.value]||cb.value);});
 var gh='<div class="review-row"><span class="label">Passengers</span><span class="value">'+v('passengers')+'</span></div>';if(v('tripPurpose'))gh+='<div class="review-row"><span class="label">Purpose</span><span class="value" style="text-transform:capitalize;">'+v('tripPurpose').replace(/-/g,' ')+'</span></div>';if(selectedVehicle)gh+='<div class="review-row"><span class="label">Vehicle</span><span class="value">'+(vl[selectedVehicle]||selectedVehicle)+'</span></div>';if(v('numVehicles'))gh+='<div class="review-row"><span class="label"># Vehicles</span><span class="value">'+v('numVehicles')+'</span></div>';if(selectedGratuity)gh+='<div class="review-row"><span class="label">Include Gratuity</span><span class="value">'+(selectedGratuity==='yes'?'Yes':'No')+'</span></div>';if(opts.length)gh+='<div class="review-row"><span class="label">Add-Ons / Reqs</span><span class="value">'+opts.join(', ')+'</span></div>';if(v('notes'))gh+='<div class="review-row"><span class="label">Notes</span><span class="value">'+v('notes')+'</span></div>';document.getElementById('reviewGroup').innerHTML=gh;}
+/* flatpickr loaded via CDN below */
 var EDGE_FN_URL='https://dtazswxluhmdwwibgawn.supabase.co/functions/v1/quote-submit';
 var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
 async function submitForm(){var locations=[];document.querySelectorAll('.location-input').forEach(function(inp){if(inp.value.trim())locations.push(inp.value.trim());});var specialReqs=[];var addons=[];document.querySelectorAll('input[name="options"]:checked').forEach(function(cb){if(cb.dataset.type==='addon')addons.push(cb.value);else specialReqs.push(cb.value);});
@@ -391,7 +437,24 @@ document.querySelectorAll('.progress-step').forEach(function(s){s.classList.remo
 btn.disabled=false;btn.innerHTML='Submit Quote Request <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
 errEl.style.display='block';
 }}
-document.addEventListener('DOMContentLoaded',function(){populateTimeSelects();loadGoogleMaps();var today=new Date().toISOString().split('T')[0];document.getElementById('pickupDate').setAttribute('min',today);document.getElementById('returnDate').setAttribute('min',today);document.getElementById('phone').addEventListener('input',function(){var val=this.value.replace(/\D/g,'');if(val.length>=6)val='('+val.slice(0,3)+') '+val.slice(3,6)+'-'+val.slice(6,10);else if(val.length>=3)val='('+val.slice(0,3)+') '+val.slice(3);this.value=val;});document.addEventListener('change',function(e){if(e.target.classList.contains('location-input'))setTimeout(updateRoute,300);});document.getElementById('passengers').addEventListener('input',checkVehicleCapacity);});
+var fpPickup=null,fpReturn=null;
+function initDatePickers(){
+  if(typeof flatpickr==='undefined')return;
+  var common={dateFormat:'Y-m-d',altInput:true,altFormat:'M j, Y',minDate:'today',position:'below right',disableMobile:true,animate:true};
+  fpPickup=flatpickr('#pickupDate',Object.assign({},common,{
+    onChange:function(sel){
+      if(fpReturn&&sel[0]){
+        fpReturn.set('minDate',sel[0]);
+        var r=fpReturn.selectedDates[0];
+        if(r&&r<sel[0])fpReturn.clear();
+      }
+    }
+  }));
+  fpReturn=flatpickr('#returnDate',common);
+}
+document.addEventListener('DOMContentLoaded',function(){populateTimeSelects();loadGoogleMaps();initDatePickers();document.getElementById('phone').addEventListener('input',function(){var val=this.value.replace(/\D/g,'');if(val.length>=6)val='('+val.slice(0,3)+') '+val.slice(3,6)+'-'+val.slice(6,10);else if(val.length>=3)val='('+val.slice(0,3)+') '+val.slice(3);this.value=val;});document.addEventListener('change',function(e){if(e.target.classList.contains('location-input'))setTimeout(updateRoute,300);});document.getElementById('passengers').addEventListener('input',checkVehicleCapacity);});
 </script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+<script>if(typeof flatpickr!=='undefined'&&typeof initDatePickers==='function')initDatePickers();</script>
 </body>
 </html>
