@@ -291,6 +291,14 @@
     .hq-field input::placeholder,.hq-field textarea::placeholder{color:rgba(255,255,255,.3)}
     .hq-field input:focus,.hq-field select:focus,.hq-field textarea:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
     .hq-field select option{background:var(--navy);color:white}
+    .hq-field .num-stepper{display:inline-flex;align-items:stretch;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden;width:auto}
+    .hq-field .num-stepper:focus-within{border-color:var(--gold);background:rgba(255,255,255,.12)}
+    .hq-field .num-stepper .stepper-btn{width:52px;min-height:52px;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);font-size:26px;font-weight:600;line-height:1;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;padding:0;user-select:none;-webkit-tap-highlight-color:transparent}
+    .hq-field .num-stepper .stepper-btn:hover{background:var(--gold);color:var(--navy)}
+    .hq-field .num-stepper .stepper-btn:active{background:#b8965a;color:var(--navy)}
+    .hq-field .num-stepper input[type="number"]{width:88px;border:none;border-left:1px solid rgba(255,255,255,.15);border-right:1px solid rgba(255,255,255,.15);border-radius:0;text-align:center;font-size:18px;font-weight:600;color:white;background:transparent;padding:10px 6px;-moz-appearance:textfield}
+    .hq-field .num-stepper input[type="number"]:focus{background:rgba(255,255,255,.1);outline:none}
+    .hq-field .num-stepper input[type="number"]::-webkit-outer-spin-button,.hq-field .num-stepper input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
     .hq-confirm{display:flex;justify-content:flex-end;margin-top:6px}
     .hq-confirm-btn{padding:8px 20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:.74rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:18px;cursor:pointer;transition:all .25s}
     .hq-confirm-btn:hover{background:rgba(255,255,255,.18);color:white;border-color:rgba(255,255,255,.3)}
@@ -618,7 +626,13 @@
                 </div>
               </div>
               <div class="hq-row">
-                <div class="hq-field"><label>Estimated Passengers</label><input type="number" id="hqPassengers" placeholder="e.g. 45" min="1" max="500"></div>
+                <div class="hq-field"><label>Estimated Passengers</label>
+                  <div class="num-stepper">
+                    <button type="button" class="stepper-btn" onclick="stepInput('hqPassengers',-1)" aria-label="Decrease passengers">&minus;</button>
+                    <input type="number" id="hqPassengers" placeholder="45" min="1" max="500">
+                    <button type="button" class="stepper-btn" onclick="stepInput('hqPassengers',1)" aria-label="Increase passengers">+</button>
+                  </div>
+                </div>
                 <div class="hq-field"><label>Coaches Needed</label>
                   <select id="hqCoaches">
                     <option value="1">1 coach (up to 54 passengers)</option>
@@ -1177,6 +1191,20 @@
       if(hqType==='oneway'){retRow.style.visibility='hidden';if(dinRow)dinRow.style.display='none';}
       else{retRow.style.visibility='';if(dinRow)dinRow.style.display='';}
     };
+    window.stepInput=function(id,delta){
+      var el=document.getElementById(id);if(!el)return;
+      var step=parseFloat(el.step)||1;
+      var cur=parseFloat(el.value)||0;
+      var next=cur+(delta*step);
+      var min=el.min!==''?parseFloat(el.min):null;
+      var max=el.max!==''?parseFloat(el.max):null;
+      if(min!==null&&next<min)next=min;
+      if(max!==null&&next>max)next=max;
+      el.value=next;
+      el.dispatchEvent(new Event('input',{bubbles:true}));
+      el.dispatchEvent(new Event('change',{bubbles:true}));
+    };
+
     window.hqSetDinner=function(el){
       document.querySelectorAll('#hqDinnerToggle .hq-ds-btn').forEach(function(b){
         b.style.background='rgba(255,255,255,.05)';

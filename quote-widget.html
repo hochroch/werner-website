@@ -64,6 +64,14 @@
   input::placeholder, textarea::placeholder { color: var(--text-light); }
   textarea { resize: vertical; min-height: 80px; }
   select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .num-stepper { display: inline-flex; align-items: stretch; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--cream); overflow: hidden; }
+  .num-stepper:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
+  .num-stepper .stepper-btn { width: 56px; min-height: 56px; border: none; background: var(--white); color: var(--navy); font-size: 28px; font-weight: 600; line-height: 1; cursor: pointer; transition: all var(--transition); display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .num-stepper .stepper-btn:hover { background: var(--navy); color: var(--white); }
+  .num-stepper .stepper-btn:active { background: var(--navy-light); color: var(--white); }
+  .num-stepper input[type="number"] { width: 110px; border: none; border-left: 1.5px solid var(--border); border-right: 1.5px solid var(--border); border-radius: 0; text-align: center; font-size: 20px; font-weight: 600; color: var(--navy); background: var(--cream); padding: 12px 8px; -moz-appearance: textfield; }
+  .num-stepper input[type="number"]:focus { background: var(--white); box-shadow: none; outline: none; }
+  .num-stepper input[type="number"]::-webkit-outer-spin-button, .num-stepper input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .trip-type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
   .trip-type-btn { padding: 16px 12px; border: 2px solid var(--border); border-radius: var(--radius); background: var(--white); cursor: pointer; text-align: center; transition: all var(--transition); }
   .trip-type-btn:hover { border-color: var(--navy-light); background: var(--cream); }
@@ -255,7 +263,14 @@
         <div class="step-title">Group &amp; vehicle details</div>
         <div class="step-subtitle">Tell us about your group so we can match the right vehicle.</div>
         <div class="form-row">
-          <div class="form-group"><label>Number of Passengers <span class="required">*</span></label><input type="number" id="passengers" placeholder="e.g. 45" min="1" max="500" required><span class="error-msg">Please enter the number of passengers</span></div>
+          <div class="form-group"><label>Number of Passengers <span class="required">*</span></label>
+            <div class="num-stepper">
+              <button type="button" class="stepper-btn" onclick="stepInput('passengers',-1)" aria-label="Decrease passengers">&minus;</button>
+              <input type="number" id="passengers" placeholder="45" min="1" max="500" required>
+              <button type="button" class="stepper-btn" onclick="stepInput('passengers',1)" aria-label="Increase passengers">+</button>
+            </div>
+            <span class="error-msg">Please enter the number of passengers</span>
+          </div>
           <div class="form-group"><label>Trip Purpose</label>
             <select id="tripPurpose"><option value="">Select one...</option><option value="wedding">Wedding</option><option value="corporate">Corporate / Business</option><option value="school">School / University</option><option value="sports">Sports Team</option><option value="church">Church / Religious</option><option value="airport">Airport Transfer</option><option value="tour">Tour / Sightseeing</option><option value="party">Party / Night Out</option><option value="funeral">Funeral / Memorial</option><option value="government">Government / Military</option><option value="family-reunion">Family Reunion</option><option value="other">Other</option></select>
           </div>
@@ -266,7 +281,13 @@
           <div class="vehicle-card" data-vehicle="motorcoach-54" onclick="selectVehicle(this)"><span class="v-icon">🚌</span><div class="v-name">54-Passenger Motorcoach</div><div class="v-seats">Corporate, school, sports &amp; group travel</div><div class="v-check">✓</div></div>
           <div class="vehicle-card" data-vehicle="wedding-shuttle" onclick="selectVehicle(this)"><span class="v-icon">💍</span><div class="v-name">Wedding Guest Shuttle</div><div class="v-seats">Dedicated wedding transportation</div><div class="v-check">✓</div></div>
         </div>
-        <div class="form-row single"><div class="form-group"><label>Number of Vehicles Needed</label><input type="number" id="numVehicles" placeholder="e.g. 1" min="1" max="50" oninput="checkVehicleCapacity()"></div></div>
+        <div class="form-row single"><div class="form-group"><label>Number of Vehicles Needed</label>
+          <div class="num-stepper">
+            <button type="button" class="stepper-btn" onclick="stepInput('numVehicles',-1);checkVehicleCapacity()" aria-label="Decrease vehicles">&minus;</button>
+            <input type="number" id="numVehicles" placeholder="1" min="1" max="50" oninput="checkVehicleCapacity()">
+            <button type="button" class="stepper-btn" onclick="stepInput('numVehicles',1);checkVehicleCapacity()" aria-label="Increase vehicles">+</button>
+          </div>
+        </div></div>
         <div class="vehicle-warning" id="vehicleWarning"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F9A825" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span id="vehicleWarningText"></span></div>
         <hr class="section-divider">
         <div class="section-label">Gratuity</div>
@@ -326,6 +347,7 @@ function selectGratuity(btn){var grp=btn.closest('.gratuity-toggle');(grp?grp.qu
 function selectDinnerStop(btn){var grp=btn.closest('.gratuity-toggle');(grp?grp.querySelectorAll('.gratuity-btn'):document.querySelectorAll('#dinnerStopToggle .gratuity-btn')).forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');selectedDinnerStop=btn.dataset.value;}
 function checkVehicleCapacity(){var nv=parseInt(document.getElementById('numVehicles').value)||0;var np=parseInt(document.getElementById('passengers').value)||0;var w=document.getElementById('vehicleWarning');var wt=document.getElementById('vehicleWarningText');if(nv>0&&np>0){var cap=nv*54;if(cap<np){wt.textContent=nv+' vehicle(s) \u00d7 54 seats = '+cap+' total seats, but you have '+np+' passengers. Are you sure this is correct?';w.classList.add('visible');}else{w.classList.remove('visible');}}else{w.classList.remove('visible');}}
 function toggleCheck(label){var cb=label.querySelector('input');setTimeout(function(){if(cb.checked)label.classList.add('checked');else label.classList.remove('checked');},0);}
+function stepInput(id,delta){var el=document.getElementById(id);if(!el)return;var step=parseFloat(el.step)||1;var cur=parseFloat(el.value)||0;var next=cur+(delta*step);var min=el.min!==''?parseFloat(el.min):null;var max=el.max!==''?parseFloat(el.max):null;if(min!==null&&next<min)next=min;if(max!==null&&next>max)next=max;el.value=next;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}
 </script>
 <script>
 function goToStep(step){currentStep=step;renderStep();}
