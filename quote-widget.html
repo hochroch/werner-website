@@ -266,19 +266,17 @@
   .wc-month-dd.open .wc-month-caret { transform: rotate(180deg); }
   .wc-month-menu {
     display: none;
-    position: absolute; top: calc(100% + 6px); left: 50%;
+    position: absolute; top: 0; left: 0;
     transform: translateX(-50%);
     transform-origin: top center;
-    background-color: #ffffff !important;
-    background-image: none !important;
+    background-color: #ffffff;
     border: 1px solid var(--border);
     border-radius: 12px; box-shadow: 0 14px 36px rgba(11,29,58,0.22), 0 4px 12px rgba(0,0,0,0.08);
     padding: 6px; min-width: 150px; max-height: 280px; overflow-y: auto;
-    z-index: 9999;
-    opacity: 1;
-    isolation: isolate;
+    z-index: 99999;
+    font-family: 'DM Sans', sans-serif;
   }
-  .wc-month-dd.open .wc-month-menu { display: block; }
+  .wc-month-menu.open { display: block; }
   .wc-month-opt {
     display: block; width: 100%; appearance: none; background: transparent;
     border: none; padding: 8px 12px; border-radius: 8px;
@@ -601,17 +599,26 @@ function wcEnhanceMonthPicker(fp){
     opt.addEventListener('click',function(e){e.stopPropagation();fp.changeMonth(i-fp.currentMonth,false);close();});
     menu.appendChild(opt);
   });
-  wrap.appendChild(btn);wrap.appendChild(menu);
+  wrap.appendChild(btn);
   hdr.insertBefore(wrap,hdr.firstChild);
+  // Append menu to body so it escapes flatpickr's stacking context
+  document.body.appendChild(menu);
+  function positionMenu(){
+    var r=btn.getBoundingClientRect();
+    menu.style.top=(r.bottom+window.scrollY+6)+'px';
+    menu.style.left=(r.left+window.scrollX+r.width/2)+'px';
+  }
   function update(){
     btn.querySelector('.wc-month-label').textContent=WC_MONTHS[fp.currentMonth];
     menu.querySelectorAll('.wc-month-opt').forEach(function(el,i){el.classList.toggle('selected',i===fp.currentMonth);});
   }
-  function open(){wrap.classList.add('open');btn.setAttribute('aria-expanded','true');update();var sel=menu.querySelector('.selected');if(sel)sel.scrollIntoView({block:'nearest'});}
-  function close(){wrap.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+  function open(){wrap.classList.add('open');menu.classList.add('open');btn.setAttribute('aria-expanded','true');update();positionMenu();var sel=menu.querySelector('.selected');if(sel)sel.scrollIntoView({block:'nearest'});}
+  function close(){wrap.classList.remove('open');menu.classList.remove('open');btn.setAttribute('aria-expanded','false');}
   function toggle(){wrap.classList.contains('open')?close():open();}
   btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
-  document.addEventListener('click',function(e){if(!wrap.contains(e.target))close();});
+  document.addEventListener('click',function(e){if(!wrap.contains(e.target)&&!menu.contains(e.target))close();});
+  window.addEventListener('scroll',function(){if(wrap.classList.contains('open'))positionMenu();},true);
+  window.addEventListener('resize',function(){if(wrap.classList.contains('open'))positionMenu();});
   fp.calendarContainer.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
   update();
   return update;
