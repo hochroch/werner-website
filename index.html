@@ -23,6 +23,10 @@
   <link rel="icon" type="image/png" href="/images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload the hero headline font (Playfair Display 700 latin) so the H1 doesn't FOUT mid-fade.
+       If Google rev's the file URL the preload simply becomes a no-op — the @font-face below still works. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiunDXbtPK-F2qC0s.woff2">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
   <style>
     /* ══════════════════════════════════════════════════════════════
@@ -80,11 +84,9 @@
     .nav-phone{color:rgba(255,255,255,.85)!important;font-size:.88rem;font-weight:500;letter-spacing:.3px;white-space:nowrap}
     .nav-phone:hover{color:var(--gold)!important}
     @keyframes nav-shimmer{0%{left:-100%}100%{left:200%}}
-    .nav-btn-q{padding:10px 26px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);color:var(--navy)!important;font-size:.82rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;transition:all .35s;border:none;border-radius:24px;box-shadow:0 2px 8px rgba(184,150,90,.25),inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;white-space:nowrap}
+    .nav-btn-q{padding:10px 26px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);color:var(--navy)!important;font-size:.82rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;transition:transform .25s ease-out,box-shadow .25s ease-out,background .25s ease-out;border:none;border-radius:24px;box-shadow:0 2px 8px rgba(184,150,90,.25),inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden;white-space:nowrap}
     .nav-btn-q::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
-    .nav-btn-q:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(184,150,90,.4),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(145deg,#dfc085 0%,#cba96d 50%,#B8965A 100%)}
-    .nav-btn-p{color:white!important;font-size:.78rem;font-weight:600;letter-spacing:.3px;transition:all .2s;white-space:nowrap;background:#C0392B;border:1px solid transparent;padding:6px 14px;border-radius:16px}
-    .nav-btn-p:hover{background:#a93226!important;color:white!important;transform:translateY(-1px);box-shadow:0 4px 12px rgba(192,57,43,.4)}
+    .nav-btn-p{color:white!important;font-size:.78rem;font-weight:600;letter-spacing:.3px;transition:transform .2s ease-out,box-shadow .2s ease-out,background .2s ease-out;white-space:nowrap;background:#C0392B;border:1px solid transparent;padding:6px 14px;border-radius:16px}
     .nav-tog{display:none;background:none;border:none;cursor:pointer;padding:8px}
     .nav-tog span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.8);margin:6px 0;transition:transform .3s,opacity .3s}
     .nav-tog.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
@@ -105,19 +107,27 @@
     .hero p{font-size:1.08rem;font-weight:300;opacity:.85;max-width:500px;margin-bottom:0;line-height:1.8;text-shadow:0 2px 4px rgba(0,0,0,.9),0 4px 24px rgba(0,0,0,.9),0 8px 48px rgba(0,0,0,.8)}
     .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 
+    /* v3: staggered hero entrance. Eyebrow → headline → subhead → quote widget.
+       Total runtime ~700ms. Ease-out so motion settles instead of springing.
+       Reduced-motion override at the bottom of this stylesheet skips it entirely. */
+    @keyframes hero-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    .hero-eyebrow,.hero h1,.hero>.hero-body>p:not(.hero-eyebrow),.hero .hq{opacity:0;animation:hero-rise .7s cubic-bezier(.22,.61,.36,1) forwards;will-change:transform,opacity}
+    .hero-eyebrow{animation-delay:.08s}
+    .hero h1{animation-delay:.2s}
+    .hero>.hero-body>p:not(.hero-eyebrow){animation-delay:.38s}
+    .hero .hq{animation-delay:.52s}
+
     /* ── BUTTONS ── */
-    .btn{display:inline-block;padding:14px 34px;font-size:.86rem;font-weight:600;letter-spacing:.4px;transition:all .3s cubic-bezier(.25,.46,.45,.94);cursor:pointer;text-align:center;border-radius:28px;border:none;text-decoration:none}
+    /* v3: explicit transition props instead of `all` — only animate what we actually change.
+       Hover transforms live in the @media (hover: hover) block at the bottom of the stylesheet
+       so they don't fire on iOS tap-and-stick. */
+    .btn{display:inline-block;padding:14px 34px;font-size:.86rem;font-weight:600;letter-spacing:.4px;transition:transform .3s cubic-bezier(.25,.46,.45,.94),box-shadow .3s cubic-bezier(.25,.46,.45,.94),background .3s cubic-bezier(.25,.46,.45,.94),color .25s ease;cursor:pointer;text-align:center;border-radius:28px;border:none;text-decoration:none}
     .btn-gold{background:linear-gradient(160deg,#d4b577 0%,#B8965A 45%,#a6843e 100%);color:var(--navy);box-shadow:0 4px 14px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.25);position:relative;overflow:hidden}
     .btn-gold::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s ease}
-    .btn-gold:hover{color:var(--navy);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(160deg,#dfc085 0%,#cba96d 45%,#B8965A 100%)}
-    .btn-gold:hover::before{left:120%}
     .btn-gold:active{transform:translateY(0);box-shadow:0 2px 8px rgba(184,150,90,.25)}
     .btn-ghost{border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.85);background:rgba(255,255,255,.04);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-    .btn-ghost:hover{border-color:rgba(255,255,255,.6);color:white;background:rgba(255,255,255,.08);transform:translateY(-2px)}
     .btn-navy{background:var(--navy);color:var(--white)!important;box-shadow:0 2px 8px rgba(11,29,58,.15)}
-    .btn-navy:hover{background:var(--navy-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,29,58,.25)}
     .btn-outline-navy{border:1px solid var(--navy);color:var(--navy)!important;background:transparent}
-    .btn-outline-navy:hover{background:var(--navy);color:var(--white)!important;transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,29,58,.15)}
 
     /* v2: micro-copy beneath CTAs — sets expectations, reduces friction */
     .cta-micro{font-size:.72rem;color:rgba(255,255,255,.35);letter-spacing:.5px;margin-top:12px}
@@ -145,29 +155,27 @@
     .sec-navy .sec-sub{color:rgba(255,255,255,.6)}
 
     /* ── SERVICE CARDS ── */
+    /* v3: all four hover effects now share the same ease-out curve and a deliberate
+       30ms stagger (bg → gold bar → arrow), with the image zoom on its own slower
+       curve as the cinematic accent. No more accidentally-staggered timings. */
     .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--cream2)}
-    .svc-card{background:var(--white);position:relative;text-decoration:none;display:block;color:var(--text);transition:background .3s;overflow:hidden}
+    .svc-card{background:var(--white);position:relative;text-decoration:none;display:block;color:var(--text);transition:background .3s ease-out;overflow:hidden}
     .svc-img{height:220px;overflow:hidden}
-    .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-    .svc-card:hover .svc-img img{transform:scale(1.06)}
+    .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
     .svc-body{padding:28px 28px 32px}
-    .svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .3s}
-    .svc-card:hover{background:var(--cream);color:var(--text)}
-    .svc-card:hover::after{background:var(--gold)}
+    .svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .3s ease-out 30ms}
     .svc-n{font-size:.65rem;color:var(--gold);letter-spacing:1.5px;margin-bottom:12px;font-weight:600}
     .svc-card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.3}
     .svc-card p{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.7}
-    .svc-more{margin-top:14px;font-size:.78rem;font-weight:600;color:var(--gold);letter-spacing:.5px;opacity:0;transform:translateX(-8px);transition:all .3s}
-    .svc-card:hover .svc-more{opacity:1;transform:translateX(0)}
+    .svc-more{margin-top:14px;font-size:.78rem;font-weight:600;color:var(--gold);letter-spacing:.5px;opacity:0;transform:translateX(-8px);transition:opacity .3s ease-out 60ms,transform .3s ease-out 60ms}
 
-    /* v2: services section gets its own quote CTA after the grid */
+    /* v3: services section CTA gets its own clean transition list (was `transition:.3s`). */
     .svc-section-cta{text-align:center;margin-top:64px;padding-top:52px;border-top:1px solid var(--cream2)}
     .svc-section-cta p{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;font-weight:400;color:var(--navy);margin-bottom:24px}
 
     /* ── PHOTO STRIP ── */
     .photo-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-    .photo-strip img{width:100%;height:300px;object-fit:cover;display:block;transition:opacity .3s}
-    .photo-strip img:hover{opacity:.85}
+    .photo-strip img{width:100%;height:300px;object-fit:cover;display:block;transition:opacity .3s ease-out}
 
     /* ── FULL-WIDTH IMAGE BREAK ── */
     .img-break{position:relative;height:420px;overflow:hidden}
@@ -238,7 +246,6 @@
     .inline-cta{background:linear-gradient(135deg,#cba96d 0%,#B8965A 50%,#a6843e 100%);padding:52px 40px;text-align:center}
     .inline-cta p{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-weight:400;color:var(--navy);margin-bottom:24px}
     .inline-cta .btn{background:var(--navy);color:var(--white)!important;padding:13px 36px;box-shadow:0 4px 16px rgba(11,29,58,.2)}
-    .inline-cta .btn:hover{background:var(--navy-l);box-shadow:0 8px 28px rgba(11,29,58,.3)}
     .inline-cta-micro{margin-top:14px;font-size:.72rem;color:rgba(11,29,58,.45);letter-spacing:.5px}
 
     /* ── FOOTER ── */
@@ -272,11 +279,17 @@
     .hq-prog-line{width:28px;height:1px;background:rgba(255,255,255,.08)}
 
     .hq-steps{padding:0 24px 20px}
-    .hq-step{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s ease,opacity .3s ease,padding .3s ease;padding:0}
-    .hq-step.open{max-height:500px;opacity:1;padding:16px 0 0}
-    .hq-step.done{max-height:36px;opacity:1;padding:8px 0 0}
-    .hq-summary{display:none;font-size:.78rem;color:rgba(255,255,255,.55);cursor:pointer;padding:4px 0;transition:color .2s}
-    .hq-summary:hover{color:var(--gold)}
+    /* v3: grid-template-rows 0fr → 1fr animates true content height instead of capped
+       max-height. No 500px ceiling, smoother easing because the curve matches the
+       actual height. min-height:0 + overflow:hidden on children prevents content
+       from spilling during the transition. Falls back to instant open in browsers
+       that don't yet interpolate grid-template-rows (Firefox <122) — acceptable. */
+    .hq-step{display:grid;grid-template-rows:0fr;opacity:0;padding:0;transition:grid-template-rows .4s cubic-bezier(.22,.61,.36,1),opacity .25s ease-out,padding .3s ease-out}
+    .hq-step>*{min-height:0;overflow:hidden}
+    .hq-step.open,.hq-step.done{grid-template-rows:1fr;opacity:1}
+    .hq-step.open{padding:16px 0 0}
+    .hq-step.done{padding:8px 0 0}
+    .hq-summary{display:none;font-size:.78rem;color:rgba(255,255,255,.55);cursor:pointer;padding:4px 0;transition:color .2s ease-out}
     .hq-summary::before{content:'✓ ';color:var(--gold)}
     .hq-step.done .hq-summary{display:block}
     .hq-step.done .hq-fields{display:none}
@@ -300,11 +313,9 @@
     .hq-field .num-stepper input[type="number"]:focus{background:rgba(255,255,255,.1);outline:none}
     .hq-field .num-stepper input[type="number"]::-webkit-outer-spin-button,.hq-field .num-stepper input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
     .hq-confirm{display:flex;justify-content:flex-end;margin-top:6px}
-    .hq-confirm-btn{padding:8px 20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:.74rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:18px;cursor:pointer;transition:all .25s}
-    .hq-confirm-btn:hover{background:rgba(255,255,255,.18);color:white;border-color:rgba(255,255,255,.3)}
-    .hq-submit-btn{width:100%;padding:14px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 45%,#a6843e 100%);color:var(--navy);font-size:.84rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border:none;border-radius:24px;cursor:pointer;transition:all .35s;box-shadow:0 2px 12px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);position:relative;overflow:hidden;margin-top:4px}
+    .hq-confirm-btn{padding:8px 20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:.74rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:18px;cursor:pointer;transition:background .25s ease-out,color .25s ease-out,border-color .25s ease-out}
+    .hq-submit-btn{width:100%;padding:14px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 45%,#a6843e 100%);color:var(--navy);font-size:.84rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border:none;border-radius:24px;cursor:pointer;transition:transform .3s ease-out,box-shadow .3s ease-out;box-shadow:0 2px 12px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);position:relative;overflow:hidden;margin-top:4px}
     .hq-submit-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
-    .hq-submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.3)}
     /* v2: stronger success state with gold check */
     .hq-success{text-align:center;padding:40px 24px;display:none}
     .hq-success.show{display:block}
@@ -341,10 +352,49 @@
     /* v2: fixed bottom bar on mobile — always-visible CTA after hero scrolls away */
     .float-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(184,150,90,.2);padding:12px 16px;gap:10px;transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);box-shadow:0 -4px 20px rgba(0,0,0,.3)}
     .float-bar.visible{transform:translateY(0)}
-    .float-bar-phone{flex:1;text-align:center;padding:13px 8px;border:1px solid rgba(255,255,255,.2);border-radius:28px;color:rgba(255,255,255,.8)!important;font-size:.98rem;font-weight:500;letter-spacing:.3px;white-space:nowrap}
-    .float-bar-phone:hover{color:white!important;border-color:rgba(255,255,255,.4)}
+    .float-bar-phone{flex:1;text-align:center;padding:13px 8px;border:1px solid rgba(255,255,255,.2);border-radius:28px;color:rgba(255,255,255,.8)!important;font-size:.98rem;font-weight:500;letter-spacing:.3px;white-space:nowrap;transition:color .2s ease-out,border-color .2s ease-out}
     .float-bar-quote{flex:2;text-align:center;padding:13px 8px;background:linear-gradient(145deg,#d4b577 0%,#B8965A 50%,#a6843e 100%);border-radius:28px;color:var(--navy)!important;font-size:.98rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(184,150,90,.3),inset 0 1px 0 rgba(255,255,255,.2);white-space:nowrap}
     .float-bar-quote::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:nav-shimmer 3.5s ease-in-out infinite}
+
+    /* ── HOVER-ONLY EFFECTS ──
+       v3: All transform/scale/shadow-lift hovers live here so they don't fire on
+       touch devices (where the press triggers them and they STICK until the user
+       taps somewhere else — classic iOS Safari sticky-hover bug). Color-only
+       hovers stay outside this block; they're unobtrusive on touch. */
+    @media (hover:hover) and (pointer:fine){
+      .nav-btn-q:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(184,150,90,.4),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(145deg,#dfc085 0%,#cba96d 50%,#B8965A 100%)}
+      .nav-btn-p:hover{background:#a93226!important;color:white!important;transform:translateY(-1px);box-shadow:0 4px 12px rgba(192,57,43,.4)}
+      .btn-gold:hover{color:var(--navy);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.35);background:linear-gradient(160deg,#dfc085 0%,#cba96d 45%,#B8965A 100%)}
+      .btn-gold:hover::before{left:120%}
+      .btn-ghost:hover{border-color:rgba(255,255,255,.6);color:white;background:rgba(255,255,255,.08);transform:translateY(-2px)}
+      .btn-navy:hover{background:var(--navy-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,29,58,.25)}
+      .btn-outline-navy:hover{background:var(--navy);color:var(--white)!important;transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,29,58,.15)}
+      .svc-card:hover{background:var(--cream);color:var(--text)}
+      .svc-card:hover::after{background:var(--gold)}
+      .svc-card:hover .svc-img img{transform:scale(1.06)}
+      .svc-card:hover .svc-more{opacity:1;transform:translateX(0)}
+      .photo-strip img:hover{opacity:.85}
+      .inline-cta .btn:hover{background:var(--navy-l);box-shadow:0 8px 28px rgba(11,29,58,.3)}
+      .float-bar-phone:hover{color:white!important;border-color:rgba(255,255,255,.4)}
+      .hq-confirm-btn:hover{background:rgba(255,255,255,.18);color:white;border-color:rgba(255,255,255,.3)}
+      .hq-submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,150,90,.45),inset 0 1px 0 rgba(255,255,255,.3)}
+      .hq-summary:hover{color:var(--gold)}
+      .hq-type:hover{color:rgba(255,255,255,.7)}
+    }
+
+    /* ── REDUCED MOTION ──
+       v3: Honor the user's OS setting. Disables hero entrance, the .fade-up scroll
+       reveals, smooth scroll, and any other long animations/transitions. */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
+        scroll-behavior:auto!important;
+      }
+      .hero-eyebrow,.hero h1,.hero>.hero-body>p,.hero .hq{opacity:1!important;transform:none!important;animation:none!important}
+      .fade-up{opacity:1!important;transform:none!important}
+    }
 
     /* ── RESPONSIVE ── */
     @media(max-width:1024px){
