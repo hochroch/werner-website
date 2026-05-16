@@ -708,8 +708,11 @@ function wcEnhanceMonthPicker(fp){
   });
   wrap.appendChild(btn);
   hdr.insertBefore(wrap,hdr.firstChild);
-  // Append menu to body so it escapes flatpickr's stacking context
+  // Append menu to body so it escapes flatpickr's stacking context, and stop
+  // mousedown propagation so flatpickr doesn't treat menu clicks as outside-the-
+  // picker (which would close the whole popup mid-month-selection).
   document.body.appendChild(menu);
+  menu.addEventListener('mousedown',function(e){e.stopPropagation();});
   function positionMenu(){
     var r=btn.getBoundingClientRect();
     menu.style.top=(r.bottom+window.scrollY+6)+'px';
@@ -779,7 +782,19 @@ function wcBuildTimeColumn(fp){
   for(var h=1;h<=12;h++){hourValues.push(String(h).padStart(2,'0'));hourLabels.push(String(h));}
   var minValues=['00','15','30','45'],minLabels=['00','15','30','45'];
   function readCurrent(){var d=fp.selectedDates[0];var h24,m,ap;if(d){h24=d.getHours();m=d.getMinutes();}else{h24=8;m=0;}ap=h24>=12?'PM':'AM';var h12=h24%12||12;return{hourStr:String(h12).padStart(2,'0'),minStr:String(m).padStart(2,'0'),ap:ap};}
-  function commit(parts){var h12=parseInt(parts.hourStr,10);var h24=parts.ap==='PM'?(h12===12?12:h12+12):(h12===12?0:h12);var d=fp.selectedDates[0]?new Date(fp.selectedDates[0]):new Date();d.setHours(h24,parseInt(parts.minStr,10),0,0);if(!fp.selectedDates[0]){var t=new Date();t.setHours(0,0,0,0);if(d<t)d=new Date(t.getFullYear(),t.getMonth(),t.getDate(),h24,parseInt(parts.minStr,10));}fp.setDate(d,true);}
+  function commit(parts){
+    var h12=parseInt(parts.hourStr,10);
+    var h24=parts.ap==='PM'?(h12===12?12:h12+12):(h12===12?0:h12);
+    var hadDate=!!fp.selectedDates[0];
+    var d=hadDate?new Date(fp.selectedDates[0]):new Date();
+    d.setHours(h24,parseInt(parts.minStr,10),0,0);
+    if(!hadDate){var t=new Date();t.setHours(0,0,0,0);if(d<t)d=new Date(t.getFullYear(),t.getMonth(),t.getDate(),h24,parseInt(parts.minStr,10));}
+    // Silent setDate on subsequent time tweaks: the date hasn't changed, so
+    // there's no need to fire onChange (which syncs the return picker's
+    // minDate and can trigger a layout reflow). Only trigger on the very
+    // first selection, when we've effectively just picked today's date too.
+    fp.setDate(d, !hadDate);
+  }
   var cur=readCurrent();
   var hourDd=wcMakeDropdown({values:hourValues,labels:hourLabels,current:cur.hourStr,cols:3,onPick:function(v){var c=readCurrent();commit({hourStr:v,minStr:c.minStr,ap:c.ap});}});
   var sep=document.createElement('span');sep.className='wc-time-sep';sep.textContent=':';
