@@ -28,6 +28,7 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
         href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiunDXbtPK-F2qC0s.woff2">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
   <style>
     /* ══════════════════════════════════════════════════════════════
        WERNER COACH — ULTIMATE v2
@@ -324,6 +325,238 @@
     .hq-success p{color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7}
     .hq-success-next{margin-top:20px;font-size:.78rem;color:var(--gold);letter-spacing:.5px}
     .pac-container{z-index:10000!important}
+
+    /* ── Flatpickr combined date+time picker (hero variant) ──
+       Shared theme with /quote-widget. Field trigger uses the dark .wc-datetime-alt-input
+       variant so it blends into the navy/glass form; popup itself is the same light
+       card-style calendar as the standalone quote page. */
+    .flatpickr-calendar {
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(11,29,58,0.22), 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid #E0DCD4;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      transform-origin: top right;
+      padding: 6px 2px;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .flatpickr-calendar.open { animation: wcCalOpen 180ms cubic-bezier(0.16, 1, 0.3, 1); }
+    }
+    @keyframes wcCalOpen { from { opacity: 0; transform: scale(0.96) translateY(-6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .flatpickr-months .flatpickr-month,
+    .flatpickr-current-month .flatpickr-monthDropdown-months,
+    .flatpickr-current-month input.cur-year,
+    span.flatpickr-weekday { color: var(--navy); font-weight: 600; }
+    .flatpickr-weekdays { background: transparent; }
+    .flatpickr-prev-month svg, .flatpickr-next-month svg { fill: var(--navy); }
+    .flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg { fill: var(--gold); }
+    .flatpickr-day { border-radius: 8px; color: #1a1a1a; font-weight: 500; }
+    .flatpickr-day:hover { background: #F0EDE6; border-color: #F0EDE6; }
+    .flatpickr-day.today { border-color: var(--gold); color: var(--navy); }
+    .flatpickr-day.today:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .flatpickr-day.selected, .flatpickr-day.selected:hover, .flatpickr-day.startRange, .flatpickr-day.endRange {
+      background: var(--navy) !important; border-color: var(--navy) !important; color: #fff !important;
+      box-shadow: 0 2px 8px rgba(11,29,58,0.25);
+    }
+    .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:hover { color: #bbb; background: transparent; border-color: transparent; }
+    .flatpickr-days { padding: 0 6px 4px !important; width: auto !important; }
+    .flatpickr-days .dayContainer { padding: 0 !important; }
+    .flatpickr-weekdays { padding: 0 6px !important; }
+
+    .flatpickr-months { padding: 12px 8px 10px; height: auto; overflow: visible !important; }
+    .flatpickr-months .flatpickr-month { overflow: visible !important; }
+    .flatpickr-innerContainer { overflow: visible !important; }
+    .flatpickr-calendar { overflow: visible !important; }
+    .flatpickr-current-month {
+      display: flex !important; align-items: center; justify-content: center; gap: 10px;
+      padding: 4px 0 12px !important; height: auto !important;
+      font-size: 13.5px !important; line-height: 1; position: static !important;
+    }
+    .flatpickr-current-month .flatpickr-monthDropdown-months { display: none !important; }
+    .flatpickr-current-month .cur-month { display: none !important; }
+
+    .wc-month-dd { position: relative; display: inline-block; vertical-align: middle; }
+    .wc-month-btn {
+      appearance: none; -webkit-appearance: none; background: #FAF8F4;
+      border: 1px solid #E0DCD4; border-radius: 10px;
+      padding: 0 10px 0 12px; height: 30px; min-width: 112px;
+      font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 13.5px; font-weight: 600;
+      color: var(--navy); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: space-between; gap: 8px;
+      box-sizing: border-box;
+      transition: border-color .15s, background-color .15s, box-shadow .15s;
+    }
+    .wc-month-btn:hover { border-color: var(--navy); background: #fff; }
+    .wc-month-btn:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
+    .wc-month-dd.open .wc-month-btn { border-color: var(--navy); background: #fff; box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
+    .wc-month-caret { transition: transform .2s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
+    .wc-month-dd.open .wc-month-caret { transform: rotate(180deg); }
+    .wc-month-menu {
+      display: none; position: absolute; top: 0; left: 0; transform: translateX(-50%);
+      transform-origin: top center;
+      background: #fff; border: 1px solid #E0DCD4;
+      border-radius: 12px; box-shadow: 0 14px 36px rgba(11,29,58,0.22), 0 4px 12px rgba(0,0,0,0.08);
+      padding: 6px; min-width: 150px; max-height: 280px; overflow-y: auto;
+      z-index: 99999; font-family: 'Source Sans 3', system-ui, sans-serif;
+    }
+    .wc-month-menu.open { display: block; }
+    .wc-month-opt {
+      display: block; width: 100%; appearance: none; background: transparent; border: none;
+      padding: 8px 12px; border-radius: 8px;
+      font-family: inherit; font-size: 13.5px; font-weight: 500;
+      color: #1a1a1a; text-align: left; cursor: pointer;
+      transition: background-color .12s, color .12s;
+    }
+    .wc-month-opt:hover { background: #F0EDE6; color: var(--navy); }
+    .wc-month-opt.selected { background: var(--navy); color: #fff; font-weight: 600; }
+
+    .flatpickr-current-month .numInputWrapper {
+      position: relative !important; display: inline-block !important;
+      width: auto !important; min-width: 92px; height: 30px !important;
+      border: 1px solid #E0DCD4; border-radius: 10px; background: #FAF8F4;
+      box-sizing: border-box; overflow: hidden; vertical-align: middle;
+      transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+    }
+    .flatpickr-current-month .numInputWrapper:hover { border-color: var(--navy); background-color: #fff; }
+    .flatpickr-current-month .numInputWrapper:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
+    .flatpickr-current-month input.cur-year {
+      font-family: 'Source Sans 3', system-ui, sans-serif !important;
+      font-size: 13.5px !important; font-weight: 600 !important;
+      line-height: 28px !important; color: var(--navy) !important;
+      padding: 0 28px 0 12px !important; width: 100% !important; height: 28px !important;
+      text-align: left !important; background: transparent !important; border: none !important;
+      box-shadow: none !important; box-sizing: border-box !important; -moz-appearance: textfield;
+    }
+    .flatpickr-current-month input.cur-year::-webkit-outer-spin-button,
+    .flatpickr-current-month input.cur-year::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .flatpickr-current-month input.cur-year:focus { outline: none; }
+    .flatpickr-current-month .numInputWrapper span {
+      position: absolute !important; right: 3px !important;
+      width: 20px !important; height: calc(50% - 2px) !important;
+      padding: 0 !important; margin: 0 !important; border: none !important; border-radius: 5px;
+      opacity: 0.55; background: transparent !important;
+      transition: opacity 0.15s, background-color 0.15s;
+    }
+    .flatpickr-current-month .numInputWrapper span.arrowUp { top: 2px !important; bottom: auto !important; }
+    .flatpickr-current-month .numInputWrapper span.arrowDown { bottom: 2px !important; top: auto !important; }
+    .flatpickr-current-month .numInputWrapper:hover span { opacity: 0.85; }
+    .flatpickr-current-month .numInputWrapper span:hover { opacity: 1; background-color: rgba(11,29,58,0.10) !important; }
+    .flatpickr-current-month .numInputWrapper span.arrowUp:after { border-left: 4px solid transparent !important; border-right: 4px solid transparent !important; border-bottom: 5px solid var(--navy) !important; top: 50% !important; left: 50% !important; margin: -3px 0 0 -4px !important; }
+    .flatpickr-current-month .numInputWrapper span.arrowDown:after { border-left: 4px solid transparent !important; border-right: 4px solid transparent !important; border-top: 5px solid var(--navy) !important; top: 50% !important; left: 50% !important; margin: -2px 0 0 -4px !important; }
+    .flatpickr-prev-month, .flatpickr-next-month { padding: 8px !important; border-radius: 8px; transition: background-color 0.15s; }
+    .flatpickr-prev-month:hover, .flatpickr-next-month:hover { background: rgba(11,29,58,0.06); }
+
+    /* Dark-glass trigger input — matches the rest of the hero .hq-field inputs */
+    input.wc-datetime-alt-input.dark {
+      width:100%; padding:10px 12px;
+      background-color: rgba(255,255,255,.07);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23C9A84C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/></svg>");
+      background-repeat: no-repeat; background-position: right 12px center; background-size: 18px 18px;
+      padding-right: 40px !important;
+      border: 1px solid rgba(255,255,255,.15);
+      color: white; font-size: .86rem; font-family: inherit;
+      border-radius: 6px; cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    input.wc-datetime-alt-input.dark::placeholder { color: rgba(255,255,255,.3); }
+    input.wc-datetime-alt-input.dark:focus { outline: none; border-color: var(--gold); background-color: rgba(255,255,255,.12); }
+
+    /* 2-column popup grid (calendar + time) */
+    .flatpickr-calendar.hasTime {
+      display: grid !important;
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto;
+      grid-template-areas: "months months" "days time";
+      column-gap: 4px; align-items: start;
+      padding: 6px 6px 8px !important;
+      width: auto !important; max-width: none !important;
+    }
+    .flatpickr-calendar.hasTime .flatpickr-months { grid-area: months; }
+    .flatpickr-calendar.hasTime .flatpickr-innerContainer { grid-area: days; }
+    .flatpickr-calendar.hasTime .wc-time-col { grid-area: time; }
+    .flatpickr-time { display: none !important; }
+
+    .wc-time-col { display: flex; flex-direction: column; align-items: stretch; padding: 0 8px 4px 4px; width: 172px; }
+    .wc-time-label {
+      display: block; text-align: center;
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--gold); padding: 8px 0 10px;
+      border-bottom: 1px solid #E0DCD4; margin-bottom: 12px;
+      position: relative;
+    }
+    .wc-time-label::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 28px; height: 2px; background: var(--gold); border-radius: 1px; }
+    .wc-time-row { display: grid; grid-template-columns: 1fr 14px 1fr; align-items: center; margin-bottom: 8px; }
+    .wc-time-sep { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1; text-align: center; }
+    .wc-time-dd { position: relative; display: block; width: 100%; }
+    .wc-time-btn {
+      appearance: none; -webkit-appearance: none; background: #FAF8F4;
+      border: 1px solid #E0DCD4; border-radius: 10px;
+      padding: 0 8px 0 12px; height: 40px; width: 100%; min-width: 0 !important;
+      font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600;
+      color: var(--navy); cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 4px;
+      box-sizing: border-box;
+      transition: border-color .15s, background-color .15s, box-shadow .15s;
+    }
+    .wc-time-btn:hover { border-color: var(--navy); background: #fff; }
+    .wc-time-btn:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
+    .wc-time-dd.open .wc-time-btn { border-color: var(--navy); background: #fff; box-shadow: 0 0 0 3px rgba(11,29,58,0.08); }
+    .wc-time-caret { transition: transform .2s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; opacity: 0.6; }
+    .wc-time-dd.open .wc-time-caret { transform: rotate(180deg); opacity: 1; }
+    .wc-time-menu {
+      display: none; position: absolute; top: 0; left: 0;
+      grid-template-columns: repeat(3, 40px); gap: 4px;
+      background: #fff; border: 1px solid #E0DCD4; border-radius: 12px;
+      box-shadow: 0 14px 36px rgba(11,29,58,0.22), 0 4px 12px rgba(0,0,0,0.08);
+      padding: 8px; z-index: 99999;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+    }
+    .wc-time-menu.open { display: grid; }
+    .wc-time-menu.wc-cols-2 { grid-template-columns: repeat(2, 48px); }
+    .wc-time-opt {
+      appearance: none; background: transparent; border: none; padding: 0;
+      height: 32px; border-radius: 8px;
+      font-family: inherit; font-size: 14px; font-weight: 500;
+      color: #1a1a1a; text-align: center; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background-color .12s, color .12s;
+    }
+    .wc-time-opt:hover { background: #F0EDE6; color: var(--navy); }
+    .wc-time-opt.selected { background: var(--navy); color: #fff; font-weight: 600; box-shadow: 0 2px 6px rgba(11,29,58,0.18); }
+    .wc-ampm {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px;
+      background: #FAF8F4; border: 1px solid #E0DCD4; border-radius: 10px;
+      width: 100%; height: 40px; box-sizing: border-box;
+    }
+    .wc-ampm-opt {
+      appearance: none; -webkit-appearance: none; border: none; cursor: pointer;
+      background: transparent;
+      font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.5px; color: #6B6B6B;
+      height: 100%; padding: 0; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background-color .15s, color .15s;
+    }
+    .wc-ampm-opt:hover { color: var(--navy); }
+    .wc-ampm-opt.selected { background: var(--navy); color: #fff; box-shadow: 0 2px 6px rgba(11,29,58,0.18); }
+
+    /* Mobile: stack time below the calendar */
+    @media (max-width: 600px) {
+      .flatpickr-calendar.hasTime {
+        grid-template-columns: 1fr;
+        grid-template-areas: "months" "days" "time";
+        padding: 6px 6px 10px !important;
+      }
+      .wc-time-col { width: 100%; padding: 8px 8px 4px; border-top: 1px solid #E0DCD4; margin-top: 6px; }
+      .wc-time-label { border-bottom: none; padding: 6px 0 12px; margin-bottom: 6px; }
+      .wc-time-label::after { display: none; }
+      .wc-time-row { gap: 4px; }
+      .wc-time-btn { height: 44px; font-size: 17px; }
+      .wc-ampm { height: 44px; }
+      .wc-ampm-opt { font-size: 13px; }
+      .wc-time-menu { grid-template-columns: repeat(3, 48px); gap: 6px; padding: 10px; }
+      .wc-time-menu.wc-cols-2 { grid-template-columns: repeat(2, 56px); }
+      .wc-time-opt { height: 40px; font-size: 15px; }
+    }
 
     /* ── GOOGLE REVIEWS BADGE ── */
     .reviews-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(11,29,58,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 16px;margin-top:16px}
@@ -658,13 +891,11 @@
           <div class="hq-step" id="hqStep2">
             <div class="hq-summary" onclick="hqReopen(2)"></div>
             <div class="hq-fields">
-              <div class="hq-row">
-                <div class="hq-field"><label>Departure Date</label><input type="date" id="hqDate"></div>
-                <div class="hq-field"><label>Pickup Time</label><div style="display:flex;gap:6px;"><select id="hqTimeHr" style="flex:1"><option value="">Hour</option></select><select id="hqTimeMin" style="flex:1"><option value="">Min</option></select></div></div>
+              <div class="hq-row single">
+                <div class="hq-field"><label>Pickup Date &amp; Time</label><input type="text" id="hqDate" placeholder="Choose date &amp; time"></div>
               </div>
-              <div class="hq-row" id="hqReturnRow">
-                <div class="hq-field"><label>Return Date</label><input type="date" id="hqReturn"></div>
-                <div class="hq-field"><label>Leave Destination Time</label><div style="display:flex;gap:6px;"><select id="hqReturnTimeHr" style="flex:1"><option value="">Hour</option></select><select id="hqReturnTimeMin" style="flex:1"><option value="">Min</option></select></div></div>
+              <div class="hq-row single" id="hqReturnRow">
+                <div class="hq-field"><label>Leave Destination Date &amp; Time</label><input type="text" id="hqReturn" placeholder="Choose date &amp; time"></div>
               </div>
               <div class="hq-row single" id="hqDinnerRow">
                 <div class="hq-field">
@@ -1172,26 +1403,127 @@
     var SUBMIT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
     var EDGE_FN_URL='https://dtazswxluhmdwwibgawn.supabase.co/functions/v1/quote-submit';
 
-    function populateTimes(){
-      ['hqTimeHr','hqReturnTimeHr'].forEach(function(id){
-        var sel=document.getElementById(id);
-        for(var h=0;h<24;h++){
-          var opt=document.createElement('option');
-          opt.value=h;
-          opt.textContent=(h%12||12)+' '+(h>=12?'PM':'AM');
-          sel.appendChild(opt);
-        }
+    // ── Combined date+time picker (flatpickr w/ enableTime + custom time column) ──
+    // Replaces what used to be a native <input type="date"> + two <select> hour/min
+    // pairs. Same Werner navy/gold popup as the standalone /quote-widget page; here
+    // the trigger inputs use a dark-glass variant that matches the hero form.
+    var hqFpPickup=null,hqFpReturn=null;
+    var WC_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    function hqFpDateStr(fp){var d=fp&&fp.selectedDates&&fp.selectedDates[0];if(!d)return '';return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+    function hqFpTimeStr(fp){var d=fp&&fp.selectedDates&&fp.selectedDates[0];if(!d)return '';return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+    function wcEnhanceMonthPicker(fp){
+      if(!fp||!fp.calendarContainer)return;
+      var hdr=fp.calendarContainer.querySelector('.flatpickr-current-month');
+      if(!hdr||hdr.dataset.wcEnhanced)return;
+      hdr.dataset.wcEnhanced='1';
+      var wrap=document.createElement('div');wrap.className='wc-month-dd';
+      var btn=document.createElement('button');btn.type='button';btn.className='wc-month-btn';btn.setAttribute('aria-haspopup','listbox');btn.setAttribute('aria-expanded','false');
+      btn.innerHTML='<span class="wc-month-label"></span><svg class="wc-month-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var menu=document.createElement('div');menu.className='wc-month-menu';menu.setAttribute('role','listbox');
+      WC_MONTHS.forEach(function(name,i){
+        var opt=document.createElement('button');opt.type='button';opt.className='wc-month-opt';opt.textContent=name;opt.setAttribute('role','option');opt.dataset.idx=i;
+        opt.addEventListener('click',function(e){e.stopPropagation();fp.changeMonth(i-fp.currentMonth,false);close();});
+        menu.appendChild(opt);
       });
-      ['hqTimeMin','hqReturnTimeMin'].forEach(function(id){
-        var sel=document.getElementById(id);
-        [0,15,30,45].forEach(function(m){
-          var opt=document.createElement('option');
-          var mm=m<10?'0'+m:m;
-          opt.value=mm;opt.textContent=':'+mm;
-          sel.appendChild(opt);
-        });
-      });
+      wrap.appendChild(btn);
+      hdr.insertBefore(wrap,hdr.firstChild);
+      document.body.appendChild(menu);
+      function positionMenu(){var r=btn.getBoundingClientRect();menu.style.top=(r.bottom+window.scrollY+6)+'px';menu.style.left=(r.left+window.scrollX+r.width/2)+'px';}
+      function update(){btn.querySelector('.wc-month-label').textContent=WC_MONTHS[fp.currentMonth];menu.querySelectorAll('.wc-month-opt').forEach(function(el,i){el.classList.toggle('selected',i===fp.currentMonth);});}
+      function open(){wrap.classList.add('open');menu.classList.add('open');btn.setAttribute('aria-expanded','true');update();positionMenu();var sel=menu.querySelector('.selected');if(sel)sel.scrollIntoView({block:'nearest'});}
+      function close(){wrap.classList.remove('open');menu.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+      function toggle(){wrap.classList.contains('open')?close():open();}
+      btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
+      document.addEventListener('click',function(e){if(!wrap.contains(e.target)&&!menu.contains(e.target))close();});
+      window.addEventListener('scroll',function(){if(wrap.classList.contains('open'))positionMenu();},true);
+      window.addEventListener('resize',function(){if(wrap.classList.contains('open'))positionMenu();});
+      fp.calendarContainer.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+      update();
+      return update;
     }
+    function wcMakeDropdown(opts){
+      var wrap=document.createElement('div');wrap.className='wc-time-dd';
+      var btn=document.createElement('button');btn.type='button';btn.className='wc-time-btn';btn.setAttribute('aria-haspopup','listbox');
+      btn.innerHTML='<span class="wc-time-label-text">'+(opts.labels[opts.values.indexOf(opts.current)] ?? opts.current)+'</span><svg class="wc-time-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var menu=document.createElement('div');menu.className='wc-time-menu'+(opts.cols===2?' wc-cols-2':'');menu.setAttribute('role','listbox');
+      menu.addEventListener('mousedown',function(e){e.stopPropagation();});
+      opts.values.forEach(function(v,i){
+        var o=document.createElement('button');o.type='button';o.className='wc-time-opt';o.textContent=opts.labels[i];o.setAttribute('role','option');o.dataset.value=v;
+        if(v===opts.current)o.classList.add('selected');
+        o.addEventListener('click',function(e){e.stopPropagation();wrap._setValue(v);opts.onPick(v);close();});
+        menu.appendChild(o);
+      });
+      wrap.appendChild(btn);
+      document.body.appendChild(menu);
+      function positionMenu(){var r=btn.getBoundingClientRect();menu.style.top=(r.bottom+window.scrollY+6)+'px';menu.style.left=(r.left+window.scrollX+r.width/2-menu.offsetWidth/2)+'px';}
+      function open(){wrap.classList.add('open');menu.classList.add('open');btn.setAttribute('aria-expanded','true');requestAnimationFrame(positionMenu);var sel=menu.querySelector('.selected');if(sel)sel.scrollIntoView({block:'nearest'});}
+      function close(){wrap.classList.remove('open');menu.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+      function toggle(){wrap.classList.contains('open')?close():open();}
+      btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
+      document.addEventListener('click',function(e){if(!wrap.contains(e.target)&&!menu.contains(e.target))close();});
+      window.addEventListener('scroll',function(){if(wrap.classList.contains('open'))positionMenu();},true);
+      window.addEventListener('resize',function(){if(wrap.classList.contains('open'))positionMenu();});
+      wrap._setValue=function(v){var idx=opts.values.indexOf(v);btn.querySelector('.wc-time-label-text').textContent=idx>=0?opts.labels[idx]:v;menu.querySelectorAll('.wc-time-opt').forEach(function(el){el.classList.toggle('selected',el.dataset.value===v);});};
+      return wrap;
+    }
+    function wcBuildTimeColumn(fp){
+      if(!fp||!fp.calendarContainer)return;
+      if(fp.calendarContainer.querySelector('.wc-time-col'))return;
+      var role=fp.input.dataset.role||'Pickup';
+      var col=document.createElement('div');col.className='wc-time-col';
+      var label=document.createElement('div');label.className='wc-time-label';
+      label.textContent=role==='Return'?'Leave Destination Time':'Pickup Time';
+      col.appendChild(label);
+      var row=document.createElement('div');row.className='wc-time-row';
+      var hourValues=[],hourLabels=[];
+      for(var h=1;h<=12;h++){hourValues.push(String(h).padStart(2,'0'));hourLabels.push(String(h));}
+      var minValues=['00','15','30','45'],minLabels=['00','15','30','45'];
+      function readCurrent(){var d=fp.selectedDates[0];var h24,m,ap;if(d){h24=d.getHours();m=d.getMinutes();}else{h24=8;m=0;}ap=h24>=12?'PM':'AM';var h12=h24%12||12;return{hourStr:String(h12).padStart(2,'0'),minStr:String(m).padStart(2,'0'),ap:ap};}
+      function commit(parts){var h12=parseInt(parts.hourStr,10);var h24=parts.ap==='PM'?(h12===12?12:h12+12):(h12===12?0:h12);var d=fp.selectedDates[0]?new Date(fp.selectedDates[0]):new Date();d.setHours(h24,parseInt(parts.minStr,10),0,0);if(!fp.selectedDates[0]){var t=new Date();t.setHours(0,0,0,0);if(d<t)d=new Date(t.getFullYear(),t.getMonth(),t.getDate(),h24,parseInt(parts.minStr,10));}fp.setDate(d,true);}
+      var cur=readCurrent();
+      var hourDd=wcMakeDropdown({values:hourValues,labels:hourLabels,current:cur.hourStr,cols:3,onPick:function(v){var c=readCurrent();commit({hourStr:v,minStr:c.minStr,ap:c.ap});}});
+      var sep=document.createElement('span');sep.className='wc-time-sep';sep.textContent=':';
+      var minDd=wcMakeDropdown({values:minValues,labels:minLabels,current:cur.minStr,cols:2,onPick:function(v){var c=readCurrent();commit({hourStr:c.hourStr,minStr:v,ap:c.ap});}});
+      row.appendChild(hourDd);row.appendChild(sep);row.appendChild(minDd);
+      col.appendChild(row);
+      var ampm=document.createElement('div');ampm.className='wc-ampm';
+      ['AM','PM'].forEach(function(opt){
+        var b=document.createElement('button');b.type='button';b.className='wc-ampm-opt';b.textContent=opt;if(opt===cur.ap)b.classList.add('selected');
+        b.addEventListener('click',function(e){e.stopPropagation();ampm.querySelectorAll('.wc-ampm-opt').forEach(function(x){x.classList.toggle('selected',x===b);});var c=readCurrent();commit({hourStr:c.hourStr,minStr:c.minStr,ap:opt});});
+        ampm.appendChild(b);
+      });
+      col.appendChild(ampm);
+      fp.calendarContainer.appendChild(col);
+      fp.config.onValueUpdate=(fp.config.onValueUpdate||[]).concat([function(){var c=readCurrent();hourDd._setValue(c.hourStr);minDd._setValue(c.minStr);ampm.querySelectorAll('.wc-ampm-opt').forEach(function(b){b.classList.toggle('selected',b.textContent===c.ap);});}]);
+    }
+    function hqInitDatePickers(){
+      if(typeof flatpickr==='undefined')return;
+      document.getElementById('hqDate').dataset.role='Pickup';
+      document.getElementById('hqReturn').dataset.role='Return';
+      var common={
+        enableTime:true, dateFormat:'Y-m-d H:i', altInput:true,
+        altInputClass:'wc-datetime-alt-input dark', altFormat:'M j, Y \\a\\t h:i K',
+        minDate:'today', minuteIncrement:15, time_24hr:false,
+        defaultHour:8, defaultMinute:0,
+        position:'auto center', closeOnSelect:false, disableMobile:true, animate:true,
+        onReady:function(sel,str,fp){fp._wcMonthUpdate=wcEnhanceMonthPicker(fp);wcBuildTimeColumn(fp);},
+        onMonthChange:function(sel,str,fp){if(fp._wcMonthUpdate)fp._wcMonthUpdate();},
+        onYearChange:function(sel,str,fp){if(fp._wcMonthUpdate)fp._wcMonthUpdate();}
+      };
+      hqFpPickup=flatpickr('#hqDate',Object.assign({},common,{
+        onChange:function(sel){
+          if(hqFpReturn&&sel[0]){
+            hqFpReturn.set('minDate',sel[0]);
+            var r=hqFpReturn.selectedDates[0];
+            if(r&&r<sel[0])hqFpReturn.clear();
+          }
+        }
+      }));
+      hqFpReturn=flatpickr('#hqReturn',common);
+    }
+    // Expose so the post-CDN <script> tag (which runs after this IIFE has closed)
+    // can call into the closure once flatpickr is actually loaded.
+    window.hqInitDatePickers=hqInitDatePickers;
 
     function loadMaps(){
       var s=document.createElement('script');
@@ -1282,28 +1614,29 @@
         hqCalcRoute(p,d);
       }
       if(step===2){
-        var dt=document.getElementById('hqDate').value;
-        var tmHr=document.getElementById('hqTimeHr').value;
-        var tmMin=document.getElementById('hqTimeMin').value;
-        var rd=document.getElementById('hqReturn').value;
-        var rtHr=document.getElementById('hqReturnTimeHr').value;
-        var rtMin=document.getElementById('hqReturnTimeMin').value;
+        // Combined date+time picker: pull date/time strings directly from flatpickr.
+        var pdStr=hqFpDateStr(hqFpPickup);
+        var ptStr=hqFpTimeStr(hqFpPickup);
+        var rdStr=hqFpDateStr(hqFpReturn);
+        var rtStr=hqFpTimeStr(hqFpReturn);
         var needReturn=hqType!=='oneway';
-        if(!dt||tmHr===''||tmMin===''||(needReturn&&(!rd||rtHr===''||rtMin===''))){
-          if(!dt)document.getElementById('hqDate').style.borderColor='#c0392b';
-          if(tmHr==='')document.getElementById('hqTimeHr').style.borderColor='#c0392b';
-          if(tmMin==='')document.getElementById('hqTimeMin').style.borderColor='#c0392b';
-          if(needReturn&&!rd)document.getElementById('hqReturn').style.borderColor='#c0392b';
-          if(needReturn&&rtHr==='')document.getElementById('hqReturnTimeHr').style.borderColor='#c0392b';
-          if(needReturn&&rtMin==='')document.getElementById('hqReturnTimeMin').style.borderColor='#c0392b';
+        if(!pdStr||!ptStr||(needReturn&&(!rdStr||!rtStr))){
+          // Flatpickr alt-input is the visible trigger \u2014 flash its border.
+          var altPickup=document.querySelector('input.wc-datetime-alt-input[placeholder="Choose date & time"]');
+          var altReturn=document.querySelectorAll('input.wc-datetime-alt-input')[1];
+          if(!pdStr&&altPickup)altPickup.style.borderColor='#c0392b';
+          if(needReturn&&!rdStr&&altReturn)altReturn.style.borderColor='#c0392b';
           return;
         }
-        var h=parseInt(tmHr);
-        var fmtDate=new Date(dt+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-        var fmtTime=(h%12||12)+':'+tmMin+' '+(h>=12?'PM':'AM');
+        var h=parseInt(ptStr.split(':')[0],10);
+        var mm=ptStr.split(':')[1];
+        var fmtDate=new Date(pdStr+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+        var fmtTime=(h%12||12)+':'+mm+' '+(h>=12?'PM':'AM');
         var summary=fmtDate+' at '+fmtTime;
-        var fmtRd=new Date(rd+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
-        summary+=' \u2192 return '+fmtRd;
+        if(rdStr){
+          var fmtRd=new Date(rdStr+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+          summary+=' \u2192 return '+fmtRd;
+        }
         var coaches=document.getElementById('hqCoaches').value;
         if(coaches>1)summary+=' \u00b7 '+coaches+' coaches';
         stepEl.querySelector('.hq-summary').textContent=summary;
@@ -1341,10 +1674,10 @@
         firstName:first,lastName:last,email:email,phone:phone,
         tripType:hqType,
         locations:[document.getElementById('hqPickup').value,document.getElementById('hqDest').value],
-        pickupDate:document.getElementById('hqDate').value,
-        pickupTime:(function(){var h=document.getElementById('hqTimeHr').value;var m=document.getElementById('hqTimeMin').value;return h!==''&&m!==''?(parseInt(h)<10?'0'+h:h)+':'+m:'';})(),
-        returnDate:document.getElementById('hqReturn').value,
-        returnTime:(function(){var h=document.getElementById('hqReturnTimeHr').value;var m=document.getElementById('hqReturnTimeMin').value;return h!==''&&m!==''?(parseInt(h)<10?'0'+h:h)+':'+m:'';})(),
+        pickupDate:hqFpDateStr(hqFpPickup),
+        pickupTime:hqFpTimeStr(hqFpPickup),
+        returnDate:hqFpDateStr(hqFpReturn),
+        returnTime:hqFpTimeStr(hqFpReturn),
         dinnerStopReturn:(hqDinnerStop==='yes'?true:(hqDinnerStop==='no'?false:null)),
         passengers:document.getElementById('hqPassengers').value||null,
         numVehicles:document.getElementById('hqCoaches').value,
@@ -1393,14 +1726,14 @@
       el.addEventListener('change',function(){this.style.borderColor='';});
     });
 
-    var today=new Date().toISOString().split('T')[0];
-    document.getElementById('hqDate').setAttribute('min',today);
-    document.getElementById('hqReturn').setAttribute('min',today);
-
-    populateTimes();
+    // Flatpickr handles minDate via its own config (minDate:'today'); the old
+    // input[min] attributes only mattered for the native <input type="date">.
+    hqInitDatePickers();
     loadMaps();
   })();
   </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+  <script>if(typeof flatpickr!=='undefined'&&typeof hqInitDatePickers==='function')hqInitDatePickers();</script>
 </body>
 </html>
