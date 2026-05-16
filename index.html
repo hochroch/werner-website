@@ -1431,7 +1431,12 @@
       menu.addEventListener('mousedown',function(e){e.stopPropagation();e.preventDefault();});
       function positionMenu(){var r=btn.getBoundingClientRect();menu.style.top=(r.bottom+window.scrollY+6)+'px';menu.style.left=(r.left+window.scrollX+r.width/2)+'px';}
       function update(){btn.querySelector('.wc-month-label').textContent=WC_MONTHS[fp.currentMonth];menu.querySelectorAll('.wc-month-opt').forEach(function(el,i){el.classList.toggle('selected',i===fp.currentMonth);});}
-      function open(){wrap.classList.add('open');menu.classList.add('open');btn.setAttribute('aria-expanded','true');update();positionMenu();var sel=menu.querySelector('.selected');if(sel)sel.scrollIntoView({block:'nearest'});}
+      // Scroll the menu's own scrollbar to bring the selected month into view —
+      // NOT the document. Element.scrollIntoView() walks all ancestor scrollable
+      // containers including the page, which (with scroll-behavior:smooth) causes
+      // the whole page to glide. menu.scrollTop is local to the menu and never
+      // touches document scroll.
+      function open(){wrap.classList.add('open');menu.classList.add('open');btn.setAttribute('aria-expanded','true');update();positionMenu();var sel=menu.querySelector('.selected');if(sel){menu.scrollTop=Math.max(0,sel.offsetTop-menu.clientHeight/2+sel.offsetHeight/2);}}
       function close(){wrap.classList.remove('open');menu.classList.remove('open');btn.setAttribute('aria-expanded','false');}
       function toggle(){wrap.classList.contains('open')?close():open();}
       btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
@@ -1457,7 +1462,11 @@
       wrap.appendChild(btn);
       document.body.appendChild(menu);
       function positionMenu(){var r=btn.getBoundingClientRect();menu.style.top=(r.bottom+window.scrollY+6)+'px';menu.style.left=(r.left+window.scrollX+r.width/2-menu.offsetWidth/2)+'px';}
-      function open(){wrap.classList.add('open');menu.classList.add('open');btn.setAttribute('aria-expanded','true');requestAnimationFrame(positionMenu);var sel=menu.querySelector('.selected');if(sel)sel.scrollIntoView({block:'nearest'});}
+      // Hour/min grids are always fully visible (3x4 or 2x2 — no menu scrollbar),
+      // so no scrollIntoView is needed. The earlier version called it anyway,
+      // which scrolled the WHOLE PAGE because the menu is in document.body. That
+      // was the "everything moves and resizes" bug.
+      function open(){wrap.classList.add('open');menu.classList.add('open');btn.setAttribute('aria-expanded','true');requestAnimationFrame(positionMenu);}
       function close(){wrap.classList.remove('open');menu.classList.remove('open');btn.setAttribute('aria-expanded','false');}
       function toggle(){wrap.classList.contains('open')?close():open();}
       btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
