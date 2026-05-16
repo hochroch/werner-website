@@ -712,7 +712,7 @@ function wcEnhanceMonthPicker(fp){
   // mousedown propagation so flatpickr doesn't treat menu clicks as outside-the-
   // picker (which would close the whole popup mid-month-selection).
   document.body.appendChild(menu);
-  menu.addEventListener('mousedown',function(e){e.stopPropagation();});
+  menu.addEventListener('mousedown',function(e){e.stopPropagation();e.preventDefault();});
   function positionMenu(){
     var r=btn.getBoundingClientRect();
     menu.style.top=(r.bottom+window.scrollY+6)+'px';
@@ -745,10 +745,12 @@ function wcMakeDropdown(opts){
   var menu=document.createElement('div');
   menu.className='wc-time-menu'+(opts.cols===2?' wc-cols-2':'');
   menu.setAttribute('role','listbox');
-  // Keep flatpickr from interpreting menu clicks as outside-the-picker clicks
-  // (the menu is appended to document.body so its clicks would otherwise close
-  // the whole popup mid-selection).
-  menu.addEventListener('mousedown',function(e){e.stopPropagation();});
+  // Stop mousedown so flatpickr doesn't treat menu clicks as outside (menu is in
+  // document.body), AND preventDefault so focus doesn't transfer from the alt-input
+  // to the option button (focus shift triggers the browser's scroll-focused-into-
+  // view behavior, which on a page with scroll-behavior:smooth becomes a visible
+  // page jump).
+  menu.addEventListener('mousedown',function(e){e.stopPropagation();e.preventDefault();});
   opts.values.forEach(function(v,i){
     var o=document.createElement('button');o.type='button';o.className='wc-time-opt';
     o.textContent=opts.labels[i];o.setAttribute('role','option');o.dataset.value=v;
