@@ -836,7 +836,32 @@ function initDatePickers(){
     animate:true,
     onReady:function(sel,str,fp){fp._wcMonthUpdate=wcEnhanceMonthPicker(fp);wcBuildTimeColumn(fp);},
     onMonthChange:function(sel,str,fp){if(fp._wcMonthUpdate)fp._wcMonthUpdate();},
-    onYearChange:function(sel,str,fp){if(fp._wcMonthUpdate)fp._wcMonthUpdate();}
+    onYearChange:function(sel,str,fp){if(fp._wcMonthUpdate)fp._wcMonthUpdate();},
+    // Belt-and-suspenders against any page-scroll triggered by focus/scrollIntoView
+    // while the picker is open. Restored on close. Uses a refcount so the pickup
+    // and return pickers can be open in sequence without prematurely restoring.
+    onOpen:function(){
+      if(!window._wcScrollLock){
+        window._wcScrollLock={
+          prevBehavior:document.documentElement.style.scrollBehavior,
+          origSIV:Element.prototype.scrollIntoView,
+          count:0
+        };
+        document.documentElement.style.scrollBehavior='auto';
+        Element.prototype.scrollIntoView=function(){};
+      }
+      window._wcScrollLock.count++;
+    },
+    onClose:function(){
+      if(window._wcScrollLock){
+        window._wcScrollLock.count--;
+        if(window._wcScrollLock.count<=0){
+          document.documentElement.style.scrollBehavior=window._wcScrollLock.prevBehavior;
+          Element.prototype.scrollIntoView=window._wcScrollLock.origSIV;
+          delete window._wcScrollLock;
+        }
+      }
+    }
   };
   fpPickup=flatpickr('#pickupDate',Object.assign({},common,{
     onChange:function(sel){
