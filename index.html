@@ -97,7 +97,13 @@
 
     /* ── HERO ── */
     .hero{position:relative;background:var(--navy);color:var(--white);min-height:92vh;display:flex;align-items:flex-end;padding-bottom:80px;overflow:hidden}
-    .hero-bg{position:absolute;inset:0;background:url('/images/hero-valleyforge.webp') center 40%/cover no-repeat}
+    /* Lock the bg image element to viewport height (not hero height) so the
+       `background-size: cover` scaling is constant regardless of how tall the
+       hero grows or shrinks. The hero has `overflow: hidden` and `min-height:
+       92vh`, so the bg is clipped to the hero's actual size — but the image
+       itself is always sized to cover 100vh, never rescaling when the form
+       inside the hero changes height (e.g. clicking through quote steps). */
+    .hero-bg{position:absolute;top:0;left:0;right:0;height:100vh;background:url('/images/hero-valleyforge.webp') center 40%/cover no-repeat}
     /* v2: slightly richer vignette — more depth on left where text lives */
     .hero-grad{position:absolute;inset:0;background:linear-gradient(to right,rgba(11,29,58,.88) 0%,rgba(11,29,58,.62) 38%,rgba(11,29,58,.18) 65%,transparent 100%),linear-gradient(to top,rgba(11,29,58,.55) 0%,transparent 45%)}
     .hero-body{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;padding:0 40px;width:100%}
