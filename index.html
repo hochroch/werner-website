@@ -1619,8 +1619,12 @@
       hqType=el.dataset.type;
       var retRow=document.getElementById('hqReturnRow');
       var dinRow=document.getElementById('hqDinnerRow');
-      if(hqType==='oneway'){retRow.style.visibility='hidden';if(dinRow)dinRow.style.display='none';}
-      else{retRow.style.visibility='';if(dinRow)dinRow.style.display='';}
+      // Use visibility (not display) on BOTH rows so the form keeps the same
+      // height across all 4 trip types. Otherwise switching to One Way removed
+      // the dinner-stop row's height, which shrank the hero and rescaled the
+      // background image — a noticeable jump.
+      if(hqType==='oneway'){retRow.style.visibility='hidden';if(dinRow)dinRow.style.visibility='hidden';}
+      else{retRow.style.visibility='';if(dinRow)dinRow.style.visibility='';}
     };
     window.stepInput=function(id,delta){
       var el=document.getElementById(id);if(!el)return;
