@@ -149,3 +149,51 @@
   to = "/services/corporate"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/services/tours.html"
+  to = "/services/tours"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/athletics.html"
+  to = "/services/athletics"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/special-events.html"
+  to = "/services/special-events"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service-areas/index.html"
+  to = "/service-areas/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service-areas/phoenixville.html"
+  to = "/service-areas/phoenixville"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service-areas/king-of-prussia.html"
+  to = "/service-areas/king-of-prussia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service-areas/west-chester.html"
+  to = "/service-areas/west-chester"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service-areas/philadelphia.html"
+  to = "/service-areas/philadelphia"
+  status = 301
+  force = true
