@@ -49,3 +49,103 @@
   from = "/HANDOFF.md"
   to = "/404"
   status = 404
+
+# Legacy quote link → live quote page (was a hard 404; still linked from SMS/legal pages)
+[[redirects]]
+  from = "/request-quote"
+  to = "/quote-widget"
+  status = 301
+  force = true
+
+# Canonicalize .html → extensionless so each page has a single indexable URL.
+# force=true is required because the .html file physically exists.
+# A request for the clean URL (/about) is served from about.html with no redirect, so there is no loop.
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faq.html"
+  to = "/faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fleet.html"
+  to = "/fleet"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/testimonials.html"
+  to = "/testimonials"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quote-widget.html"
+  to = "/quote-widget"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/driver-application.html"
+  to = "/driver-application"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy.html"
+  to = "/privacy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms.html"
+  to = "/terms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sms-terms.html"
+  to = "/sms-terms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/index.html"
+  to = "/services/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/wedding.html"
+  to = "/services/wedding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/school.html"
+  to = "/services/school"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/corporate.html"
+  to = "/services/corporate"
+  status = 301
+  force = true
