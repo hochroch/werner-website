@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5C2GCQ32K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V5C2GCQ32K');
+</script>
 <title>CDL Driver Employment Application — Werner Coach</title>
 <meta name="description" content="Apply to drive for Werner Coach. CDL driver positions available. Family-owned charter bus company in Phoenixville, PA since 1929.">
 <meta name="robots" content="index, follow">
@@ -881,6 +889,7 @@ async function doSubmit(e) {
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error);
+    if(window.gtag)gtag('event','driver_application',{form:'driver_application'});
 
     document.getElementById('form-container').style.display = 'none';
     document.querySelector('.progress-wrap').style.display = 'none';

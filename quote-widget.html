@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5C2GCQ32K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V5C2GCQ32K');
+</script>
 <title>Get a Quote — Werner Coach</title>
 <meta name="description" content="Request a free charter bus quote from Werner Coach. Luxury 54-passenger motorcoach rental in Philadelphia since 1929. Weddings, schools, corporate, tours. Call (800) 532-9800.">
 <meta name="robots" content="index, follow">
@@ -500,14 +508,14 @@
         <div class="step-title">Tell us about yourself</div>
         <div class="step-subtitle">We'll use this to get back to you with your personalized quote.</div>
         <div class="form-row">
-          <div class="form-group"><label>First Name <span class="required">*</span></label><input type="text" id="firstName" placeholder="First name" required><span class="error-msg">Please enter your first name</span></div>
-          <div class="form-group"><label>Last Name <span class="required">*</span></label><input type="text" id="lastName" placeholder="Last name" required><span class="error-msg">Please enter your last name</span></div>
+          <div class="form-group"><label for="firstName">First Name <span class="required">*</span></label><input type="text" id="firstName" placeholder="First name" required><span class="error-msg">Please enter your first name</span></div>
+          <div class="form-group"><label for="lastName">Last Name <span class="required">*</span></label><input type="text" id="lastName" placeholder="Last name" required><span class="error-msg">Please enter your last name</span></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Email Address <span class="required">*</span></label><input type="email" id="email" placeholder="you@example.com" required><span class="error-msg">Please enter a valid email</span></div>
-          <div class="form-group"><label>Phone Number <span class="required">*</span></label><input type="tel" id="phone" placeholder="(215) 555-0100" required><span class="error-msg">Please enter your phone number</span></div>
+          <div class="form-group"><label for="email">Email Address <span class="required">*</span></label><input type="email" id="email" placeholder="you@example.com" required><span class="error-msg">Please enter a valid email</span></div>
+          <div class="form-group"><label for="phone">Phone Number <span class="required">*</span></label><input type="tel" id="phone" placeholder="(215) 555-0100" required><span class="error-msg">Please enter your phone number</span></div>
         </div>
-        <div class="form-row single"><div class="form-group"><label>Company / Organization</label><input type="text" id="company" placeholder="Optional"></div></div>
+        <div class="form-row single"><div class="form-group"><label for="company">Company / Organization</label><input type="text" id="company" placeholder="Optional"></div></div>
       </div>
       <!-- STEP 2 -->
       <div class="step-panel" id="step2">
@@ -542,10 +550,10 @@
         <hr class="section-divider">
         <div class="section-label">Dates &amp; Times</div>
         <div class="form-row single">
-          <div class="form-group"><label>Pickup Date &amp; Time <span class="required">*</span></label><input type="text" id="pickupDate" placeholder="Choose date &amp; time" required><span class="error-msg">Please select a pickup date and time</span></div>
+          <div class="form-group"><label for="pickupDate">Pickup Date &amp; Time <span class="required">*</span></label><input type="text" id="pickupDate" placeholder="Choose date &amp; time" required><span class="error-msg">Please select a pickup date and time</span></div>
         </div>
         <div class="form-row single" id="returnDateRow">
-          <div class="form-group"><label>Leave Destination Date &amp; Time <span class="required">*</span></label><input type="text" id="returnDate" placeholder="Choose date &amp; time"><span class="error-msg">Please select a return date and time</span></div>
+          <div class="form-group"><label for="returnDate">Leave Destination Date &amp; Time <span class="required">*</span></label><input type="text" id="returnDate" placeholder="Choose date &amp; time"><span class="error-msg">Please select a return date and time</span></div>
         </div>
         <div class="form-row single" id="dinnerStopRow">
           <div class="form-group">
@@ -562,7 +570,7 @@
         <div class="step-title">Group &amp; vehicle details</div>
         <div class="step-subtitle">Tell us about your group so we can match the right vehicle.</div>
         <div class="form-row triple">
-          <div class="form-group"><label>Number of Passengers <span class="required">*</span></label>
+          <div class="form-group"><label for="passengers">Number of Passengers <span class="required">*</span></label>
             <div class="num-stepper compact">
               <button type="button" class="stepper-btn" onclick="stepInput('passengers',-1);checkVehicleCapacity()" aria-label="Decrease passengers">&minus;</button>
               <input type="number" id="passengers" placeholder="45" min="1" max="500" required>
@@ -570,14 +578,14 @@
             </div>
             <span class="error-msg">Please enter the number of passengers</span>
           </div>
-          <div class="form-group"><label>Number of Vehicles</label>
+          <div class="form-group"><label for="numVehicles">Number of Vehicles</label>
             <div class="num-stepper compact">
               <button type="button" class="stepper-btn" onclick="stepInput('numVehicles',-1);checkVehicleCapacity()" aria-label="Decrease vehicles">&minus;</button>
               <input type="number" id="numVehicles" placeholder="1" min="1" max="50" oninput="checkVehicleCapacity()">
               <button type="button" class="stepper-btn" onclick="stepInput('numVehicles',1);checkVehicleCapacity()" aria-label="Increase vehicles">+</button>
             </div>
           </div>
-          <div class="form-group"><label>Trip Purpose</label>
+          <div class="form-group"><label for="tripPurpose">Trip Purpose</label>
             <select id="tripPurpose"><option value="">Select one...</option><option value="wedding">Wedding</option><option value="corporate">Corporate / Business</option><option value="school">School / University</option><option value="sports">Sports Team</option><option value="church">Church / Religious</option><option value="airport">Airport Transfer</option><option value="tour">Tour / Sightseeing</option><option value="party">Party / Night Out</option><option value="funeral">Funeral / Memorial</option><option value="government">Government / Military</option><option value="family-reunion">Family Reunion</option><option value="other">Other</option></select>
           </div>
         </div>
@@ -601,7 +609,7 @@
           <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" name="options" value="ada" data-type="req"><span class="cb-box">✓</span>ADA Accessible</label>
           <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" name="options" value="bottled-water" data-type="addon" data-price="75"><span class="cb-box">✓</span>Bottled Water — $75</label>
         </div>
-        <div class="form-row single"><div class="form-group"><label>Additional Notes</label><textarea id="notes" placeholder="Anything else we should know about your trip? Special requests, accessibility needs, timing details..."></textarea></div></div>
+        <div class="form-row single"><div class="form-group"><label for="notes">Additional Notes</label><textarea id="notes" placeholder="Anything else we should know about your trip? Special requests, accessibility needs, timing details..."></textarea></div></div>
       </div>
       <!-- STEP 4 -->
       <div class="step-panel" id="step4">
@@ -693,6 +701,7 @@ var resp=await fetch(EDGE_FN_URL,{method:'POST',mode:'cors',headers:{'Content-Ty
 var result=await resp.json();
 if(result.status!=='success')throw new Error(result.message||'Submission failed');
 var quoteNumber=result.quoteNumber;
+if(window.gtag)gtag('event','generate_lead',{form:'quote_widget',trip_purpose:v('tripPurpose')||''});
 // Fire-and-forget to Apps Script (Sheet backup)
 fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({},formData,{quoteNumber:quoteNumber}))});
 // Show success
