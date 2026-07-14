@@ -683,20 +683,46 @@ var EDGE_FN_URL='https://dtazswxluhmdwwibgawn.supabase.co/functions/v1/quote-sub
 // when the review step activates so earlier steps pay no script cost.
 var TURNSTILE_SITE_KEY='0x4AAAAAADhi4ww2nkvEAppY';
 var _tsWidgetId=null;
+// The challenge takes a few seconds to solve. Submitting before it finishes sends a
+// null token and quote-submit hard-rejects with 403, so the token is tracked via
+// callback and submitForm() awaits it rather than reading it optimistically.
+var _tsToken=null,_tsWaiters=[];
+function _tsSettle(tok){_tsToken=tok;var w=_tsWaiters;_tsWaiters=[];w.forEach(function(f){f(tok);});}
 function loadTurnstile(){
 if(_tsWidgetId!==null)return;
-function mount(){var slot=document.getElementById('turnstileSlot');if(!slot||!window.turnstile||_tsWidgetId!==null)return;_tsWidgetId=window.turnstile.render(slot,{sitekey:TURNSTILE_SITE_KEY});}
+function mount(){var slot=document.getElementById('turnstileSlot');if(!slot||!window.turnstile||_tsWidgetId!==null)return;_tsWidgetId=window.turnstile.render(slot,{sitekey:TURNSTILE_SITE_KEY,callback:function(t){_tsSettle(t);},'expired-callback':function(){_tsToken=null;},'error-callback':function(){_tsSettle(null);}});}
 if(window.turnstile){mount();return;}
-if(!document.getElementById('turnstileScript')){var s=document.createElement('script');s.id='turnstileScript';s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';s.async=true;s.onload=mount;document.head.appendChild(s);}
+var existing=document.getElementById('turnstileScript');
+if(existing){existing.addEventListener('load',mount);return;}
+var s=document.createElement('script');s.id='turnstileScript';s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';s.async=true;s.onload=mount;s.onerror=function(){_tsSettle(null);};document.head.appendChild(s);
+}
+// Resolves with a token, or null if the challenge errors/stalls past the timeout.
+function awaitTurnstileToken(timeoutMs){
+loadTurnstile();
+if(_tsToken)return Promise.resolve(_tsToken);
+if(window.turnstile&&_tsWidgetId!==null){var t=window.turnstile.getResponse(_tsWidgetId);if(t){_tsToken=t;return Promise.resolve(t);}}
+return new Promise(function(resolve){
+var done=false;
+var finish=function(tok){if(done)return;done=true;clearTimeout(timer);resolve(tok||null);};
+var timer=setTimeout(function(){finish(null);},timeoutMs||20000);
+_tsWaiters.push(finish);
+});
 }
 var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
 async function submitForm(){var locations=[];document.querySelectorAll('.location-input').forEach(function(inp){if(inp.value.trim())locations.push(inp.value.trim());});var specialReqs=[];var addons=[];document.querySelectorAll('input[name="options"]:checked').forEach(function(cb){if(cb.dataset.type==='addon')addons.push(cb.value);else specialReqs.push(cb.value);});
 var formData={firstName:v('firstName'),lastName:v('lastName'),email:v('email'),phone:v('phone'),company:v('company'),tripType:tripType,locations:locations,pickupDate:fpDateStr(fpPickup),pickupTime:fpTimeStr(fpPickup),returnDate:fpDateStr(fpReturn),returnTime:fpTimeStr(fpReturn),passengers:v('passengers'),tripPurpose:v('tripPurpose'),vehicle:selectedVehicle,numVehicles:v('numVehicles'),includeGratuity:selectedGratuity,dinnerStopReturn:(selectedDinnerStop==='yes'?true:(selectedDinnerStop==='no'?false:null)),specialRequirements:specialReqs,addons:addons,notes:v('notes'),itineraryDescription:v('itineraryDescription'),routeDistance:customerRouteDistance,routeDuration:customerRouteDuration,deadheadDistance:deadheadTotalDistance,deadheadDuration:deadheadTotalDuration,routeLegs:routeLegs,submittedAt:new Date().toISOString(),
 // Turnstile token — null until the widget is solved; quote-submit only enforces it once TURNSTILE_SECRET_KEY is set server-side
-turnstile_token:(window.turnstile&&_tsWidgetId!==null)?(window.turnstile.getResponse(_tsWidgetId)||null):null};
+turnstile_token:null};
 var btn=document.getElementById('btnNext');var errEl=document.getElementById('submitError');
-btn.disabled=true;btn.innerHTML='Sending\u2026';errEl.style.display='none';
+btn.disabled=true;errEl.style.display='none';
 try{
+// Wait for the bot check to finish rather than posting a null token \u2014 quote-submit
+// 403s on a missing one. Already-solved is the common case and resolves instantly.
+btn.innerHTML='Verifying\u2026';
+var tsToken=await awaitTurnstileToken(20000);
+if(!tsToken){if(window.turnstile&&_tsWidgetId!==null)window.turnstile.reset(_tsWidgetId);_tsToken=null;throw new Error('turnstile-unavailable');}
+formData.turnstile_token=tsToken;
+btn.innerHTML='Sending\u2026';
 var resp=await fetch(EDGE_FN_URL,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});
 var result=await resp.json();
 if(result.status!=='success')throw new Error(result.message||'Submission failed');
@@ -713,8 +739,11 @@ document.querySelectorAll('.progress-step').forEach(function(s){s.classList.remo
 }catch(err){
 btn.disabled=false;btn.innerHTML='Submit Quote Request <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
 errEl.style.display='block';
-// Turnstile tokens are single-use — reset so a retry gets a fresh token
+// Turnstile tokens are single-use, so reset to get a fresh one. _tsToken must
+// be cleared alongside it, otherwise the retry re-sends the consumed one; the new
+// challenge takes a few seconds, which awaitTurnstileToken() above absorbs on retry.
 if(window.turnstile&&_tsWidgetId!==null)window.turnstile.reset(_tsWidgetId);
+_tsToken=null;
 }}
 var fpPickup=null,fpReturn=null;
 var WC_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];

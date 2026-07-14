@@ -955,6 +955,10 @@
                 <div class="hq-field"><label>Email</label><input type="email" id="hqEmail" placeholder="you@example.com"></div>
                 <div class="hq-field"><label>Phone</label><input type="tel" id="hqPhone" placeholder="(555) 123-4567"></div>
               </div>
+              <!-- Cloudflare Turnstile bot protection. quote-submit rejects any submission
+                   without a token, so this slot is required, not optional. Rendered when this
+                   step opens; token verified server-side. -->
+              <div id="hqTurnstileSlot" style="margin:14px 0 0;display:flex;justify-content:center;"></div>
               <button type="button" class="hq-submit-btn" id="hqSubmitBtn" onclick="hqSubmit()">Request My Free Quote &rarr;</button>
               <p id="hqError" style="display:none;color:#c0392b;font-size:.83rem;margin-top:10px;text-align:center;">Something went wrong &mdash; please call us at <a href="tel:+18005329800" style="color:#c0392b">(800) 532-9800</a>.</p>
             </div>
@@ -1410,6 +1414,45 @@
     var SUBMIT_URL='https://script.google.com/macros/s/AKfycbxBa7gqyn66mWbWu-1S-Va7GHa-JT4Y5lVMYWsCAtu_Opw7RUzH0Ku_GWUJ84VIlnCP/exec';
     var EDGE_FN_URL='https://dtazswxluhmdwwibgawn.supabase.co/functions/v1/quote-submit';
 
+    // ── Cloudflare Turnstile ──────────────────────────────────────────────────
+    // quote-submit hard-rejects (403) any submission without a token, so this is
+    // required for the quick quote to work at all. The sitekey is public; the secret
+    // lives server-side. The challenge takes a few seconds, so the token is tracked
+    // via callback and hqSubmit() awaits it instead of reading it optimistically.
+    var HQ_TURNSTILE_SITE_KEY='0x4AAAAAADhi4ww2nkvEAppY';
+    var _hqTsWidgetId=null,_hqTsToken=null,_hqTsWaiters=[];
+    function _hqTsSettle(tok){_hqTsToken=tok;var w=_hqTsWaiters;_hqTsWaiters=[];w.forEach(function(f){f(tok);});}
+    function hqLoadTurnstile(){
+      if(_hqTsWidgetId!==null)return;
+      function mount(){
+        var slot=document.getElementById('hqTurnstileSlot');
+        if(!slot||!window.turnstile||_hqTsWidgetId!==null)return;
+        _hqTsWidgetId=window.turnstile.render(slot,{sitekey:HQ_TURNSTILE_SITE_KEY,
+          callback:function(t){_hqTsSettle(t);},
+          'expired-callback':function(){_hqTsToken=null;},
+          'error-callback':function(){_hqTsSettle(null);}});
+      }
+      if(window.turnstile){mount();return;}
+      var existing=document.getElementById('turnstileScript');
+      if(existing){existing.addEventListener('load',mount);return;}
+      var s=document.createElement('script');s.id='turnstileScript';
+      s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async=true;s.onload=mount;s.onerror=function(){_hqTsSettle(null);};
+      document.head.appendChild(s);
+    }
+    // Resolves with a token, or null if the challenge errors/stalls past the timeout.
+    function hqAwaitTurnstileToken(timeoutMs){
+      hqLoadTurnstile();
+      if(_hqTsToken)return Promise.resolve(_hqTsToken);
+      if(window.turnstile&&_hqTsWidgetId!==null){var t=window.turnstile.getResponse(_hqTsWidgetId);if(t){_hqTsToken=t;return Promise.resolve(t);}}
+      return new Promise(function(resolve){
+        var done=false;
+        var finish=function(tok){if(done)return;done=true;clearTimeout(timer);resolve(tok||null);};
+        var timer=setTimeout(function(){finish(null);},timeoutMs||20000);
+        _hqTsWaiters.push(finish);
+      });
+    }
+
     // ── Combined date+time picker (flatpickr w/ enableTime + custom time column) ──
     // Replaces what used to be a native <input type="date"> + two <select> hour/min
     // pairs. Same Werner navy/gold popup as the standalone /quote-widget page; here
@@ -1708,6 +1751,9 @@
       stepEl.classList.remove('open');
       stepEl.classList.add('done');
       if(nextEl){nextEl.classList.add('open');}
+      // Start the bot check as soon as the contact step opens so it is usually solved
+      // by the time the user finishes typing, rather than stalling the submit.
+      if(step===3)hqLoadTurnstile();
       // v2: update progress dots
       if(window.hqUpdateDots) window.hqUpdateDots(step+1);
     };
@@ -1753,9 +1799,19 @@
       var btn=document.getElementById('hqSubmitBtn');
       var errEl=document.getElementById('hqError');
       btn.disabled=true;
-      btn.textContent='Sending\u2026';
       errEl.style.display='none';
       try{
+        // Wait for the bot check rather than posting without a token (quote-submit 403s
+        // on a missing one). Already-solved is the common case and resolves instantly.
+        btn.textContent='Verifying\u2026';
+        var hqToken=await hqAwaitTurnstileToken(20000);
+        if(!hqToken){
+          if(window.turnstile&&_hqTsWidgetId!==null)window.turnstile.reset(_hqTsWidgetId);
+          _hqTsToken=null;
+          throw new Error('turnstile-unavailable');
+        }
+        formData.turnstile_token=hqToken;
+        btn.textContent='Sending\u2026';
         var resp=await fetch(EDGE_FN_URL,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});
         var result=await resp.json();
         if(result.status!=='success')throw new Error(result.message||'Submission failed');
@@ -1771,6 +1827,10 @@
         btn.disabled=false;
         btn.textContent='Request My Free Quote \u2192';
         errEl.style.display='block';
+        // Turnstile tokens are single-use. Reset and clear the cached token so a retry
+        // waits for a fresh one instead of re-sending the consumed one.
+        if(window.turnstile&&_hqTsWidgetId!==null)window.turnstile.reset(_hqTsWidgetId);
+        _hqTsToken=null;
       }
     };
 
