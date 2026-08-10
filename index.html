@@ -1472,7 +1472,7 @@
       var menu=document.createElement('div');menu.className='wc-month-menu';menu.setAttribute('role','listbox');
       WC_MONTHS.forEach(function(name,i){
         var opt=document.createElement('button');opt.type='button';opt.className='wc-month-opt';opt.textContent=name;opt.setAttribute('role','option');opt.dataset.idx=i;
-        opt.addEventListener('click',function(e){e.stopPropagation();fp.changeMonth(i-fp.currentMonth,false);close();});
+        opt.addEventListener('click',function(e){e.stopPropagation();fp.changeMonth(i,false);close();});
         menu.appendChild(opt);
       });
       wrap.appendChild(btn);
