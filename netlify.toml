@@ -197,3 +197,11 @@
   to = "/service-areas/philadelphia"
   status = 301
   force = true
+
+# Payment link lives behind /pay so the gateway URL is not printed in the HTML
+# and a rotation (card-testing response, Sep 2026) is a one-line change here.
+[[redirects]]
+  from = "/pay"
+  to = "https://api.ipospays.com/v1/sl/qDvis_020926172658"
+  status = 302
+  force = true
